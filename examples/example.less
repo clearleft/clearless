@@ -1,0 +1,66 @@
+@import "/mixins/all";
+
+// Default settings override
+@sprite-image: url('/examples/sprite.png');
+@using-modernizr: false;
+@using-ieclasses: true;
+
+@column-width: 60px;
+@gutter-width: 60px;
+
+body {
+	background-color: #EEE;
+	padding: 0;
+	margin: 0;
+}
+
+.primary,
+.secondary,
+.test1,
+.test2  {
+	.float-column();
+}
+
+.wrapper {
+	.float-wrapper();
+}
+
+.primary {
+	.span(10);
+}
+
+.secondary {
+	.span(6);
+}
+
+.test1 {
+	.span(3,6);
+}
+
+.test2 {
+	.span(3,6);
+}
+
+ 
+.more {
+	.inline-block();
+	.icon-right(2, 1, 6px, 11px, 10px, 0, 4px)
+}
+ 
+.nav li {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	.icon-left(0, 0, 28px, 28px, 10px, 0, 2px);
+}
+
+.nav li.rockets {
+	.icon-left-pos(0,1);
+}
+
+.nav li.runners {
+	.icon-left-pos(1,0);
+}
+
+.nav li.ghosts { 
+	.icon-left-pos(1,1);
+}

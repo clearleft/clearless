@@ -1,0 +1,47 @@
+
+@grid-width: (@column-width*@total-columns) + (@gutter-width*(@total-columns - 1));
+
+.float-wrapper() {
+	.clearfix();
+}
+
+.float-column() {
+	display: inline;
+	float: left;
+	&:first-child {
+		margin-left: 0;
+	}
+}
+
+.inline-wrapper() {
+    letter-spacing: -0.31em;
+    *letter-spacing: normal;
+    word-spacing: -0.43em;
+}
+
+.inline-column() {
+	display: inline-block;
+	vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal;
+	&:first-child {
+		margin-left: 0;
+	}
+}
+
+.span( @span, @total-columns:@total-columns ) {
+	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)-@gutter-width) / @grid-width);
+	@calc-gutter-width: 100%*(@gutter-width/@grid-width);
+	width: @calc-column-width;
+	margin-left: @calc-gutter-width;
+}
+
+.column( @span, @total-columns:@total-columns ) {
+	.float-column();
+	.span( @span, @total-columns );
+}
+
+.inline-column( @span, @total-columns:@total-columns ) {
+	.inline-column();
+	.span( @span, @total-columns );
+}
