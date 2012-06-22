@@ -13,10 +13,57 @@ body {
   padding: 20px;
   margin: 0;
   background: #DDD;
+  font-size: 10px;
+  font-family: sans-serif;
+  min-width: 320px;
+}
+p,
+li {
+  font-size: 10px;
+  font-size: 1rem;
+}
+h1 {
+  font-size: 15px;
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 12px;
+  font-size: 1.2rem;
 }
 .receptacle {
   max-width: 1200px;
   margin: 0 auto;
+  border-bottom: 1px dashed #666;
+}
+.nav {
+  padding: 10px 0 10px 10px;
+}
+.nav li {
+  margin-bottom: 5px;
+  list-style: none;
+  padding: 0;
+}
+.nav a {
+  display: inline-block;
+  position: relative;
+  padding-left: 16px;
+}
+.ie6 .nav a,
+.ie7 .nav a {
+  display: inline;
+  zoom: 1;
+}
+.nav a:before {
+  position: absolute;
+  display: block;
+  content: ' ';
+  background-image: url('/examples/sprite.png');
+  background-repeat: no-repeat;
+  background-position: -100px -50px;
+  height: 11px;
+  width: 6px;
+  top: 4px;
+  left: 0;
 }
 /* ---- grids ---- */
 .primary,
@@ -29,8 +76,6 @@ body {
   margin-bottom: 2%;
 }
 .segment {
-  box-sizing: border-box;
-  padding: 10px;
   margin-bottom: 2%;
   overflow: hidden;
 }
@@ -88,8 +133,13 @@ body {
 .section-3 .segment {
   width: 49.2063492063492%;
 }
+.section-4 .segment {
+  width: 49.2063492063492%;
+}
+/* media query example */
 @media all and (max-width: 40em) {
-  .section-3 .segment:nth-child(2n) {
+  .section-3 .segment:nth-child(2n),
+  .section-4 .segment:nth-child(2n) {
     margin-right: 0;
     float: right;
   }
@@ -128,13 +178,28 @@ body {
     margin-right: 0;
     float: right;
   }
+  .section-4 .primary {
+    width: 11.11111111111111%;
+    padding-right: 6.349206349206349%;
+  }
+  .section-4 .secondary {
+    width: 11.11111111111111%;
+    padding-left: 6.349206349206349%;
+    margin-left: 6.349206349206349%;
+  }
+  .section-4 .tertiary {
+    width: 17.46031746031746%;
+    margin-left: 6.349206349206349%;
+  }
+  .section-4 .quaternary {
+    width: 17.46031746031746%;
+    padding-left: 6.349206349206349%;
+    margin-right: 6.349206349206349%;
+  }
 }
 /* Nested Grids */
 .section-parent .segment {
-  display: inline;
-  float: left;
   width: 49.2063492063492%;
-  margin-right: 1.5873015873015872%;
 }
 .section-parent > .secondary {
   background-color: transparent;
@@ -143,15 +208,18 @@ body {
   float: right;
 }
 .section-nested .segment {
-  display: inline;
-  float: left;
   width: 22.58064516129032%;
   margin-right: 3.225806451612903%;
   background: #999;
 }
-.section-nested .segment:nth-child(4n) {
+.floated .section-nested .segment > .secondary,
+.floated .section-parent .segment:nth-child(4n) {
   margin-right: 0;
   float: right;
+}
+.inline .section-nested .segment > .secondary,
+.inline .section-parent .segment:nth-child(4n) {
+  margin-right: 0;
 }
 /* Sprites & Icons */
 .more {
@@ -176,13 +244,19 @@ body {
   top: 4px;
   right: 0;
 }
-.nav li {
+.icon-nav a {
+  display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
   position: relative;
   padding-left: 38px;
 }
-.nav li:before {
+.ie6 .icon-nav a,
+.ie7 .icon-nav a {
+  display: inline;
+  zoom: 1;
+}
+.icon-nav a:before {
   position: absolute;
   display: block;
   content: ' ';
@@ -194,13 +268,28 @@ body {
   top: 2px;
   left: 0;
 }
-.nav li.rockets:before {
-  background-position: 0px -50px;
+.icon-nav .robots a:before {
+  background-position: 0px 0px;
 }
-.nav li.runners:before {
+.icon-nav .robots a:hover:before {
   background-position: -50px 0px;
 }
-.nav li.ghosts:before {
+.icon-nav .rockets a:before {
+  background-position: 0px -50px;
+}
+.icon-nav .rockets a:hover:before {
   background-position: -50px -50px;
+}
+.icon-nav .runners a:before {
+  background-position: 0px -100px;
+}
+.icon-nav .runners a:hover:before {
+  background-position: -50px -100px;
+}
+.icon-nav .ghosts a:before {
+  background-position: 0px -150px;
+}
+.icon-nav .ghosts a:hover:before {
+  background-position: -50px -150px;
 }
 /* Other Helpers */
