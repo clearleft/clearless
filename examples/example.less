@@ -1,4 +1,4 @@
-@import "/mixins/all";
+@import "../mixins/all";
 
 // Default settings override
 @sprite-image: url('/examples/sprite.png');
@@ -6,45 +6,163 @@
 @using-ieclasses: true;
 
 @column-width: 60px;
-@gutter-width: 60px;
+@gutter-width: 20px;
+
+// Project settings
+@mobile-width: 40em;
+
+/* ---- setup ---- */
 
 body {
-	background-color: #EEE;
-	padding: 0;
+	padding: 20px;
 	margin: 0;
+	background: #DDD;
 }
+
+.receptacle {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* ---- grids ---- */
 
 .primary,
 .secondary,
-.test1,
-.test2  {
-	.float-column();
+.tertiary,
+.quaternary {
+	background: #FFF;
 }
-
-.wrapper {
-	.float-wrapper();
-}
-
-.primary {
-	.span(10);
-}
-
-.secondary {
-	.span(6);
-}
-
-.test1 {
-	.span(3,6);
-}
-
-.test2 {
-	.span(3,6);
-}
-
  
+.section {
+	margin-bottom: 2%;
+}
+
+.segment {
+	box-sizing: border-box;
+	padding: 10px;
+	margin-bottom: 2%;
+	overflow: hidden;
+}
+
+/* Grids using floats */
+
+.floated {
+	.section {
+		.column-wrapper();
+	}
+	.segment {
+		.column();
+	}
+}
+ 
+/* Grids using inline-block */
+
+.inline {
+	.section {
+		.inline-column-wrapper();
+	}
+	.segment {
+		.inline-column();
+	}
+}
+
+.section-1 {
+	.segment {
+		.span(16,true);
+	}
+}
+
+.section-2 {
+	.segment {
+		.inline-column(8);
+	}
+	.secondary {
+		.end-column()
+	}
+}
+
+.section-3 {
+	.segment {
+		.span(8);
+	}
+}
+
+@media all and ( max-width: @mobile-width ) {
+	.section-3 .segment:nth-child(2n) {
+		.end-column();
+	}	
+}
+
+@media all and ( min-width: @mobile-width ) {
+	
+	.section-1 {
+		.segment {
+			.span(4);
+		}
+		.quaternary {
+			.end-column();
+		}
+	}
+
+	.section-2 {
+		.primary {
+			.span(10);
+		}
+		.secondary {
+			.span(6);
+			.end-column()
+		}
+	}
+
+	.section-3 {
+		.segment:nth-child(4n) {
+			.end-column();
+		}
+		.primary {
+			.span(3);
+		}
+		.secondary {
+			.span(4);
+		}
+		.tertiary {
+			.span(6);
+		}
+		.quaternary {
+			.span(3);
+			.end-column()
+		}
+	}
+
+}
+
+/* Nested Grids */
+
+.section-parent {
+	.segment {
+		.column(8);
+	}
+	> .secondary {
+		background-color: transparent;
+		padding: 0;
+		.end-column();
+	}
+}
+
+.section-nested {
+	.segment {
+		.column(2,8);
+		background: #999;
+	}
+	.segment:nth-child(4n) {
+		.end-column();
+	}
+}
+
+/* Sprites & Icons */
+
 .more {
 	.inline-block();
-	.icon-right(2, 1, 6px, 11px, 10px, 0, 4px)
+	.icon-right(2, 1, 6px, 11px, 10px, 0, 4px);
 }
  
 .nav li {
@@ -64,3 +182,7 @@ body {
 .nav li.ghosts { 
 	.icon-left-pos(1,1);
 }
+
+/* Other Helpers */
+
+

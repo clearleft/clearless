@@ -1,0 +1,206 @@
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+/* ---- setup ---- */
+body {
+  padding: 20px;
+  margin: 0;
+  background: #DDD;
+}
+.receptacle {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* ---- grids ---- */
+.primary,
+.secondary,
+.tertiary,
+.quaternary {
+  background: #FFF;
+}
+.section {
+  margin-bottom: 2%;
+}
+.segment {
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 2%;
+  overflow: hidden;
+}
+/* Grids using floats */
+.floated .section {
+  zoom: 1;
+  width: 100%;
+}
+.floated .section:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+.floated .segment {
+  display: inline;
+  float: left;
+  margin-right: 1.5873015873015872%;
+  display: inline;
+  float: left;
+}
+/* Grids using inline-block */
+.inline .section {
+  letter-spacing: -0.31em;
+  *letter-spacing: normal;
+  word-spacing: -0.43em;
+}
+.inline .segment {
+  display: inline-block;
+  vertical-align: top;
+  letter-spacing: normal;
+  word-spacing: normal;
+  margin-right: 1.5873015873015872%;
+  display: inline-block;
+  vertical-align: top;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+.section-1 .segment {
+  width: 100%;
+}
+.section-2 .segment {
+  display: inline-block;
+  vertical-align: top;
+  letter-spacing: normal;
+  word-spacing: normal;
+  width: 49.2063492063492%;
+  margin-right: 1.5873015873015872%;
+}
+.section-2 .secondary {
+  margin-right: 0;
+  float: right;
+}
+.section-3 .segment {
+  width: 49.2063492063492%;
+}
+@media all and (max-width: 40em) {
+  .section-3 .segment:nth-child(2n) {
+    margin-right: 0;
+    float: right;
+  }
+}
+@media all and (min-width: 40em) {
+  .section-1 .segment {
+    width: 23.809523809523807%;
+  }
+  .section-1 .quaternary {
+    margin-right: 0;
+    float: right;
+  }
+  .section-2 .primary {
+    width: 61.904761904761905%;
+  }
+  .section-2 .secondary {
+    width: 36.507936507936506%;
+    margin-right: 0;
+    float: right;
+  }
+  .section-3 .segment:nth-child(4n) {
+    margin-right: 0;
+    float: right;
+  }
+  .section-3 .primary {
+    width: 17.46031746031746%;
+  }
+  .section-3 .secondary {
+    width: 23.809523809523807%;
+  }
+  .section-3 .tertiary {
+    width: 36.507936507936506%;
+  }
+  .section-3 .quaternary {
+    width: 17.46031746031746%;
+    margin-right: 0;
+    float: right;
+  }
+}
+/* Nested Grids */
+.section-parent .segment {
+  display: inline;
+  float: left;
+  width: 49.2063492063492%;
+  margin-right: 1.5873015873015872%;
+}
+.section-parent > .secondary {
+  background-color: transparent;
+  padding: 0;
+  margin-right: 0;
+  float: right;
+}
+.section-nested .segment {
+  display: inline;
+  float: left;
+  width: 22.58064516129032%;
+  margin-right: 3.225806451612903%;
+  background: #999;
+}
+.section-nested .segment:nth-child(4n) {
+  margin-right: 0;
+  float: right;
+}
+/* Sprites & Icons */
+.more {
+  display: inline-block;
+  position: relative;
+  padding-right: 16px;
+}
+.ie6 .more,
+.ie7 .more {
+  display: inline;
+  zoom: 1;
+}
+.more:before {
+  position: absolute;
+  display: block;
+  content: ' ';
+  background-image: url('/examples/sprite.png');
+  background-repeat: no-repeat;
+  background-position: -100px -50px;
+  height: 11px;
+  width: 6px;
+  top: 4px;
+  right: 0;
+}
+.nav li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  padding-left: 38px;
+}
+.nav li:before {
+  position: absolute;
+  display: block;
+  content: ' ';
+  background-image: url('/examples/sprite.png');
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  height: 28px;
+  width: 28px;
+  top: 2px;
+  left: 0;
+}
+.nav li.rockets:before {
+  background-position: 0px -50px;
+}
+.nav li.runners:before {
+  background-position: -50px 0px;
+}
+.nav li.ghosts:before {
+  background-position: -50px -50px;
+}
+/* Other Helpers */

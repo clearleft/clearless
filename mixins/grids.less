@@ -1,47 +1,105 @@
+// ==============================================
+// Grid mixins
+// ==============================================
 
+// You shouldn't need to touch this! Internal use only.
 @grid-width: (@column-width*@total-columns) + (@gutter-width*(@total-columns - 1));
 
-.float-wrapper() {
+.column-wrapper() {
 	.clearfix();
+	width: 100%;
 }
 
-.float-column() {
-	display: inline;
-	float: left;
-	&:first-child {
-		margin-left: 0;
-	}
-}
-
-.inline-wrapper() {
+.inline-column-wrapper() {
     letter-spacing: -0.31em;
     *letter-spacing: normal;
     word-spacing: -0.43em;
 }
+
+.end-column() {
+	margin-right: 0;
+	float: right;
+}
+
+
+.span( @span ) {
+	.column-width(@span, @total-columns);
+}
+
+.span( @span, @total-columns, @end-column:false ) when (isnumber(@total-columns))  {
+	.column-width(@span, @total-columns);
+	.column-gutter(@total-columns, @end-column);
+}
+
+.span( @span, @end-column ) when not (isnumber(@end-column)) {
+	.column-width(@span, @total-columns);
+}
+
+
+.column() {
+	display: inline;
+	float: left;
+	.column-gutter();
+}
+
+.column( @span:false ) when (@span = false) {
+	display: inline;
+	float: left;
+}
+
+.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span, @total-columns, @end-column );
+}
+
+.column( @span, @end-column ) when (isnumber(@span)) and not (isnumber(@end-column)) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span, @end-column );
+}
+
 
 .inline-column() {
 	display: inline-block;
 	vertical-align: top;
     letter-spacing: normal;
     word-spacing: normal;
-	&:first-child {
-		margin-left: 0;
-	}
+	.column-gutter();
 }
 
-.span( @span, @total-columns:@total-columns ) {
+.inline-column( @span:false ) when (@span = false) {
+	display: inline-block;
+	vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+.inline-column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span, @total-columns, @end-column );
+}
+
+.inline-column( @span, @end-column ) when not (isnumber(@end-column)) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span, @end-column );
+}
+
+
+.column-width(@span, @total-columns:@total-columns) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)-@gutter-width) / @grid-width);
-	@calc-gutter-width: 100%*(@gutter-width/@grid-width);
 	width: @calc-column-width;
-	margin-left: @calc-gutter-width;
 }
 
-.column( @span, @total-columns:@total-columns ) {
-	.float-column();
-	.span( @span, @total-columns );
+.column-gutter(@total-columns:@total-columns, @end-column:false) when (@end-column) {
+	margin-right: 0;
 }
 
-.inline-column( @span, @total-columns:@total-columns ) {
-	.inline-column();
-	.span( @span, @total-columns );
+.column-gutter(@total-columns:@total-columns, @end-column:false) when not (@end-column) {
+	@calc-gutter-width: 100%*(@gutter-width/@grid-width);
+	margin-right: @calc-gutter-width;
 }
+
+
