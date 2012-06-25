@@ -7,6 +7,9 @@ The core tenets of this mixin library are to *avoid output bloat wherever possib
 
 **Remember!** Just because there is a mixin for it doesn't mean you *need* to use it. If you have a individual case that needs the properties tweaking then it is often better to roll the solution by hand rather than to use the mixin and then override half the generated properties.
 
+**All of the examples below show sample output from the mixins.** It's definitely advised that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
+
+
 Usage
 -----
 
@@ -60,6 +63,14 @@ Modernizr feature tests currently used (if using a custom Modernizr build):
 
 If using [H5BP](http://html5boilerplate.com/)-style conditional comments to add IE-indentifying classes to the HTML element, some mixins will use them to patch IE support where there are known issues. If this is set to `false` then these mixins will fall back to hacks like the [star hack](http://en.wikipedia.org/wiki/CSS_filter#Star_hack) to provide this support instead.
 
+### @disable-filters
+
+```css
+@disable-filters: true;
+```
+
+Whether or not certain mixins (like the gradient mixins) should generate IE fallbacks using the MS proprietary `filter` property or not. Disabled by default due to performance issues with filter props.
+
 **Other section-specific settings are documented alongside their mixins below.**
 
 Resets
@@ -92,22 +103,22 @@ These are the most basic mixins. *Shortcuts* typically provide a quick way to ge
 
 ### .border-radius()
 
-Generates a box-radius property with the appropriate vendor prefixes.
+Generates a `box-radius` property with the appropriate vendor prefixes.
 
 ```css
 .border-radius( <@radius> );
 ```
 
-* `@radius`: Radius to round all corners to. Defaults to 5px.
+* `@radius`: Radius to round all corners to. Defaults to `5px`.
 
 ```css
 .border-radius( <@top-left>, <@top-right>, <@bottom-left>, <@bottom-right>);
 ```
 
-* `@top-left`: Radius to round the top-left corner to. Defaults to 5px.
-* `@top-right`: Radius to round the top-right corner to. Defaults to 5px.
-* `@bottom-left`: Radius to round the bottom-left corner to. Defaults to 5px.
-* `@bottom-right`: Radius to round the bottom-right corner to. Defaults to 5px.
+* `@top-left`: Radius to round the top-left corner to. Defaults to `5px`.
+* `@top-right`: Radius to round the top-right corner to. Defaults to `5px`.
+* `@bottom-left`: Radius to round the bottom-left corner to. Defaults to `5px`.
+* `@bottom-right`: Radius to round the bottom-right corner to. Defaults to `5px`.
 
 ```css
 /* Usage: */
@@ -142,13 +153,13 @@ Generates a box-radius property with the appropriate vendor prefixes.
 
 ### .box-sizing()
 
-Generates a box-sizing property with the appropriate vendor prefixes.
+Generates a `box-sizing` property with the appropriate vendor prefixes.
 
 ```css
-.box-sizing( <@type> );
+.box-sizing( [<@type>] );
 ```
 
-* `@type`: Box-sizing property value. Defaults to border-box.
+* `@type`: box-sizing property value. Defaults to `border-box`.
 
 ```css
 /* Usage: */
@@ -163,6 +174,160 @@ Generates a box-sizing property with the appropriate vendor prefixes.
 	box-sizing: border-box;
 }
 ```
+
+### .box-shadow()
+
+Generates a `box-shadow` property with the appropriate vendor prefixes.
+
+```css
+.box-shadow( [<@shadow>] );
+```
+
+* `@shadow`: box-shadow property value. Defaults to `1px 1px 2px rgba(0,0,0,.25)`.
+
+```css
+/* Usage: */
+.div {
+	.box-shadow( 2px 2px 3px #999 );
+}
+/* Output: */
+.div {
+	-webkit-box-shadow: 2px 2px 3px #999;
+	-moz-box-shadow: 2px 2px 3px #999;
+	box-shadow: 2px 2px 3px #999;
+}
+```
+
+### .transition()
+
+Generates a `transition` property with the appropriate vendor prefixes.
+
+```css
+.transition( <@transition> );
+```
+
+* `@transition`: transition property value.
+
+```css
+/* Usage: */
+.div {
+	.transition( all .2s ease-in-out );
+}
+/* Output: */
+.div {
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+```
+
+### .rotate()
+
+Generates a `transform` property with a rotation value and with the appropriate vendor prefixes.
+
+```css
+.rotate( <@rotation> );
+```
+
+* `@rotation`: rotation value.
+
+```css
+/* Usage: */
+.div {
+	.rotate( 2.5deg );
+}
+/* Output: */
+.div {
+	-webkit-transform: rotate(2.5deg);
+	-moz-transform: rotate(2.5deg);
+	-o-transform: rotate(2.5deg);
+	transform: rotate(@2.5deg);
+}
+```
+
+### .placeholder()
+
+Generates pseudo-selector rules to globally change the colour of placeholder text for inputs. Use outside of element selectors.
+
+```css
+.placeholder( [<@color>] );
+```
+
+* `@color`: colour value. Defaults to `#DDD`
+
+```css
+/* Usage: */
+.placeholder( #F00 );
+/* Output: */
+:-moz-placeholder {
+	color: #F00;
+}
+::-webkit-input-placeholder {
+	color: #F00;
+}
+```
+
+### #gradient > .vertical()
+
+Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. 
+
+```css
+#gradient > .vertical( <@start-color>, <@end-color>);
+```
+
+* `@start-color`: Colour value for the upper start colour.
+* `@end-color`: Colour value for the bottom end colour.
+
+```css
+/* Usage: */
+.div {
+	#gradient > .vertical( #F00, #555);
+}
+/* Output: */
+.div {
+	background-color: #555;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, left bottom, from(#F00), to(#555));
+	background-image: -moz-linear-gradient(#F00, #555);
+	background-image: -ms-linear-gradient(#F00, #555);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F00), color-stop(100%, #555));
+	background-image: -webkit-linear-gradient(#F00, #555);
+	background-image: -o-linear-gradient(#F00, #555);
+	background-image: -ms-linear-gradient(top, #F00 0%, #555 100%);
+}
+```
+
+### #gradient > .vertical()
+
+Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. 
+
+```css
+#gradient > .horizontal( <@start-color>, <@end-color>);
+```
+
+* `@start-color`: Colour value for the left start colour.
+* `@end-color`: Colour value for the right end colour.
+
+```css
+/* Usage: */
+.div {
+	#gradient > .horizontal( #F00, #555);
+}
+/* Output: */
+.div {
+	background-color: #555;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, right top, from(#F00), to(#555));
+	background-image: -moz-linear-gradient(left, #F00, #555);
+	background-image: -ms-linear-gradient(left, #F00, #555);
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, #F00), color-stop(100%, #555));
+	background-image: -webkit-linear-gradient(left, #F00, #555);
+	background-image: -o-linear-gradient(left, #F00, #555);
+	background-image: -ms-linear-gradient(left, #F00 0%, #555 100%);
+	background-image: linear-gradient(left, #F00, #555);
+}
+```
+
 
 
 
