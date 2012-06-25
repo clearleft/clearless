@@ -128,8 +128,7 @@ Generates a `box-radius` property with the appropriate vendor prefixes.
 .example2 {
 	.border-radius( 5px, 7px, 5px, 10px );
 }
-
-/* Output: */
+/* Example output: */
 .example1 {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -166,8 +165,7 @@ Generates a `box-sizing` property with the appropriate vendor prefixes.
 .example {
 	.box-sizing( border-box );
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -191,8 +189,7 @@ Generates a `box-shadow` property with the appropriate vendor prefixes.
 .example {
 	.box-shadow( 2px 2px 3px #999 );
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	-webkit-box-shadow: 2px 2px 3px #999;
 	-moz-box-shadow: 2px 2px 3px #999;
@@ -215,8 +212,7 @@ Generates a `transition` property with the appropriate vendor prefixes.
 .example {
 	.transition( all .2s ease-in-out );
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
@@ -239,8 +235,7 @@ Generates a `transform` property with a rotation value and with the appropriate 
 .example {
 	.rotate( 2.5deg );
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	-webkit-transform: rotate(2.5deg);
 	-moz-transform: rotate(2.5deg);
@@ -262,8 +257,7 @@ Generates pseudo-selector rules to globally change the colour of placeholder tex
 ```css
 /* Usage: */
 .placeholder( #F00 );
-
-/* Output: */
+/* Example output: */
 :-moz-placeholder {
 	color: #F00;
 }
@@ -274,7 +268,7 @@ Generates pseudo-selector rules to globally change the colour of placeholder tex
 
 ### #gradient > .vertical()
 
-Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
+Uses CSS3 gradient values to generate vertical background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
 
 ```css
 #gradient > .vertical( <@start-color>, <@end-color> );
@@ -288,8 +282,7 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 .example {
 	#gradient > .vertical( #F00, #555);
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	background-color: #555;
 	background-repeat: repeat-x;
@@ -303,9 +296,9 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 }
 ```
 
-### #gradient > .vertical()
+### #gradient > .horizontal()
 
-Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
+Uses CSS3 gradient values to generate horizontal background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
 
 ```css
 #gradient > .horizontal( <@start-color>, <@end-color> );
@@ -319,8 +312,7 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 .example {
 	#gradient > .horizontal( #F00, #555);
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	background-color: #555;
 	background-repeat: repeat-x;
@@ -348,8 +340,7 @@ Generates the appropriate properies to apply the [micro-clearfix hack](http://ni
 .example {
 	.clearfix();
 }
-
-/* Output: */
+/* Example output: */
 .example:before,
 .example:after {
 	content: "";
@@ -377,8 +368,7 @@ Helper to generate the inline-block display property plus fixes for IE7. Output 
 .example {
 	.inline-block();
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	display: inline-block
 }
@@ -392,7 +382,7 @@ Helper to generate the inline-block display property plus fixes for IE7. Output 
 
 ### .ir()
 
-Generates text-removing properties for image replacement. Does not specify the background image (or it's positioning) itself - this needs to be specified manually (or use one of the sprite mixins, if appropriate).
+Generates text-removing properties for use in image replacement. Does not specify the background image (or it's positioning) itself - this needs to be specified manually (or use one of the sprite mixins, if appropriate).
 
 ```css
 .ir();
@@ -404,8 +394,7 @@ Generates text-removing properties for image replacement. Does not specify the b
 	.ir();
 	background-image: url('/text.png');
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	border: 0;
 	font: 0/0 a;
@@ -428,8 +417,7 @@ Hides content from the page. Uses `!important` to override inline-styles added b
 .example {
 	.hidden();
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	display: none !important;
 	visibility: hidden;
@@ -449,8 +437,7 @@ Hides content visually, but leaves is accessible to screenreaders. Also generate
 .example {
 	.visually-hidden();
 }
-
-/* Output: */
+/* Example output: */
 .example {
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -497,8 +484,7 @@ Shortcut for generating width and height properties.
 .example2 {
 	.size( 20px, 70px );
 }
-
-/* Output: */
+/* Example output: */
 .example1 {
 	width: 30px;	
 	height: 30px;
@@ -508,8 +494,6 @@ Shortcut for generating width and height properties.
 	height: 70px;
 }
 ```
-
-
 
 Typography
 -------
@@ -538,8 +522,7 @@ Generates a font-size property with the pixel value converted to **ems**.
 p {
 	.font-size-ems( 12 );
 }
-
-/* Output: */
+/* Example output: */
 p {
 	font-size: 0.75em;
 }
@@ -561,8 +544,7 @@ Generates a font-size property with the pixel value converted to **rems** and pr
 p {
 	.font-size-rems( 12 );
 }
-
-/* Output: */
+/* Example output: */
 p {
 	font-size: 12px;	
 	font-size: 0.75rem;
@@ -572,7 +554,82 @@ p {
 Sprites
 -------
 
-Documentation coming soon.
+The sprite mixins give you an easy way to use sprited background images. It assumes the use of a single sprite image with individual images placed on a regular grid. These are defined as settings variables, but can also be supplied on a per-mixin basis.
+
+### @sprite-image
+
+```css
+@sprite-image: url('/images/example-sprite.png');
+```
+
+The default image to use for the sprite mixins. Can be a Base64 encoded data-uri.
+
+### @sprite-grid
+
+```css
+@sprite-grid: 50px;
+```
+
+The size of the grid (in pixels) that the individal images are placed on.
+
+### .sprite()
+
+The most basic sprite mixin. Outputs all the required properties to generate your sprited image.
+
+```css
+.sprite(<@x>, <@y>[, <@sprite-image>[, <@sprite-grid>]]);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.sprite( 2, 3 );
+}
+/* Example output: */
+.example {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -100px  -150px;
+}
+```
+
+### .sprite-sized()
+
+The same as the `.sprite()` mixin, but allows you to specify the height and width to constrain the element by.
+
+```css
+.sprite(<@x>, <@y>, <@width>, <@height>[, <@sprite-image>[, <@sprite-grid>]]);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@width`: The width of the image.
+* `@height`: The height of the image.
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.sprite( 2, 3, 16px, 32px );
+}
+/* Example output: */
+.example {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 32px;
+}
+```
+
+
+
 
 
 Icons
@@ -587,4 +644,7 @@ Grids
 Documentation coming soon.
 
 
+Credits
+-------
 
+Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](html5boilerplate.com).
