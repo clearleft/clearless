@@ -82,9 +82,9 @@ A variable to sets the base font-size (in pixels) that is used as the default in
 
 Note that this doesn't stop you doing your base `body` font size calculations/definitions any way you please - this should just be set to the result of that. For instance, if you set your base font size to `62.5%` then just set the `@base-font-size` value to `10`.
 
-### .font-size-rems
+### .font-size-rems()
 
-Generates a font-size property the font-size in ems.
+Generates a font-size property with the pixel value converted to **ems**.
 
 ```css
 .font-size-ems( <@px-size> [, <@context-px-size>] );
@@ -104,9 +104,9 @@ p {
 }
 ```
 
-### .font-size-rems
+### .font-size-rems()
 
-Calculates the font-size in rems and provides a pixel based fallback for browsers that do not support rem units.
+Generates a font-size property with the pixel value converted to **rems** and provides a pixel based fallback for browsers that do not support rem units.
 
 ```css
 .font-size-rems( <@px-size> [, <@context-px-size>] );
