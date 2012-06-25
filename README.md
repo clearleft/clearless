@@ -87,31 +87,34 @@ Note that this doesn't stop you doing your base `body` font size calculations/de
 Generates a font-size property the font-size in ems.
 
 ```css
-/* .font-size-ems( <@px-size> [, <@context-px-size>] ); */
-
-p {
-	.font-size-ems( 12 );
-}
+.font-size-ems( <@px-size> [, <@context-px-size>] );
 ```
 
 * `@px-size`: Font size (in pixels) to convert to ems.
 * `@context-px-size`: *(Optional)* The font size (in pixels) of the current context. Defaults to the value of `@base-font-size` if not specified.
+
+```css
+p {
+	.font-size-ems( 12 );
+}
+```
 
 ### .font-size-rems
 
 Calculates the font-size in rems and provides a pixel based fallback for browsers that do not support rem units.
 
 ```css
-/* .font-size-rems( <@px-size> [, <@context-px-size>] ); */
-
-p {
-	.font-size-rems( 12 );
-}
+.font-size-rems( <@px-size> [, <@context-px-size>] );
 ```
 
 * `@px-size`: Font size (in pixels) to convert to rems.
 * `@context-px-size`: *(Optional)* The font size (in pixels) of the current context. Defaults to the value of `@base-font-size` if not specified.
 
+```css
+p {
+	.font-size-rems( 12 );
+}
+```
 
 Grids
 -------
