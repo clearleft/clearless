@@ -287,7 +287,7 @@ h2 {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('/examples/sprite.png');
+  background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
   height: 11px;
@@ -466,7 +466,7 @@ h2 {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('/examples/sprite.png');
+  background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
   height: 11px;
@@ -490,7 +490,7 @@ h2 {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('/examples/sprite.png');
+  background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: 0px 0px;
   height: 28px;
