@@ -12,6 +12,12 @@
 	.size(@width,@height);
 }
 
+.sprite-sized-ir(@x, @y, @width, @height, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) {
+	.ir();
+	.sprite(@x, @y, @sprite-image, @sprite-grid);
+	.size(@width,@height);
+}
+
 .sprite-pos(@x, @y, @sprite-grid:@sprite-grid) {
 	background-position: -(@x*@sprite-grid*1px)  -(@y*@sprite-grid*1px);
 }

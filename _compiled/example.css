@@ -1,13 +1,3 @@
-.clearfix {
-  zoom: 1;
-}
-.clearfix:after {
-  display: block;
-  visibility: hidden;
-  height: 0;
-  clear: both;
-  content: ".";
-}
 /* ---- reset ---- */
 /* normalize.css 2012-03-11T12:53 UTC - http://github.com/necolas/normalize.css */
 article,
@@ -278,7 +268,6 @@ h2 {
   position: relative;
   padding-left: 16px;
 }
-.ie6 .nav a,
 .ie7 .nav a {
   display: inline;
   zoom: 1;
@@ -290,8 +279,8 @@ h2 {
   background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
-  height: 11px;
   width: 6px;
+  height: 11px;
   top: 4px;
   left: 0;
 }
@@ -311,15 +300,19 @@ h2 {
 }
 /* Grids using floats */
 .floated .section {
-  zoom: 1;
   width: 100%;
 }
+.floated .section:before,
 .floated .section:after {
-  display: block;
-  visibility: hidden;
-  height: 0;
+  content: "";
+  display: table;
+}
+.floated .section:after {
   clear: both;
-  content: ".";
+}
+.ie6 .floated .section,
+.ie7 .floated .section {
+  zoom: 1;
 }
 .floated .segment {
   display: inline;
@@ -457,7 +450,6 @@ h2 {
   position: relative;
   padding-right: 16px;
 }
-.ie6 .more,
 .ie7 .more {
   display: inline;
   zoom: 1;
@@ -469,8 +461,8 @@ h2 {
   background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
-  height: 11px;
   width: 6px;
+  height: 11px;
   top: 4px;
   right: 0;
 }
@@ -481,7 +473,6 @@ h2 {
   position: relative;
   padding-left: 38px;
 }
-.ie6 .icon-nav a,
 .ie7 .icon-nav a {
   display: inline;
   zoom: 1;
@@ -493,8 +484,8 @@ h2 {
   background-image: url('../examples/sprite.png');
   background-repeat: no-repeat;
   background-position: 0px 0px;
-  height: 28px;
   width: 28px;
+  height: 28px;
   top: 2px;
   left: 0;
 }

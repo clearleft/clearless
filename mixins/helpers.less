@@ -31,7 +31,7 @@
 	box-sizing: @type;
 }
 
-.box-shadow(@shadow: 1px 1px 2px rgba(0,0,0,.25)) {
+.box-shadow(@shadow: 1px 1px 2px rgba(0,0,0,0.25)) {
 	-webkit-box-shadow: @shadow;
 	-moz-box-shadow: @shadow;
 	box-shadow: @shadow;
@@ -118,20 +118,35 @@
 
 // Helpers --------------------------------
 
-.clearfix {
-	zoom: 1;
+.clearfix() when not (@using-ieclasses) {
+	&:before,
 	&:after {
-		display: block;
-		visibility: hidden;
-		height: 0;
-		clear: both;
-		content: ".";
+	    content: "";
+	    display: table;
+	}
+	&:after {
+	    clear: both;
+	}
+	*zoom: 1;
+}
+
+.clearfix() when (@using-ieclasses) {
+	&:before,
+	&:after {
+	    content: "";
+	    display: table;
+	}
+	&:after {
+	    clear: both;
+	}
+	.ie6 &, .ie7 & {
+		zoom: 1;
 	}
 }
 
 .inline-block() when (@using-ieclasses) {
 	display: inline-block;
-	.ie6 &, .ie7 & {
+	.ie7 & {
 		display: inline;
 		zoom: 1;
 	}
@@ -141,21 +156,6 @@
 	display: inline-block;
 	*display: inline;
 	*zoom: 1;
-}
-
-.center-block() { 
-	display: block;
-	margin: 0 auto;
-}
-
-.size(@thesize) {
-	height: @thesize;
-	width: @thesize;
-}
-
-.size(@width, @height) {
-	height: @height;
-	width: @width;
 }
 
 .ir() {
@@ -189,6 +189,16 @@
 	    position: static;
 	    width: auto;
 	}
+}
+
+.size(@thesize) {
+	width: @thesize;
+	height: @thesize;
+}
+
+.size(@width, @height) {
+	width: @width;
+	height: @height;
 }
 
 // System --------------------------------

@@ -122,19 +122,19 @@ Generates a `box-radius` property with the appropriate vendor prefixes.
 
 ```css
 /* Usage: */
-.div1 {
+.example1 {
 	.border-radius( 5px );
 }
-.div2 {
+.example2 {
 	.border-radius( 5px, 7px, 5px, 10px );
 }
 
 /* Output: */
-.div1 {
+.example1 {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
-.div2 {
+.example2 {
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 7px;
 	-webkit-border-bottom-left-radius: 5px;
@@ -163,11 +163,12 @@ Generates a `box-sizing` property with the appropriate vendor prefixes.
 
 ```css
 /* Usage: */
-.div {
+.example {
 	.box-sizing( border-box );
 }
+
 /* Output: */
-.div {
+.example {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-ms-box-sizing: border-box;
@@ -183,15 +184,16 @@ Generates a `box-shadow` property with the appropriate vendor prefixes.
 .box-shadow( [<@shadow>] );
 ```
 
-* `@shadow`: box-shadow property value. Defaults to `1px 1px 2px rgba(0,0,0,.25)`.
+* `@shadow`: box-shadow property value. Defaults to `1px 1px 2px rgba(0,0,0,0.25)`.
 
 ```css
 /* Usage: */
-.div {
+.example {
 	.box-shadow( 2px 2px 3px #999 );
 }
+
 /* Output: */
-.div {
+.example {
 	-webkit-box-shadow: 2px 2px 3px #999;
 	-moz-box-shadow: 2px 2px 3px #999;
 	box-shadow: 2px 2px 3px #999;
@@ -210,11 +212,12 @@ Generates a `transition` property with the appropriate vendor prefixes.
 
 ```css
 /* Usage: */
-.div {
+.example {
 	.transition( all .2s ease-in-out );
 }
+
 /* Output: */
-.div {
+.example {
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
@@ -233,15 +236,16 @@ Generates a `transform` property with a rotation value and with the appropriate 
 
 ```css
 /* Usage: */
-.div {
+.example {
 	.rotate( 2.5deg );
 }
+
 /* Output: */
-.div {
+.example {
 	-webkit-transform: rotate(2.5deg);
 	-moz-transform: rotate(2.5deg);
 	-o-transform: rotate(2.5deg);
-	transform: rotate(@2.5deg);
+	transform: rotate(2.5deg);
 }
 ```
 
@@ -258,6 +262,7 @@ Generates pseudo-selector rules to globally change the colour of placeholder tex
 ```css
 /* Usage: */
 .placeholder( #F00 );
+
 /* Output: */
 :-moz-placeholder {
 	color: #F00;
@@ -269,10 +274,10 @@ Generates pseudo-selector rules to globally change the colour of placeholder tex
 
 ### #gradient > .vertical()
 
-Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. 
+Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
 
 ```css
-#gradient > .vertical( <@start-color>, <@end-color>);
+#gradient > .vertical( <@start-color>, <@end-color> );
 ```
 
 * `@start-color`: Colour value for the upper start colour.
@@ -280,11 +285,12 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 
 ```css
 /* Usage: */
-.div {
+.example {
 	#gradient > .vertical( #F00, #555);
 }
+
 /* Output: */
-.div {
+.example {
 	background-color: #555;
 	background-repeat: repeat-x;
 	background-image: -khtml-gradient(linear, left top, left bottom, from(#F00), to(#555));
@@ -299,10 +305,10 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 
 ### #gradient > .vertical()
 
-Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. 
+Uses CSS3 gradient values to generate background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the `@disable-filters` setting.
 
 ```css
-#gradient > .horizontal( <@start-color>, <@end-color>);
+#gradient > .horizontal( <@start-color>, <@end-color> );
 ```
 
 * `@start-color`: Colour value for the left start colour.
@@ -310,11 +316,12 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 
 ```css
 /* Usage: */
-.div {
+.example {
 	#gradient > .horizontal( #F00, #555);
 }
+
 /* Output: */
-.div {
+.example {
 	background-color: #555;
 	background-repeat: repeat-x;
 	background-image: -khtml-gradient(linear, left top, right top, from(#F00), to(#555));
@@ -328,6 +335,179 @@ Uses CSS3 gradient values to generate background gradients with appropriate vend
 }
 ```
 
+### .clearfix()
+
+Generates the appropriate properies to apply the [micro-clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/) to the element. Output varies according to the value of the `@using-ieclasses` setting.
+
+```css
+.clearfix();
+```
+
+```css
+/* Usage: */
+.example {
+	.clearfix();
+}
+
+/* Output: */
+.example:before,
+.example:after {
+	content: "";
+	display: table;
+}
+.example:after {
+	clear: both;
+}
+.ie6 .example,
+.ie7 .example {
+	zoom: 1;
+}
+```
+
+### .inline-block()
+
+Helper to generate the inline-block display property plus fixes for IE7. Output varies according to the value of the `@using-ieclasses` setting.
+
+```css
+.inline-block();
+```
+
+```css
+/* Usage: */
+.example {
+	.inline-block();
+}
+
+/* Output: */
+.example {
+	display: inline-block
+}
+.ie6 .example,
+.ie7 .example {
+	display: inline;
+	zoom: 1;
+}
+```
+
+
+### .ir()
+
+Generates text-removing properties for image replacement. Does not specify the background image (or it's positioning) itself - this needs to be specified manually (or use one of the sprite mixins, if appropriate).
+
+```css
+.ir();
+```
+
+```css
+/* Usage: */
+.example {
+	.ir();
+	background-image: url('/text.png');
+}
+
+/* Output: */
+.example {
+	border: 0;
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+	background-color: transparent;
+	background-image: url('/text.png');
+}
+```
+### .hidden()
+
+Hides content from the page. Uses `!important` to override inline-styles added by JS.
+
+```css
+.hidden();
+```
+
+```css
+/* Usage: */
+.example {
+	.hidden();
+}
+
+/* Output: */
+.example {
+	display: none !important;
+	visibility: hidden;
+}
+```
+
+### .visually-hidden()
+
+Hides content visually, but leaves is accessible to screenreaders. Also generates helper classes to allow the element to be focusable when navigated to via the keyboard.
+
+```css
+.visually-hidden();
+```
+
+```css
+/* Usage: */
+.example {
+	.visually-hidden();
+}
+
+/* Output: */
+.example {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+.example.focusable:active,
+.example.focusable:focus {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+}
+```
+
+### .size()
+
+Shortcut for generating width and height properties.
+
+```css
+.size( <@size> );
+```
+
+* `@size`: Value to use for the height and width properties.
+
+```css
+.size( <@width>, <@height> );
+```
+
+* `@width`: Value to use for the width property
+* `@height`: Value to use for the height property
+
+```css
+/* Usage: */
+.example1 {
+	.size( 30px );
+}
+.example2 {
+	.size( 20px, 70px );
+}
+
+/* Output: */
+.example1 {
+	width: 30px;	
+	height: 30px;
+}
+.example2 {
+	width: 20px;
+	height: 70px;
+}
+```
 
 
 
@@ -358,6 +538,7 @@ Generates a font-size property with the pixel value converted to **ems**.
 p {
 	.font-size-ems( 12 );
 }
+
 /* Output: */
 p {
 	font-size: 0.75em;
@@ -380,6 +561,7 @@ Generates a font-size property with the pixel value converted to **rems** and pr
 p {
 	.font-size-rems( 12 );
 }
+
 /* Output: */
 p {
 	font-size: 12px;	
