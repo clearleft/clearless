@@ -2,50 +2,7 @@
 // Misc helpers and shortcuts
 // ==============================================
 
-.clearfix {
-	zoom: 1;
-	&:after {
-		display: block;
-		visibility: hidden;
-		height: 0;
-		clear: both;
-		content: ".";
-	}
-}
-
-.font-size-rems(@px-size, @context-px-size:@base-font-size){
-	@rem-value: @px-size;
-	@px-value: (@px-size * @context-px-size);
-	font-size: ~"@{px-value}px"; 
-	font-size: ~"@{rem-value}rem";
-}
-
-.font-size-ems(@target-px-size, @context-px-size:@base-font-size) {
-	font-size: (@target-px-size / @context-px-size) * 1em;
-}
-
-.inline-block() when (@using-ieclasses) {
-	display: inline-block;
-	.ie6 &, .ie7 & {
-		display: inline;
-		zoom: 1;
-	}
-}
-
-.inline-block() when (@using-ieclasses = false) {
-	display: inline-block;
-	*display: inline;
-	*zoom: 1;
-}
-
-.placeholder(@color: #DDD) {
-	:-moz-placeholder {
-		color: @color;
-	}
-	::-webkit-input-placeholder {
-		color: @color;
-	}
-}
+// Shortcuts --------------------------------
 
 .border-radius(@radius: 5px) {
 	-moz-border-radius: @radius;
@@ -67,7 +24,7 @@
 	border-bottom-right-radius: @bottom-right;
 }
 
-.box-sizing( @type: border-box) {
+.box-sizing(@type: border-box) {
 	-moz-box-sizing: @type;
 	-webkit-box-sizing: @type;
 	-ms-box-sizing: @type;
@@ -91,6 +48,15 @@
 	-moz-transform: rotate(@rotation);
 	-o-transform: rotate(@rotation);
 	transform: rotate(@rotation);
+}
+
+.placeholder(@color: #DDD) {
+	:-moz-placeholder {
+		color: @color;
+	}
+	::-webkit-input-placeholder {
+		color: @color;
+	}
 }
 
 // Gradients
@@ -139,6 +105,33 @@
 	}
 }
 
+// Helpers --------------------------------
+
+.clearfix {
+	zoom: 1;
+	&:after {
+		display: block;
+		visibility: hidden;
+		height: 0;
+		clear: both;
+		content: ".";
+	}
+}
+
+.inline-block() when (@using-ieclasses) {
+	display: inline-block;
+	.ie6 &, .ie7 & {
+		display: inline;
+		zoom: 1;
+	}
+}
+
+.inline-block() when (@using-ieclasses = false) {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
 .center-block() { 
 	display: block;
 	margin: 0 auto;
@@ -153,6 +146,41 @@
 	height: @height;
 	width: @width;
 }
+
+.ir() {
+	border: 0;
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+	background-color: transparent;
+}
+
+.hidden() {
+	display: none !important;
+	visibility: hidden;
+}
+
+.visually-hidden() {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	&.focusable:active,
+	&.focusable:focus {
+	    clip: auto;
+	    height: auto;
+	    margin: 0;
+	    overflow: visible;
+	    position: static;
+	    width: auto;
+	}
+}
+
+// System --------------------------------
 
 .nudge-l( @pos ) when ( @pos = 0 ) {}
 .nudge-l( @pos ) when ( @pos > 0 ) { left: @pos; }
