@@ -97,6 +97,13 @@ Generates a font-size property the font-size in ems.
 p {
 	.font-size-ems( 12 );
 }
+
+/*
+Outputs:
+p {
+	font-size: 0.75em;
+}
+*/
 ```
 
 ### .font-size-rems
@@ -114,6 +121,14 @@ Calculates the font-size in rems and provides a pixel based fallback for browser
 p {
 	.font-size-rems( 12 );
 }
+
+/*
+Outputs:
+p {
+	font-size: 12px;	
+	font-size: 0.75rem;
+}
+*/
 ```
 
 Grids
