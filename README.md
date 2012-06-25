@@ -94,16 +94,14 @@ Generates a font-size property the font-size in ems.
 * `@context-px-size`: *(Optional)* The font size (in pixels) of the current context. Defaults to the value of `@base-font-size` if not specified.
 
 ```css
+/* Usage: */
 p {
 	.font-size-ems( 12 );
 }
-
-/*
-Outputs:
+/* Output: */
 p {
 	font-size: 0.75em;
 }
-*/
 ```
 
 ### .font-size-rems
@@ -118,17 +116,15 @@ Calculates the font-size in rems and provides a pixel based fallback for browser
 * `@context-px-size`: *(Optional)* The font size (in pixels) of the current context. Defaults to the value of `@base-font-size` if not specified.
 
 ```css
+/* Usage: */
 p {
 	.font-size-rems( 12 );
 }
-
-/*
-Outputs:
+/* Output: */
 p {
 	font-size: 12px;	
 	font-size: 0.75rem;
 }
-*/
 ```
 
 Grids
