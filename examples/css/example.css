@@ -534,13 +534,8 @@ h2 {
   width: 32px;
   height: 32px;
 }
-.social--twitter {
-  padding-left: 22px;
-}
 .social--twitter:before {
   background: url('../img/twitter-32x32.png') no-repeat 0 0;
-  width: 12px;
-  height: 12px;
 }
 .social--feed:before {
   background: url('../img/feed-32x32.png') no-repeat 0 0;

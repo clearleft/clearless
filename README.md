@@ -96,6 +96,20 @@ Shortcuts & Helpers
 
 These are the most basic mixins. *Shortcuts* typically provide a quick way to generate all the required vendor-prefixed versions of a property, and/or give a more manageable syntax for defining things like CSS gradients. *Helpers* are mixins that typically generate boilerplate code for common use cases, such as `display: inline-block;` statements with IE7 fixes, or image replacement code.
 
+* [.border-radius()](#border-radius)
+* [.box-sizing()](#box-sizing)
+* [.box-shadow()](#box-shadow)
+* [.transition()](#transition)
+* [.rotate()](#rotate)
+* [.placeholder()](#placeholder)
+* [#gradient > .vertical()](#gradient--vertical)
+* [#gradient > .horizontal()](#gradient--horizontal)
+* [.clearfix()](#clearfix)
+* [.inline-block()](#inline-block)
+* [.ir()](#ir)
+* [.hidden()](#hidden)
+* [.visually-hidden()](#visually-hidden)
+* [.size()](#size)
 
 ### .border-radius()
 
@@ -796,6 +810,8 @@ Icons
 
 The icons mixins let you easily place an icon before or after an element, using absolutely positioned :before and :after pseudo elements to display them. There are also sprited icon mixins build on the sprite mixins above.
 
+The exact output of all the icon mixins depends on the value of the `@using-modernizer` setting.
+
 ### .prepend-icon()
 
 Prepends an icon to the element it's called on.
@@ -1137,7 +1153,11 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate image-spe
 Grids
 -------
 
-Documentation coming soon.
+The ClearLess grid system is a straightforward grid system that supports either floated columns or columns created using inline-block. It supports infinite levels of nested columns.
+
+Gutters are applied using the margin-left property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down.
+
+*Full documentation coming soon...*
 
 
 Some notes on usage and best practices
