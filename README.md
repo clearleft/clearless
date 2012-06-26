@@ -5,7 +5,7 @@ A reuseable collection of carefully-considered Less mixins.
 
 The core tenets of this mixin library are to *avoid output bloat wherever possible* (via duplicated properties etc) and to *provide flexibile, configurable solutions* to the problems that are addressed by the library (i.e. by using Modernizr classes, browser hacks or not, etc). The aim is to give the author the benefits of reusable shortcuts without obliterating personal style and generating bloated stylesheets.
 
-Before diving in it is strongly recommended that you peruse the [notes on usage and best practices](#some-notes-on-usage-and-best-practices) at the end of this document, which gives an overview of how you can take full advantage of ClearLess without compromising the generated CSS output.
+**Before diving in** it is strongly recommended that you peruse the [notes on usage and best practices](#some-notes-on-usage-and-best-practices) at the end of this document, which gives an overview of how you can take full advantage of ClearLess without compromising the generated CSS output.
 
 Usage
 -----
@@ -682,7 +682,7 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 
 ### .sprite-image()
 
-A [partial mixin](optimising-output-using--partial--mixins). Just sets the background-image property to the `@sprite-image`. Useful in combination with the other sprite partial mixins below.
+A [partial mixin](#optimising-output-using--partial--mixins). Just sets the background-image property to the `@sprite-image`. Useful in combination with the other sprite partial mixins below.
 
 ```css
 .sprite-image([<@sprite-image>]);
@@ -704,7 +704,7 @@ A [partial mixin](optimising-output-using--partial--mixins). Just sets the backg
 
 ### .sprite-pos()
 
-A [partial mixin](optimising-output-using--partial--mixins). Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.
+A [partial mixin](#optimising-output-using--partial--mixins). Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.
 
 ```css
 .sprite-pos(<@x>, <@y>);
@@ -726,7 +726,7 @@ A [partial mixin](optimising-output-using--partial--mixins). Generates the corre
 
 ### .sprite-pos-sized()
 
-Similar to the `.sprite-pos()` partial mixin above, but includes the ability to set the size of the element.
+Similar to the `.sprite-pos()` [partial mixin](#optimising-output-using--partial--mixins) above, but includes the ability to set the size of the element.
 
 ```css
 .sprite-pos-sized(<@x>, <@y>, <@width>, <@height>);
@@ -779,11 +779,11 @@ Using a CSS preprocessor can result in pretty bloated generated CSS if you're no
 
 Just because there is a mixin for something doesn't mean you *need* to use it! If you have a individual case that would need to override half the the properties outputted by the mixin in order to be styled correctly, then is probably better to roll the solution by hand (or create a new mixin for this use case) rather than to use the mixin and then override it. Fight the bloat!
 
-**All of the examples below show sample output from the mixins.** It's definitely advised that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
+**All of the examples below above sample output from the mixins.** It's definitely recommended that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
 
 ### Optimising output using 'partial' mixins
 
-The library consists mostly of 'full' mixins, which stand alone and give you all the functionality you might expect. However there are also an number of what we call 'partial' mixins for things lke sprites, grids and icons. You may need more than one of these mixins to achieve the desired result - the idea is to split out certain bits of functionality so as to allow for optimisations in your generated CSS.
+The library consists mostly of 'full' mixins, which stand alone and give you all the functionality you might expect. However there are also an number of so-called 'partial' mixins for things lke sprites, grids and icons. You may need more than one of these mixins to achieve the desired result - the idea is to split out certain bits of functionality so as to allow for optimisations in your generated CSS.
 
 An example using the [sprite mixins](#sprites):
 
@@ -861,9 +861,9 @@ As you can see the second example gives an output that is much less verbose and 
 
 ### Mixins or classes?
 
-If you find yourself applying a particular mixin to a lot of element selectors, it's probably worth considering if it would be better to create a separate classname (or classnames) to apply that mixin to, and then use that class in your HTML instead. It's generally good to do this in situations where you have an appropriate semantic class name that could encapsulate the mixin's output.
+If you find yourself applying a particular mixin to a lot of element selectors, it's probably worth considering if it would be better to take the 'regular CSS' route and create a separate classname (or classnames) to apply that mixin to. you can then use that class in your HTML instead of repeatedly using the mixin in your Less/CSS. It's generally good to do this in situations where you have an appropriate semantic class name that could encapsulate the mixin's output.
 
-You can still use the mixin in other places as needed, but you'll get the advantage of a leaner CSS file (although with the possible disadvantage of more classes in your HTML).
+You can of course still use the mixin in other places as needed (where using the class would not be appropriate), but you'll get the advantage of a leaner CSS file (although with the possible disadvantage of more classes in your HTML).
 
 Neither approach is right or wrong - but take the time to consider each particular use case and you'll end up with a better balance between your HTML, your Less and the generated CSS.
 
@@ -871,5 +871,5 @@ Neither approach is right or wrong - but take the time to consider each particul
 Credits
 -------
 
-Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](html5boilerplate.com).
+Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](html5boilerplate.com). 
 
