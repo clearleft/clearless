@@ -1,7 +1,7 @@
 ClearLess
 =========
 
-A reuseable collection of carefully-considered Less mixins.
+A reuseable collection of carefully-considered [Less](http://lesscss.org/) mixins.
 
 The core tenets of this mixin library are to *avoid output bloat wherever possible* (via duplicated properties etc) and to *provide flexibile, configurable solutions* to the problems that are addressed by the library (i.e. by using Modernizr classes, browser hacks or not, etc). The aim is to give the author the benefits of reusable shortcuts without obliterating personal style and generating bloated stylesheets.
 
