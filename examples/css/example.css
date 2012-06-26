@@ -276,7 +276,7 @@ h2 {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('../examples/sprite.png');
+  background-image: url('../img/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
   width: 6px;
@@ -454,11 +454,11 @@ h2 {
   display: inline;
   zoom: 1;
 }
-.more:before {
+.more:after {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('../examples/sprite.png');
+  background-image: url('../img/sprite.png');
   background-repeat: no-repeat;
   background-position: -100px -50px;
   width: 6px;
@@ -481,7 +481,7 @@ h2 {
   position: absolute;
   display: block;
   content: ' ';
-  background-image: url('../examples/sprite.png');
+  background-image: url('../img/sprite.png');
   background-repeat: no-repeat;
   background-position: 0px 0px;
   width: 28px;
@@ -512,5 +512,19 @@ h2 {
 }
 .icon-nav .ghosts a:hover:before {
   background-position: -50px -150px;
+}
+.icon.twitter {
+  position: relative;
+  padding-left: 42px;
+}
+.icon.twitter:before {
+  position: absolute;
+  display: block;
+  content: ' ';
+  background: url('../img/twitter-32x32.png') no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+  top: -8px;
+  left: 0;
 }
 /* Other Helpers */

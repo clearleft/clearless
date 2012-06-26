@@ -59,7 +59,6 @@
 	}
 }
 
-// Gradients
 #gradient {
 	.horizontal (@start-color, @end-color) when not (@disable-filters) {
 		background-color: @end-color;
@@ -113,7 +112,6 @@
 		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@start-color,@end-color)); /* IE6 & IE7 */
 		-ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@start-color,@end-color); /* IE8+ */
 	}
-	
 }
 
 // Helpers --------------------------------

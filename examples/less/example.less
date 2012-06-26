@@ -1,8 +1,8 @@
-@import "../mixins/all";
+@import "../../mixins/all";
 
 // Default settings override
 
-@sprite-image: url('../examples/sprite.png');
+@sprite-image: '../img/sprite.png';
 @using-modernizr: false;
 @using-ieclasses: true;
 
@@ -14,7 +14,7 @@
 // Project settings
 
 @mobile-width: 40em;
-
+ 
 /* ---- reset ---- */
 
 .normalize();
@@ -56,7 +56,7 @@ h2 {
 	}
 	a {
 		.inline-block();
-		.icon(2, 1, 6px, 11px, 10px, 0, 4px);
+		.prepend-sprite-icon(2, 1, 6px, 11px, 0, 4px);
 	}
 }
 
@@ -240,7 +240,7 @@ h2 {
 
 .more {
 	.inline-block();
-	.right-icon(2, 1, 6px, 11px, 10px, 0, 4px);
+	.append-sprite-icon(2, 1, 6px, 11px, 0, 4px);
 }
 
 .icon-nav {
@@ -248,32 +248,36 @@ h2 {
 		.inline-block();
 		padding-top: 10px;
 		padding-bottom: 10px;
-		.icon(0, 0, 28px, 28px, 10px, 0, 2px);
+		.prepend-sprite-icon(0, 0, 28px, 28px, 0, 2px);
 	}
 	.robots a {
-		.icon-pos(0,0);
+		.prepend-sprite-icon-pos(0,0);
 		&:hover {
-			.icon-pos(1,0);
+			.prepend-sprite-icon-pos(1,0);
 		}
 	}
 	.rockets a {
-		.icon-pos(0,1);
+		.prepend-sprite-icon-pos(0,1);
 		&:hover {
-			.icon-pos(1,1);
+			.prepend-sprite-icon-pos(1,1);
 		}
 	}
 	.runners a {
-		.icon-pos(0,2);
+		.prepend-sprite-icon-pos(0,2);
 		&:hover {
-			.icon-pos(1,2);
+			.prepend-sprite-icon-pos(1,2);
 		}
 	}
 	.ghosts a {
-		.icon-pos(0,3);
+		.prepend-sprite-icon-pos(0,3);
 		&:hover {
-			.icon-pos(1,3);
+			.prepend-sprite-icon-pos(1,3);
 		}
 	}
+}
+
+.icon.twitter {
+	.prepend-icon('../img/twitter-32x32.png', 32px, 32px, 0, -8px);
 }
 
 /* Other Helpers */

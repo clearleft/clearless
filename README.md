@@ -555,7 +555,7 @@ The sprite mixins give you an easy way to use sprited background images. It assu
 ### SETTING: @sprite-image
 
 ```css
-@sprite-image: url('/images/example-sprite.png');
+@sprite-image: '/images/example-sprite.png';
 ```
 
 The default image to use for the sprite mixins. Can be a Base64 encoded data-uri.
@@ -625,6 +625,9 @@ The same as the `.sprite()` mixin above, but allows you to specify the height an
 .example {
 	.sprite-sized( 2, 3, 16px, 32px );
 }
+.example2 {
+	.sprite-sized( 2, 3, 16px );
+}
 /* Example output: */
 .example {
 	background-image: url('/images/example-sprite.png');
@@ -632,6 +635,13 @@ The same as the `.sprite()` mixin above, but allows you to specify the height an
 	background-position: -100px  -150px;
 	width: 16px;
 	height: 32px;
+}
+.example2 {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 16px;
 }
 ```
 
@@ -665,6 +675,9 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 .example {
 	.sprite-ir( 2, 3, 16px, 32px );
 }
+.example2 {
+	.sprite-ir( 2, 3, 16px );
+}
 /* Example output: */
 .example {
 	background-image: url('/images/example-sprite.png');
@@ -672,6 +685,18 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 	background-position: -100px  -150px;
 	width: 16px;
 	height: 32px;
+	border: 0;
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+	background-color: transparent;
+}
+.example2 {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 16px;
 	border: 0;
 	font: 0/0 a;
 	text-shadow: none;
@@ -748,7 +773,10 @@ Similar to the `.sprite-pos()` [partial mixin](#optimising-output-using-partial-
 ```css
 /* Usage: */
 .example {
-	.sprite-pos-sized(2,3, 16px, 32px);
+	.sprite-pos-sized( 2, 3, 16px, 32px );
+}
+.example2 {
+	.sprite-pos-sized( 2, 3, 16px );
 }
 /* Example output: */
 .example {
@@ -756,12 +784,227 @@ Similar to the `.sprite-pos()` [partial mixin](#optimising-output-using-partial-
 	width: 16px;
 	height: 32px;
 }
+.example2 {
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 16px;
+}
 ```
 
 Icons
 -------
 
-Documentation coming soon.
+The icons mixins let you easily place an icon before or after an element, using absolutely positioned :before and :after pseudo elements to display them. There are also sprited icon mixins build on the sprite mixins above.
+
+### .prepend-icon()
+
+Prepends an icon to the element it's called on.
+
+```css
+.prepend-icon( <@icon-image>, <@width>, <@height>[, <@nudge-left>[, <@nudge-top>[, <@pad>]]] );
+```
+
+* `@icon-image`: URL or data URI of an image to use for the prepended icon
+* `@width`: Width of the image
+* `@height`: Height of the image
+* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.prepend-icon( 'img/icon.png', 16px, 32px );
+}
+/* Example output: */
+.example {
+	position: relative;
+	padding-left: 42px;
+}
+.example:before {
+	position: absolute;
+	display: block;
+	content: ' ';
+	background: url('img/icon.png') no-repeat 0 0;
+	width: 16px;
+	height: 32px;
+	top: 0;
+	left: 0;
+}
+```
+
+### .append-icon()
+
+Appends an icon after the element it's called on.
+
+```css
+.append-icon( <@icon-image>, <@width>, <@height>[, <@nudge-right>[, <@nudge-top>[, <@pad>]]] );
+```
+
+* `@icon-image`: URL or data URI of an image to use for the prepended icon
+* `@width`: Width of the image
+* `@height`: Height of the image
+* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.append-icon( 'img/icon.png', 16px, 32px );
+}
+/* Example output: */
+.example {
+	position: relative;
+	padding-right: 42px;
+}
+.example:after {
+	position: absolute;
+	display: block;
+	content: ' ';
+	background: url('img/icon.png') no-repeat 0 0;
+	width: 16px;
+	height: 32px;
+	top: 0;
+	right: 0;
+}
+```
+
+### .prepend-sprite-icon()
+
+Prepends an icon taken from the sprite to the element it's called on.
+
+```css
+.prepend-sprite-icon( <@x>, <@y>, <@width>, <@height>[, <@nudge-left>[, <@nudge-top>[, <@pad>[, <@sprite-image>[, <@sprite-grid>]]]]] );
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@width`: Width of the image
+* `@height`: Height of the image
+* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.prepend-sprite-icon( 1, 2, 16px, 32px );
+}
+/* Example output: */
+.example {
+	position: relative;
+	padding-left: 42px;
+}
+.example:before {
+	position: absolute;
+	display: block;
+	content: ' ';
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -50px -100px;
+	width: 16px;
+	height: 32px;
+	top: 0;
+	left: 0;
+}
+```
+
+### .append-sprite-icon()
+
+Appends an icon taken from the sprite after the element it's called on.
+
+```css
+.append-sprite-icon( <@x>, <@y>, <@width>, <@height>[, <@nudge-right>[, <@nudge-top>[, <@pad>[, <@sprite-image>[, <@sprite-grid>]]]]] );
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@width`: Width of the image
+* `@height`: Height of the image
+* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.append-sprite-icon( 1, 2, 16px, 32px );
+}
+/* Example output: */
+.example {
+	position: relative;
+	padding-right: 42px;
+}
+.example:after {
+	position: absolute;
+	display: block;
+	content: ' ';
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -50px -100px;
+	width: 16px;
+	height: 32px;
+	top: 0;
+	right: 0;
+}
+```
+
+### .prepend-sprite-icon-pos()
+
+Adjusts the positioning of a prepended sprite icon.
+
+```css
+.prepend-sprite-icon-pos( <@x>, <@y>[, <@nudge-left>[, <@nudge-top>[, <@sprite-grid>]]] );
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.prepend-sprite-icon-pos( 1, 2 );
+}
+/* Example output: */
+.example:before {
+	background-position: -50px -100px;
+}
+```
+
+### .append-sprite-icon-pos()
+
+Adjusts the positioning of a appended sprite icon.
+
+```css
+.append-sprite-icon-pos( <@x>, <@y>[, <@nudge-right>[, <@nudge-top>[, <@sprite-grid>]]] );
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@nudge-right`: The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.append-sprite-icon-pos( 1, 2 );
+}
+/* Example output: */
+.example:after {
+	background-position: -50px -100px;
+}
+```
+
+
 
 
 Grids
