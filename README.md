@@ -1,14 +1,11 @@
 ClearLess
 =========
 
-A reuseable collection of carefully-considered Less mixins to help make development faster and more maintainable.
+A reuseable collection of carefully-considered Less mixins.
 
 The core tenets of this mixin library are to *avoid output bloat wherever possible* (via duplicated properties etc) and to *provide flexibile, configurable solutions* to the problems that are addressed by the library (i.e. by using Modernizr classes, browser hacks or not, etc). The aim is to give the author the benefits of reusable shortcuts without obliterating personal style and generating bloated stylesheets.
 
-**Remember!** Just because there is a mixin for it doesn't mean you *need* to use it. If you have a individual case that needs the properties tweaking then it is often better to roll the solution by hand rather than to use the mixin and then override half the generated properties.
-
-**All of the examples below show sample output from the mixins.** It's definitely advised that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
-
+Before diving in it is strongly recommended that you peruse the [notes on usage and best practices](#some-notes-on-usage-and-best-practices) at the end of this document, which gives an overview of how you can take full advantage of ClearLess without compromising the generated CSS output.
 
 Usage
 -----
@@ -24,7 +21,6 @@ The `mixins/all.less` file itself simply imports all the individual Less files i
 * [Sprites](#sprites)
 * [Icons](#icons)
 * [Grids](#grids)
-
 
 
 Global settings
@@ -43,7 +39,7 @@ To override the defaults, simply redefine them after importing the mixins:
 
 The following global settings are defined:
 
-### @using-modernizr
+### SETTING: @using-modernizr
 
 ```css
 @using-modernizr: false;
@@ -55,7 +51,7 @@ Modernizr feature tests currently used (if using a custom Modernizr build):
 
 * Generated Content (`.generatedcontent`)
 
-### @using-ieclasses
+### SETTING: @using-ieclasses
 
 ```css
 @using-ieclasses: true;
@@ -63,7 +59,7 @@ Modernizr feature tests currently used (if using a custom Modernizr build):
 
 If using [H5BP](http://html5boilerplate.com/)-style conditional comments to add IE-indentifying classes to the HTML element, some mixins will use them to patch IE support where there are known issues. If this is set to `false` then these mixins will fall back to hacks like the [star hack](http://en.wikipedia.org/wiki/CSS_filter#Star_hack) to provide this support instead.
 
-### @disable-filters
+### SETTING: @disable-filters
 
 ```css
 @disable-filters: true;
@@ -498,7 +494,7 @@ Shortcut for generating width and height properties.
 Typography
 -------
 
-### @base-font-size
+### SETTING: @base-font-size
 
 `@base-font-size: 16;`
 
@@ -556,7 +552,7 @@ Sprites
 
 The sprite mixins give you an easy way to use sprited background images. It assumes the use of a single sprite image with individual images placed on a regular grid. These are defined as settings variables, but can also be supplied on a per-mixin basis.
 
-### @sprite-image
+### SETTING: @sprite-image
 
 ```css
 @sprite-image: url('/images/example-sprite.png');
@@ -564,7 +560,7 @@ The sprite mixins give you an easy way to use sprited background images. It assu
 
 The default image to use for the sprite mixins. Can be a Base64 encoded data-uri.
 
-### @sprite-grid
+### SETTING: @sprite-grid
 
 ```css
 @sprite-grid: 50px;
@@ -600,7 +596,7 @@ The most basic sprite mixin. Outputs all the required properties to generate you
 
 ### .sprite-sized()
 
-The same as the `.sprite()` mixin, but allows you to specify the height and width to constrain the element by.
+The same as the `.sprite()` mixin above, but allows you to specify the height and width to constrain the element by.
 
 ```css
 .sprite(<@x>, <@y>, <@width>, <@height>[, <@sprite-image>[, <@sprite-grid>]]);
@@ -614,9 +610,20 @@ The same as the `.sprite()` mixin, but allows you to specify the height and widt
 * `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
+.sprite(<@x>, <@y>, <@size>[, <@sprite-image>[, <@sprite-grid>]]);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@size`: The height and width of the image (for 'square' images).
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+
+```css
 /* Usage: */
 .example {
-	.sprite( 2, 3, 16px, 32px );
+	.sprite-sized( 2, 3, 16px, 32px );
 }
 /* Example output: */
 .example {
@@ -628,9 +635,128 @@ The same as the `.sprite()` mixin, but allows you to specify the height and widt
 }
 ```
 
+### .sprite-ir()
 
+Augments the `.sprite-sized()` mixin to include image replacement properties as defined in the `.ir()` mixin.
 
+```css
+.sprite-ir(<@x>, <@y>, <@width>, <@height>[, <@sprite-image>[, <@sprite-grid>]]);
+```
 
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@width`: The width of the image.
+* `@height`: The height of the image.
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+.sprite-ir(<@x>, <@y>, <@size>[, <@sprite-image>[, <@sprite-grid>]]);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@size`: The height and width of the image (for 'square' images).
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+
+```css
+/* Usage: */
+.example {
+	.sprite-ir( 2, 3, 16px, 32px );
+}
+/* Example output: */
+.example {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 32px;
+	border: 0;
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
+	background-color: transparent;
+}
+```
+
+### .sprite-image()
+
+A [partial mixin](optimising-output-using--partial--mixins). Just sets the background-image property to the `@sprite-image`. Useful in combination with the other sprite partial mixins below.
+
+```css
+.sprite-image([<@sprite-image>]);
+```
+
+* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+
+```css
+/* Usage: */
+.example {
+	.sprite-image();
+}
+/* Example output: */
+.example {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+}
+```
+
+### .sprite-pos()
+
+A [partial mixin](optimising-output-using--partial--mixins). Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.
+
+```css
+.sprite-pos(<@x>, <@y>);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+
+```css
+/* Usage: */
+.example {
+	.sprite-pos(2,3);
+}
+/* Example output: */
+.example {
+	background-position: -100px  -150px;
+}
+```
+
+### .sprite-pos-sized()
+
+Similar to the `.sprite-pos()` partial mixin above, but includes the ability to set the size of the element.
+
+```css
+.sprite-pos-sized(<@x>, <@y>, <@width>, <@height>);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@width`: The width of the image.
+* `@height`: The height of the image.
+
+```css
+.sprite-pos-sized(<@x>, <@y>, <@size>);
+```
+
+* `@x`: The x coordinate of the desired image on the grid.
+* `@y`: The y coordinate of the desired image on the grid.
+* `@size`: The width of the image.
+
+```css
+/* Usage: */
+.example {
+	.sprite-pos-sized(2,3, 16px, 32px);
+}
+/* Example output: */
+.example {
+	background-position: -100px  -150px;
+	width: 16px;
+	height: 32px;
+}
+```
 
 Icons
 -------
@@ -644,7 +770,106 @@ Grids
 Documentation coming soon.
 
 
+Some notes on usage and best practices
+--------------------------------------
+
+Using a CSS preprocessor can result in pretty bloated generated CSS if you're not careful. Below are a few notes that outline some thoughts on how to avoid this and how ClearLess is structured to give you better tools to optimise your generated CSS.
+
+### On using (Clear)Less responsibly...
+
+Just because there is a mixin for something doesn't mean you *need* to use it! If you have a individual case that would need to override half the the properties outputted by the mixin in order to be styled correctly, then is probably better to roll the solution by hand (or create a new mixin for this use case) rather than to use the mixin and then override it. Fight the bloat!
+
+**All of the examples below show sample output from the mixins.** It's definitely advised that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
+
+### Optimising output using 'partial' mixins
+
+The library consists mostly of 'full' mixins, which stand alone and give you all the functionality you might expect. However there are also an number of what we call 'partial' mixins for things lke sprites, grids and icons. You may need more than one of these mixins to achieve the desired result - the idea is to split out certain bits of functionality so as to allow for optimisations in your generated CSS.
+
+An example using the [sprite mixins](#sprites):
+
+```css
+/* Using 'full' mixins - results in verbose generated CSS */
+.social {
+	a.twitter {
+		.sprite-sized(0, 1, 16px, 16px);
+	}
+	a.facebook {
+		.sprite-sized(0, 2, 16px, 16px);
+	}
+	a.youtube {
+		.sprite-sized(0, 3, 16px, 16px);
+	}
+}
+/* Output - poorly optimised, lots of repitition */
+.social a.twitter {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: 0 -50px;
+	width: 16px;
+	height: 16px;
+}
+.social a.twitter {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: 0 -100px;
+	width: 16px;
+	height: 16px;
+}
+.social a.youtube {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	background-position: 0 -150px;
+	width: 16px;
+	height: 16px;
+}
+
+/* Using 'partial' mixins - results in more optimised generated CSS */
+.social {
+	a {
+		.sprite-image();
+		.size(16px);
+	}
+	a.twitter {
+		.sprite-pos(0, 1);
+	}
+	a.facebook {
+		.sprite-pos(0, 2);
+	}
+	a.youtube {
+		.sprite-pos(0, 3);
+	}
+}
+/* Output - much better! */
+.socal a {
+	background-image: url('/images/example-sprite.png');
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
+.social a.twitter {
+	background-position: 0 -50px;
+}
+.social a.twitter {
+	background-position: 0 -100px;
+}
+.social a.youtube {
+	background-position: 0 -150px;
+}
+```
+
+As you can see the second example gives an output that is much less verbose and more like what you would write by hand. So use the mixins wisely - for one off styling a full mixin is often appropriate, for applying the same styling to multiple related elements some of the partial mixins are probably better to use.
+
+### Mixins or classes?
+
+If you find yourself applying a particular mixin to a lot of element selectors, it's probably worth considering if it would be better to create a separate classname (or classnames) to apply that mixin to, and then use that class in your HTML instead. It's generally good to do this in situations where you have an appropriate semantic class name that could encapsulate the mixin's output.
+
+You can still use the mixin in other places as needed, but you'll get the advantage of a leaner CSS file (although with the possible disadvantage of more classes in your HTML).
+
+Neither approach is right or wrong - but take the time to consider each particular use case and you'll end up with a better balance between your HTML, your Less and the generated CSS.
+
+
 Credits
 -------
 
 Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](html5boilerplate.com).
+
