@@ -682,7 +682,7 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 
 ### .sprite-image()
 
-A [partial mixin](#optimising-output-using--partial--mixins). Just sets the background-image property to the `@sprite-image`. Useful in combination with the other sprite partial mixins below.
+A [partial mixin](#optimising-output-using-partial-mixins). Just sets the background-image property to the `@sprite-image`. Useful in combination with the other sprite partial mixins below.
 
 ```css
 .sprite-image([<@sprite-image>]);
@@ -704,7 +704,7 @@ A [partial mixin](#optimising-output-using--partial--mixins). Just sets the back
 
 ### .sprite-pos()
 
-A [partial mixin](#optimising-output-using--partial--mixins). Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.
+A [partial mixin](#optimising-output-using-partial-mixins). Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.
 
 ```css
 .sprite-pos(<@x>, <@y>);
@@ -726,7 +726,7 @@ A [partial mixin](#optimising-output-using--partial--mixins). Generates the corr
 
 ### .sprite-pos-sized()
 
-Similar to the `.sprite-pos()` [partial mixin](#optimising-output-using--partial--mixins) above, but includes the ability to set the size of the element.
+Similar to the `.sprite-pos()` [partial mixin](#optimising-output-using-partial-mixins) above, but includes the ability to set the size of the element.
 
 ```css
 .sprite-pos-sized(<@x>, <@y>, <@width>, <@height>);
