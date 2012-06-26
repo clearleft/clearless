@@ -508,6 +508,10 @@ Shortcut for generating width and height properties.
 Typography
 -------
 
+* [@base-font-size](#setting-base-font-size)
+* [.font-size-ems()](#font-size-ems)
+* [.font-size-rems()](#font-size-rems)
+
 ### SETTING: @base-font-size
 
 `@base-font-size: 16;`
@@ -516,7 +520,7 @@ A variable to sets the base font-size (in pixels) that is used as the default in
 
 Note that this doesn't stop you doing your base `body` font size calculations/definitions any way you please - this should just be set to the result of that. For instance, if you set your base font size to `62.5%` then just set the `@base-font-size` value to `10`.
 
-### .font-size-rems()
+### .font-size-ems()
 
 Generates a font-size property with the pixel value converted to **ems**.
 
@@ -565,6 +569,15 @@ Sprites
 -------
 
 The sprite mixins give you an easy way to use sprited background images. It assumes the use of a single sprite image with individual images placed on a regular grid. These are defined as settings variables, but can also be supplied on a per-mixin basis.
+
+* [@sprite-image](#setting-sprite-image)
+* [@sprite-grid](#setting-sprite-grid)
+* [.sprite()](#sprite)
+* [.sprite-sized()](#sprite-sized)
+* [.sprite-ir()](#sprite-ir)
+* [.sprite-image()](#sprite-image)
+* [.sprite-pos()](#sprite-pos)
+* [.sprite-pos-sized()](#sprite-pos-sized)
 
 ### SETTING: @sprite-image
 
@@ -811,6 +824,17 @@ Icons
 The icons mixins let you easily place an icon before or after an element, using absolutely positioned :before and :after pseudo elements to display them. There are also sprited icon mixins build on the sprite mixins above.
 
 The exact output of all the icon mixins depends on the value of the `@using-modernizer` setting.
+
+* [.prepend-icon()](#prepend-icon)
+* [.append-icon()](#append-icon)
+* [.prepend-sprite-icon()](#prepend-sprite-icon)
+* [.append-sprite-icon()](#append-sprite-icon)
+* [.prepend-sprite-icon-pos()](#prepend-sprite-icon-pos)
+* [.append-sprite-icon-pos()](#append-sprite-icon-pos)
+* [.prepend-icon-setup()](#prepend-icon-setup)
+* [.append-icon-setup()](#append-icon-setup)
+* [.prepend-icon-image()](#prepend-icon-image)
+* [.append-icon-image()](#append-icon-image)
 
 ### .prepend-icon()
 
