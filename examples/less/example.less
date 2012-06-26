@@ -276,9 +276,25 @@ h2 {
 	}
 }
 
-.icon.twitter {
-	.prepend-icon('../img/twitter-32x32.png', 32px, 32px, 0, -8px);
+
+.social {
+	.inline-block();
+	.prepend-icon-setup(32px, 32px, 10px);
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin-bottom: 10px;
 }
+
+.social--twitter {
+	.prepend-icon-image('../img/twitter-32x32.png', 12px, 12px);
+}
+.social--feed {
+	.prepend-icon-image('../img/feed-32x32.png');
+}
+.social--huffduffer {
+	.prepend-icon-image('../img/huffduffer-32x32.png');
+}
+
 
 /* Other Helpers */
 

@@ -513,18 +513,39 @@ h2 {
 .icon-nav .ghosts a:hover:before {
   background-position: -50px -150px;
 }
-.icon.twitter {
+.social {
+  display: inline-block;
   position: relative;
   padding-left: 42px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 10px;
 }
-.icon.twitter:before {
+.ie7 .social {
+  display: inline;
+  zoom: 1;
+}
+.social:before {
   position: absolute;
   display: block;
   content: ' ';
-  background: url('../img/twitter-32x32.png') no-repeat 0 0;
+  top: 0;
+  left: 0;
   width: 32px;
   height: 32px;
-  top: -8px;
-  left: 0;
+}
+.social--twitter {
+  padding-left: 22px;
+}
+.social--twitter:before {
+  background: url('../img/twitter-32x32.png') no-repeat 0 0;
+  width: 12px;
+  height: 12px;
+}
+.social--feed:before {
+  background: url('../img/feed-32x32.png') no-repeat 0 0;
+}
+.social--huffduffer:before {
+  background: url('../img/huffduffer-32x32.png') no-repeat 0 0;
 }
 /* Other Helpers */

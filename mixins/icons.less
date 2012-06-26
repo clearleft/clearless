@@ -6,10 +6,10 @@
 
 // Non-sprited icons --------------------------------
 
-.prepend-icon( @icon-image, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10 ) when (@using-modernizr) {
+.prepend-icon( @icon-image, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10px ) when (@using-modernizr) {
 	.generatedcontent & {
 		position: relative;
-		padding-left: (@width + @pad) * 1px;
+		padding-left: @width + @pad;
 	}
 	.generatedcontent &:before {
 		._generated-icon( @width, @height, @icon-image );
@@ -18,9 +18,9 @@
 	}
 }
 
-.prepend-icon( @icon-image, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10 ) when not (@using-modernizr) {
+.prepend-icon( @icon-image, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10px ) when not (@using-modernizr) {
 	position: relative;
-	padding-left: (@width + @pad) * 1px;
+	padding-left: @width + @pad;
 	&:before {
 		._generated-icon( @width, @height, @icon-image );
 		top: @nudge-top;
@@ -28,10 +28,10 @@
 	}
 }
 
-.append-icon( @icon-image, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10 ) when (@using-modernizr) {
+.append-icon( @icon-image, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10px ) when (@using-modernizr) {
 	.generatedcontent & {
 		position: relative;
-		padding-right: (@width + @pad) * 1px;
+		padding-right: @width + @pad;
 	}
 	.generatedcontent &:after {
 		._generated-icon( @width, @height, @icon-image );
@@ -40,9 +40,9 @@
 	}
 }
 
-.append-icon( @icon-image, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10 ) when not (@using-modernizr) {
+.append-icon( @icon-image, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10px ) when not (@using-modernizr) {
 	position: relative;
-	padding-right: (@width + @pad) * 1px;
+	padding-right: @width + @pad;
 	.generatedcontent &:after {
 		._generated-icon( @width, @height, @icon-image );
 		top: @nudge-top;
@@ -52,10 +52,10 @@
 
 // Sprited icons --------------------------------
 
-.prepend-sprite-icon(@x, @y, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when (@using-modernizr) {
+.prepend-sprite-icon(@x, @y, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10px, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when (@using-modernizr) {
 	.generatedcontent & {
 		position: relative;
-		padding-left: (@width + @pad) * 1px;
+		padding-left: @width + @pad;
 	}
 	.generatedcontent &:before {
 		._generated-sprite-icon( @x, @y, @width, @height, @sprite-image, @sprite-grid );
@@ -64,9 +64,9 @@
 	}
 }
 
-.prepend-sprite-icon(@x, @y, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when not (@using-modernizr) {
+.prepend-sprite-icon(@x, @y, @width, @height, @nudge-left:0, @nudge-top:0, @pad:10px, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when not (@using-modernizr) {
 	position: relative;
-	padding-left: (@width + @pad) * 1px;
+	padding-left: @width + @pad;
 	&:before {
 		._generated-sprite-icon( @x, @y, @width, @height, @sprite-image, @sprite-grid );
 		top: @nudge-top;
@@ -74,9 +74,9 @@
 	}
 }
 
-.append-sprite-icon(@x, @y, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when (@using-modernizr) {
+.append-sprite-icon(@x, @y, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10px, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when (@using-modernizr) {
 	.generatedcontent & {
-		padding-right: (@width + @pad) * 1px;
+		padding-right: @width + @pad;
 		position: relative;
 	}
 	.generatedcontent &:after {
@@ -86,9 +86,9 @@
 	}
 }
 
-.append-sprite-icon(@x, @y, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when not (@using-modernizr) {
+.append-sprite-icon(@x, @y, @width, @height, @nudge-right:0, @nudge-top:0, @pad:10px, @sprite-image:@sprite-image, @sprite-grid:@sprite-grid) when not (@using-modernizr) {
 	position: relative;
-	padding-right: (@width + @pad) * 1px;
+	padding-right: @width + @pad;
 	&:after {
 		._generated-sprite-icon( @x, @y, @width, @height, @sprite-image, @sprite-grid );
 		top: @nudge-top;
@@ -128,6 +128,105 @@
 	}
 }
 
+// ---- Partials -----------------------
+
+.prepend-icon-setup(@width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when (@using-modernizr) {
+	.generatedcontent & {
+		position: relative;
+		._pad-left(@width, @pad);
+	}
+	.generatedcontent &:before {
+		position: absolute;
+		display: block;
+		content: ' ';
+		top: 0;
+		left: 0;
+		._size(@width, @height);
+	}
+}
+
+.prepend-icon-setup(@width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when not (@using-modernizr) {
+	position: relative;
+	._pad-left(@width, @pad);
+	&:before {
+		position: absolute;
+		display: block;
+		content: ' ';
+		top: 0;
+		left: 0;
+		._size(@width, @height);
+	}
+}
+
+.append-icon-setup(@width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when (@using-modernizr) {
+	.generatedcontent & {
+		position: relative;
+		._pad-right(@width, @pad);
+	}
+	.generatedcontent &:after {
+		position: absolute;
+		display: block;
+		content: ' ';
+		top: 0;
+		right: 0;
+		._size(@width, @height);
+	}
+}
+
+.append-icon-setup(@width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when not (@using-modernizr) {
+	position: relative;
+	._pad-right(@width, @pad);
+	&:after {
+		position: absolute;
+		display: block;
+		content: ' ';
+		top: 0;
+		right: 0;
+		._size(@width, @height);
+	}
+}
+
+.prepend-icon-image(@icon-image, @width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when (@using-modernizr) {
+	._gc-pad-left(@width, @pad);
+	.generatedcontent &:before {
+		background: url(@icon-image) no-repeat 0 0;
+		._size(@width, @height);
+		.nudge-l(@nudge-left);
+		.nudge-t(@nudge-top);
+	}
+}
+
+.prepend-icon-image(@icon-image, @width:0, @height:0, @nudge-left:0, @nudge-top:0, @pad:10px) when not (@using-modernizr) {
+	._pad-left(@width, @pad);
+	&:before {
+		background: url(@icon-image) no-repeat 0 0;
+		._size(@width, @height);
+		.nudge-l(@nudge-left);
+		.nudge-t(@nudge-top);
+	}
+}
+
+.append-icon-image(@icon-image, @width:0, @height:0, @nudge-right:0, @nudge-top:0, @pad:10px) when (@using-modernizr) {
+	._gc-pad-right(@width, @pad);
+	.generatedcontent &:after {
+		background: url(@icon-image) no-repeat 0 0;
+		._size(@width, @height);
+		.nudge-r(@nudge-right);
+		.nudge-t(@nudge-top);
+	}
+}
+
+.append-icon-image(@icon-image, @width:0, @height:0, @nudge-right:0, @nudge-top:0, @pad:10px) when not (@using-modernizr) {
+	._pad-right(@width, @pad);
+	&:after {
+		background: url(@icon-image) no-repeat 0 0;
+		._size(@width, @height);
+		.nudge-r(@nudge-right);
+		.nudge-t(@nudge-top);
+	}
+}
+
+
 // ---- internal use mixins -----------------------
 
 ._generated-icon(@width, @height, @icon-image) {
@@ -144,3 +243,43 @@
 	content: ' ';
 	.sprite-sized(@x, @y, @width, @height, @sprite-image, @sprite-grid);
 }
+
+._pad-left(@width, @pad) when (@width = 0) {}
+._pad-left(@width, @pad) when not (@width = 0) { padding-left: @width + @pad; }
+._pad-right(@width, @pad) when (@width = 0) {}
+._pad-right(@width, @pad) when not (@width = 0) { padding-right: @width + @pad; }
+
+._gc-pad-left(@width, @pad) when (@width = 0) {}
+._gc-pad-right(@width, @pad) when (@width = 0) {}
+
+._gc-pad-left(@width, @pad) when not (@width = 0) and (@using-modernizr) {
+	.generatedcontent & {
+		._pad-left(@width, @pad);
+	}
+}
+._gc-pad-left(@width, @pad) when not (@width = 0) and not (@using-modernizr) {
+	._pad-left(@width, @pad);
+}
+._gc-pad-right(@width, @pad) when not (@width = 0) {
+	.generatedcontent & {
+		._pad-right(@width, @pad);
+	}
+}
+._gc-pad-right(@width, @pad) when not (@width = 0) and not (@using-modernizr) {
+	._pad-right(@width, @pad);
+}
+
+._size(@width, @height) when (@width = 0) and (@height = 0) {}
+._size(@width, @height) when (@width = 0) and not (@height = 0) {
+	height: @height;
+}
+._size(@width, @height) when not (@width = 0) and (@height = 0) {
+	width: @width;
+}
+._size(@width, @height) when not (@width = 0) and not (@height = 0) {
+	width: @width;
+	height: @height;
+}
+
+
+

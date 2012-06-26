@@ -846,7 +846,7 @@ Appends an icon after the element it's called on.
 * `@height`: Height of the image
 * `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
 * `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -926,7 +926,7 @@ Appends an icon taken from the sprite after the element it's called on.
 * `@height`: Height of the image
 * `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
 * `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 * `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
 * `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
@@ -989,7 +989,7 @@ Adjusts the positioning of a appended sprite icon.
 
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
-* `@nudge-right`: The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
 * `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
 * `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
@@ -1004,8 +1004,135 @@ Adjusts the positioning of a appended sprite icon.
 }
 ```
 
+### .prepend-icon-setup()
 
+A [partial mixin](#optimising-output-using-partial-mixins) to generate common properties for prepended icon mixins.
 
+```css
+.prepend-icon-setup( [<@width>[, <@height>[, <@nudge-left>[, <@nudge-top>[, <@pad>]]]]] );
+```
+
+* `@width`: Width of the image. Defaults to not being set.
+* `@height`: Height of the image. Defaults to not being set.
+* `@nudge-left`: The value of the `left` property for the icon. Defaults to not being set.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.prepend-icon-setup( 32px, 15px );
+}
+/* Example output: */
+.example {
+	position: relative;
+}
+.example:before {
+	position: absolute;
+	display: block;
+	content: ' ';
+	top: 0;
+	left: 0;
+    width: 32px;
+    height: 15px;
+}
+```
+
+### .append-icon-setup()
+
+A [partial mixin](#optimising-output-using-partial-mixins) to generate common properties for appended icon mixins.
+
+```css
+.append-icon-setup( [<@width>[, <@height>[, <@nudge-right>[, <@nudge-top>[, <@pad>]]]]] );
+```
+
+* `@width`: Width of the image. Defaults to not being set.
+* `@height`: Height of the image. Defaults to not being set.
+* `@nudge-right`: The value of the `right` property for the icon. Defaults to not being set.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.append-icon-setup( 32px, 15px );
+}
+/* Example output: */
+.example {
+	position: relative;
+}
+.example:after {
+	position: absolute;
+	display: block;
+	content: ' ';
+	top: 0;
+	right: 0;
+    width: 32px;
+    height: 15px;
+}
+```
+
+### .prepend-icon-image()
+
+A [partial mixin](#optimising-output-using-partial-mixins) to generate image-specific properties for prepended icon mixins. Likely to be used in combination with the `.prepend-icon-setup()` mixin above.
+
+```css
+.prepend-icon-image( <@icon-image>[, <@width>[, <@height>[, <@nudge-left>[, <@nudge-top>[, <@pad>]]]]] );
+```
+
+* `@icon-image`: URL or data URI of an image to use for the prepended icon
+* `@width`: Width of the image. Defaults to not being set.
+* `@height`: Height of the image. Defaults to not being set.
+* `@nudge-left`: The value of the `left` property for the icon. Defaults to not being set.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.prepend-icon-image( 'img/icon.png', 12px, 12px );
+}
+/* Example output: */
+.example {
+	padding-left: 22px;
+}
+.example:before {
+  background: url('img/icon.png') no-repeat 0 0;
+  width: 12px;
+  height: 12px;
+}
+```
+
+### .append-icon-image()
+
+A [partial mixin](#optimising-output-using-partial-mixins) to generate image-specific properties for appended icon mixins. Likely to be used in combination with the `.append-icon-setup()` mixin above.
+
+```css
+.append-icon-image( <@icon-image>[, <@width>[, <@height>[, <@nudge-right>[, <@nudge-top>[, <@pad>]]]]] );
+```
+
+* `@icon-image`: URL or data URI of an image to use for the prepended icon
+* `@width`: Width of the image. Defaults to not being set.
+* `@height`: Height of the image. Defaults to not being set.
+* `@nudge-right`: The value of the `right` property for the icon. Defaults to not being set.
+* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+
+```css
+/* Usage: */
+.example {
+	.append-icon-image( 'img/icon.png', 12px, 12px );
+}
+/* Example output: */
+.example {
+	padding-right: 22px;
+}
+.example:after {
+  background: url('img/icon.png') no-repeat 0 0;
+  width: 12px;
+  height: 12px;
+}
+```
 
 Grids
 -------

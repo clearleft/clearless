@@ -202,10 +202,10 @@
 // System --------------------------------
 
 .nudge-l( @pos ) when ( @pos = 0 ) {}
-.nudge-l( @pos ) when ( @pos > 0 ) { left: @pos; }
+.nudge-l( @pos ) when not ( @pos = 0 ) { left: @pos; }
 .nudge-r( @pos ) when ( @pos = 0 ) {}
-.nudge-r( @pos ) when ( @pos > 0 ) { right: @pos; }
+.nudge-r( @pos ) when not ( @pos = 0 ) { right: @pos; }
 .nudge-t( @pos ) when ( @pos = 0 ) {}
-.nudge-t( @pos ) when ( @pos > 0 ) { top: @pos; }
+.nudge-t( @pos ) when not ( @pos = 0 ) { top: @pos; }
 .nudge-b( @pos ) when ( @pos = 0 ) {}
-.nudge-b( @pos ) when ( @pos > 0 ) { top: @pos; }
+.nudge-b( @pos ) when not ( @pos = 0 ) { bottom: @pos; }
