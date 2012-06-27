@@ -119,7 +119,7 @@ Generates a `box-radius` property with the appropriate vendor prefixes.
 .border-radius( <@radius> );
 ```
 
-* `@radius`: Radius to round all corners to. Defaults to `5px`.
+* `@radius`: *(Optional)* Radius to round all corners to. Defaults to `5px`.
 
 ```css
 .border-radius( <@top-left>, <@top-right>, <@bottom-left>, <@bottom-right>);
@@ -168,7 +168,7 @@ Generates a `box-sizing` property with the appropriate vendor prefixes.
 .box-sizing( [<@type>] );
 ```
 
-* `@type`: box-sizing property value. Defaults to `border-box`.
+* `@type`: *(Optional)* box-sizing property value. Defaults to `border-box`.
 
 ```css
 /* Usage: */
@@ -192,7 +192,7 @@ Generates a `box-shadow` property with the appropriate vendor prefixes.
 .box-shadow( [<@shadow>] );
 ```
 
-* `@shadow`: box-shadow property value. Defaults to `1px 1px 2px rgba(0,0,0,0.25)`.
+* `@shadow`: *(Optional)* box-shadow property value. Defaults to `1px 1px 2px rgba(0,0,0,0.25)`.
 
 ```css
 /* Usage: */
@@ -262,7 +262,7 @@ Generates pseudo-selector rules to globally change the colour of placeholder tex
 .placeholder( [<@color>] );
 ```
 
-* `@color`: colour value. Defaults to `#DDD`
+* `@color`: *(Optional)* colour value. Defaults to `#DDD`
 
 ```css
 /* Usage: */
@@ -604,8 +604,8 @@ The most basic sprite mixin. Outputs all the required properties to generate you
 
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -632,8 +632,8 @@ The same as the `.sprite()` mixin above, but allows you to specify the height an
 * `@y`: The y coordinate of the desired image on the grid.
 * `@width`: The width of the image.
 * `@height`: The height of the image.
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 .sprite(<@x>, <@y>, <@size>[, <@sprite-image>[, <@sprite-grid>]]);
@@ -642,8 +642,8 @@ The same as the `.sprite()` mixin above, but allows you to specify the height an
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
 * `@size`: The height and width of the image (for 'square' images).
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 
 ```css
@@ -683,8 +683,8 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 * `@y`: The y coordinate of the desired image on the grid.
 * `@width`: The width of the image.
 * `@height`: The height of the image.
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 .sprite-ir(<@x>, <@y>, <@size>[, <@sprite-image>[, <@sprite-grid>]]);
@@ -693,8 +693,8 @@ Augments the `.sprite-sized()` mixin to include image replacement properties as 
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
 * `@size`: The height and width of the image (for 'square' images).
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -739,7 +739,7 @@ A [partial mixin](#optimising-output-using-partial-mixins). Just sets the backgr
 .sprite-image([<@sprite-image>]);
 ```
 
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
 
 ```css
 /* Usage: */
@@ -846,9 +846,9 @@ Prepends an icon to the element it's called on.
 * `@icon-image`: URL or data URI of an image to use for the prepended icon
 * `@width`: Width of the image
 * `@height`: Height of the image
-* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@nudge-left`: *(Optional)* The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: *(Optional)* Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -883,9 +883,9 @@ Appends an icon after the element it's called on.
 * `@icon-image`: URL or data URI of an image to use for the prepended icon
 * `@width`: Width of the image
 * `@height`: Height of the image
-* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@nudge-right`: *(Optional)* The value of the `right` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: *(Optional)* Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -921,11 +921,11 @@ Prepends an icon taken from the sprite to the element it's called on.
 * `@y`: The y coordinate of the desired image on the grid.
 * `@width`: Width of the image
 * `@height`: Height of the image
-* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@nudge-left`: *(Optional)* The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: *(Optional)* Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -963,11 +963,11 @@ Appends an icon taken from the sprite after the element it's called on.
 * `@y`: The y coordinate of the desired image on the grid.
 * `@width`: Width of the image
 * `@height`: Height of the image
-* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
-* `@sprite-image`: The sprite image to use. Defaults to the globally defined `@sprite-image` value.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@nudge-right`: *(Optional)* The value of the `right` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@pad`: *(Optional)* Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@sprite-image`: *(Optional)* The sprite image to use. Defaults to the globally defined `@sprite-image` value.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -1003,9 +1003,9 @@ Adjusts the positioning of a prepended sprite icon.
 
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
-* `@nudge-left`: The value of the `left` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@nudge-left`: *(Optional)* The value of the `left` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -1028,9 +1028,9 @@ Adjusts the positioning of a appended sprite icon.
 
 * `@x`: The x coordinate of the desired image on the grid.
 * `@y`: The y coordinate of the desired image on the grid.
-* `@nudge-right`: The value of the `right` property for the icon. Defaults to `0`.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to `0`.
-* `@sprite-grid`: The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
+* `@nudge-right`: *(Optional)* The value of the `right` property for the icon. Defaults to `0`.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to `0`.
+* `@sprite-grid`: *(Optional)* The grid size used in the sprite. Defaults to the globally defined `@sprite-grid` value.
 
 ```css
 /* Usage: */
@@ -1051,11 +1051,11 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate common pr
 .prepend-icon-setup( [<@width>[, <@height>[, <@nudge-left>[, <@nudge-top>[, <@pad>]]]]] );
 ```
 
-* `@width`: Width of the image. Defaults to not being set.
-* `@height`: Height of the image. Defaults to not being set.
-* `@nudge-left`: The value of the `left` property for the icon. Defaults to not being set.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@width`: *(Optional)* Width of the image. Defaults to not being set.
+* `@height`: *(Optional)* Height of the image. Defaults to not being set.
+* `@nudge-left`: *(Optional)* The value of the `left` property for the icon. Defaults to not being set.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: *(Optional)* Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -1085,11 +1085,11 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate common pr
 .append-icon-setup( [<@width>[, <@height>[, <@nudge-right>[, <@nudge-top>[, <@pad>]]]]] );
 ```
 
-* `@width`: Width of the image. Defaults to not being set.
-* `@height`: Height of the image. Defaults to not being set.
-* `@nudge-right`: The value of the `right` property for the icon. Defaults to not being set.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
-* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@width`: *(Optional)* Width of the image. Defaults to not being set.
+* `@height`: *(Optional)* Height of the image. Defaults to not being set.
+* `@nudge-right`: *(Optional)* The value of the `right` property for the icon. Defaults to not being set.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: *(Optional)* Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -1120,11 +1120,11 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate image-spe
 ```
 
 * `@icon-image`: URL or data URI of an image to use for the prepended icon
-* `@width`: Width of the image. Defaults to not being set.
-* `@height`: Height of the image. Defaults to not being set.
-* `@nudge-left`: The value of the `left` property for the icon. Defaults to not being set.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
-* `@pad`: Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@width`: *(Optional)* Width of the image. Defaults to not being set.
+* `@height`: *(Optional)* Height of the image. Defaults to not being set.
+* `@nudge-left`: *(Optional)* The value of the `left` property for the icon. Defaults to not being set.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: *(Optional)* Left-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -1151,11 +1151,11 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate image-spe
 ```
 
 * `@icon-image`: URL or data URI of an image to use for the prepended icon
-* `@width`: Width of the image. Defaults to not being set.
-* `@height`: Height of the image. Defaults to not being set.
-* `@nudge-right`: The value of the `right` property for the icon. Defaults to not being set.
-* `@nudge-top`: The value of the `top` property for the icon. Defaults to not being set.
-* `@pad`: Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
+* `@width`: *(Optional)* Width of the image. Defaults to not being set.
+* `@height`: *(Optional)* Height of the image. Defaults to not being set.
+* `@nudge-right`: *(Optional)* The value of the `right` property for the icon. Defaults to not being set.
+* `@nudge-top`: *(Optional)* The value of the `top` property for the icon. Defaults to not being set.
+* `@pad`: *(Optional)* Right-padding (in addition to the width of the icon) to apply to the element. Defaults to `10px`
 
 ```css
 /* Usage: */
@@ -1280,15 +1280,15 @@ When supplied with a column count, this mixin effectively combines both of the a
 ```
 
 * `@span`: Number of grid columns to span.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
-* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
+* `@end-column`: *(Optional)* Set to `true` if this column is the last one in a row.
 
 ```css
 .column( <@span>[, <@end-column>] );
 ```
 
-* `@span`: (Optional) Number of grid columns to span.
-* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+* `@span`: *(Optional)* Number of grid columns to span.
+* `@end-column`: *(Optional)* Set to `true` if this column is the last one in a row.
 
 ```css
 /* Usage: */
@@ -1332,15 +1332,15 @@ When supplied with a column count, this mixin effectively combines both of the a
 ```
 
 * `@span`: Number of grid columns to span.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
-* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
+* `@end-column`: *(Optional)* Set to `true` if this column is the last one in a row.
 
 ```css
 .inline-column( <@span>[, <@end-column>] );
 ```
 
-* `@span`: (Optional) Number of grid columns to span.
-* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+* `@span`: *(Optional)* Number of grid columns to span.
+* `@end-column`: *(Optional)* Set to `true` if this column is the last one in a row.
 
 ```css
 /* Usage: */
@@ -1438,7 +1438,7 @@ A [partial mixin](#optimising-output-using-partial-mixins) for generating the wi
 ```
 
 * `@span`: Number of grid columns to span.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
@@ -1460,7 +1460,7 @@ Adds the specified number of columns' worth of padding to the the left of the el
 ```
 
 * `@span`: Number of grid columns' worth of `padding-left` to add.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
@@ -1482,7 +1482,7 @@ Adds the specified number of columns' worth of padding to the the right of the e
 ```
 
 * `@span`: Number of grid columns' worth of `padding-right` to add.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
@@ -1504,7 +1504,7 @@ Adds the specified number of columns' worth of margin to the the left of the ele
 ```
 
 * `@span`: Number of grid columns' worth of `margin-left` to add.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
@@ -1526,7 +1526,7 @@ Adds the specified number of columns' worth of margin to the the right of the el
 ```
 
 * `@span`: Number of grid columns' worth of `margin-right` to add.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
@@ -1548,7 +1548,7 @@ Should be used instead of the `.post-push()` mixin above when applied to the las
 ```
 
 * `@span`: Number of grid columns' worth of `margin-right` to add.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+* `@parent-grid-units`: *(Optional)* For nested grids, the number of columns the parent element spans needs to be added here.
 
 ```css
 /* Usage: */
