@@ -7,8 +7,8 @@
 @using-ieclasses: true;
 
 @total-columns: 16;
-@column-width: 60;
-@gutter-width: 20;
+@column-width: 60px;
+@gutter-width: 20px;
 
 @base-font-size: 10;
 
@@ -23,27 +23,30 @@
 /* ---- setup ---- */
 
 .test {
-	.inline-column-wrapper();
+	.pre-push(2);
+}
+
+html {
+	font-size: ~"@{base-font-size}px";
 }
 
 body {
 	padding: 20px;
 	background: #DDD;
-	font-size: ~"@{base-font-size}px";
 	font-family: sans-serif;
 	min-width: 320px;
 }
 
 p, li {
-	.font-size-rems(1);
+	.font-size-ems(16);
 }
 
 h1 {
-	.font-size-rems(1.5);
+	.font-size-ems(24);
 }
 
 h2 {
-	.font-size-rems(1.2);
+	.font-size-ems(20);
 }
 
 .receptacle {
@@ -93,6 +96,11 @@ h2 {
 	.segment {
 		.column();
 	}
+	.section-1 .quaternary,
+	.section-2 .secondary,
+	.section-3 .quaternary {
+		.end-column();
+	}
 }
  
 /* Grids using inline-block */
@@ -104,6 +112,11 @@ h2 {
 	.segment {
 		.inline-column();
 	}
+	.section-1 .quaternary,
+	.section-2 .secondary,
+	.section-3 .quaternary {
+		.inline-end-column();
+	}
 }
 
 /* shared grid sizes */
@@ -111,9 +124,6 @@ h2 {
 .section-1 {
 	.segment {
 		.span(4);
-	}
-	.quaternary {
-		.end-column();
 	}
 }
 
@@ -123,7 +133,6 @@ h2 {
 	}
 	.secondary {
 		.span(6);
-		.end-column();
 	}
 }
 
@@ -139,7 +148,6 @@ h2 {
 	}
 	.quaternary {
 		.span(3);
-		.end-column();
 	}
 }
 	
@@ -173,8 +181,6 @@ h2 {
 	}
 	> .secondary {
 		background-color: transparent;
-		padding: 0;
-		.end-column();
 	}
 }
 
@@ -183,15 +189,27 @@ h2 {
 	background: #999;
 }
 
-.floated .section-parent .quaternary {
-	.end-column();
+.floated .section-parent {
+	> .secondary,
+	.quaternary {
+		.end-column();	
+	}
 }
 
-.inline .section-parent .quaternary {
-	.inline-end-column();
+.inline .section-parent {
+	> .secondary,
+	.quaternary {
+		.inline-end-column();	
+	}
 }
 
 /* Sprites & Icons */
+
+.clearleft-branding {
+	display: block;
+	margin: 10px 0;
+	.sprite-ir(0, 4, 232px, 84px);
+}
 
 .more {
 	display: inline-block;
@@ -200,9 +218,9 @@ h2 {
 
 .icon-nav {
 	a {
-		.inline-block();
 		padding-top: 10px;
 		padding-bottom: 10px;
+		.inline-block();
 		.prepend-sprite-icon(0, 0, 28px, 28px, 0, 2px);
 	}
 	.robots a {
@@ -230,7 +248,6 @@ h2 {
 		}
 	}
 }
-
 
 .social {
 	.inline-block();

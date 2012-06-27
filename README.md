@@ -1,7 +1,7 @@
 ClearLess
 =========
 
-A reuseable collection of carefully-considered [Less](http://lesscss.org/) mixins.
+A reuseable collection of carefully-considered [Less](http://lesscss.org/) mixins, or *YALML* (Yet Another Less Mixin Library).
 
 The core tenets of this mixin library are to *avoid output bloat wherever possible* (via duplicated properties etc) and to *provide flexibile, configurable solutions* to the problems that are addressed by the library (i.e. by using Modernizr classes, browser hacks or not, etc). The aim is to give the author the benefits of reusable shortcuts without obliterating personal style and generating bloated stylesheets.
 
@@ -547,11 +547,10 @@ p {
 Generates a font-size property with the pixel value converted to **rems** and provides a pixel based fallback for browsers that do not support rem units.
 
 ```css
-.font-size-rems( <@px-size> [, <@context-px-size>] );
+.font-size-rems( <@px-size> );
 ```
 
 * `@px-size`: Font size (in pixels) to convert to rems.
-* `@context-px-size`: *(Optional)* The font size (in pixels) of the current context. Defaults to the value of `@base-font-size` if not specified.
 
 ```css
 /* Usage: */
@@ -1183,6 +1182,31 @@ Gutters are applied using the margin-right property. The columns that represent 
 
 Groups of columns need to be wrapped in a parent element with the appropriate `.column-wrapper()` or `.inline-column-wrapper()` mixin applied to them.
 
+### SETTING: @total-columns
+
+```css
+@total-columns: 12;
+```
+
+The total number of columns for the top-level grid.
+
+### SETTING: @column-width
+
+```css
+@column-width: 60px;
+```
+
+The width of a column, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.
+
+### SETTING: @gutter-width
+
+```css
+@gutter-width: 20px;
+```
+
+The width of a gutter, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.
+
+
 ### .column-wrapper()
 
 Applied to the parent element of the grid columns for **floated grids**. This (by design) *does not* apply any float clearing to the columns - you will likely want to use the `.clearfix()` mixin (or `overflow:hidden;` or whatever you're perferred float clearing methid is!) to account for this.
@@ -1198,11 +1222,7 @@ Applied to the parent element of the grid columns for **floated grids**. This (b
 }
 /* Example output: */
 .example {
-	letter-spacing: -0.31em;
-	word-spacing: -0.43em;
-}
-.ie7 .example {
-	letter-spacing: normal;
+	width: 100%;
 }
 ```
 
@@ -1221,13 +1241,17 @@ Applied to the parent element of the grid columns for **inline-block grids**.
 }
 /* Example output: */
 .example {
-	width: 100%;
+	letter-spacing: -0.31em;
+	word-spacing: -0.43em;
+}
+.ie7 .example {
+	letter-spacing: normal;
 }
 ```
 
 ### .column()
 
-When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a **floated** column. The `.span()` mixin should then be used to apply widths and margins accordingly.
+When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a **floated** column. The `.span()` mixin should then be used to apply the correct width accordingly.
 
 When supplied with a column count, this mixin effectively combines both of the above steps into one - simpler but may not result in the most optimised CSS, depending on the situation.
 
@@ -1240,7 +1264,7 @@ When supplied with a column count, this mixin effectively combines both of the a
 ```
 
 * `@span`: Number of grid columns to span.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here. Defaults to the value of `@total-columns`
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
 * `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
 
 ```css
@@ -1292,7 +1316,7 @@ When supplied with a column count, this mixin effectively combines both of the a
 ```
 
 * `@span`: Number of grid columns to span.
-* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here. Defaults to the value of `@total-columns`
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
 * `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
 
 ```css
@@ -1349,6 +1373,179 @@ When supplied with a column count, this mixin effectively combines both of the a
 	zoom: 1;
 }
 ```
+
+### .end-column()
+
+Should be applied to the last column in a row for **floated columns**. Typically this will equate to the `:last-child` column, but when dropping columns for RWD this is not always the case.
+
+```css
+.end-column();
+```
+
+```css
+/* Usage: */
+.example {
+	.end-column();
+}
+/* Example output: */
+.example {
+	margin-right: 0;
+	float: right;
+}
+```
+
+### .inline-end-column()
+
+Should be applied to the last column in a row for **inline-block columns**. Typically this will equate to the `:last-child` column, but when dropping columns for RWD this is not always the case.
+
+```css
+.inline-end-column();
+```
+
+```css
+/* Usage: */
+.example {
+	.inline-end-column();
+}
+/* Example output: */
+.example {
+	margin-right: 0;
+}
+```
+
+### .span()
+
+A [partial mixin](#optimising-output-using-partial-mixins) for generating the width (and sometimes margin-right) property for columns (both floated and inline-block).
+
+```css
+.span( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns to span.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.span(2);
+}
+/* Example output: */
+.example {
+	width: 11.11111111111111%;
+}
+```
+
+### .pre-pad()
+
+Adds the specified number of columns' worth of padding to the the left of the element. 
+
+```css
+.pre-pad( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns' worth of `padding-left` to add.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.pre-pad(2);
+}
+/* Example output: */
+.example {
+	padding-left: 12.698412698412698%;
+}
+```
+
+### .post-pad()
+
+Adds the specified number of columns' worth of padding to the the right of the element. 
+
+```css
+.post-pad( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns' worth of `padding-right` to add.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.post-pad(2);
+}
+/* Example output: */
+.example {
+	padding-right: 12.698412698412698%;
+}
+```
+
+### .pre-push()
+
+Adds the specified number of columns' worth of margin to the the left of the element. 
+
+```css
+.pre-push( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns' worth of `margin-left` to add.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.pre-push(2);
+}
+/* Example output: */
+.example {
+	margin-left: 12.698412698412698%;
+}
+```
+
+### .post-push()
+
+Adds the specified number of columns' worth of margin to the the right of the element. 
+
+```css
+.post-push( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns' worth of `margin-right` to add.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.post-push(2);
+}
+/* Example output: */
+.example {
+	margin-right: 14.285714285714285%;
+}
+```
+
+### .post-push-end()
+
+Should be used instead of the `.post-push()` mixin above when applied to the last column in a row.
+
+```css
+.post-push-end( <@span>[, <@parent-grid-units>] );
+```
+
+* `@span`: Number of grid columns' worth of `margin-right` to add.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here.
+
+```css
+/* Usage: */
+.example {
+	.post-push-end(2);
+}
+/* Example output: */
+.example {
+	margin-right: 12.698412698412698%;
+}
+```
+
+
 
 
 Some notes on usage and best practices

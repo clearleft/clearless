@@ -231,31 +231,26 @@ table {
 }
 /* ---- setup ---- */
 .test {
-  letter-spacing: -0.31em;
-  word-spacing: -0.43em;
+  margin-left: 12.698412698412698%;
 }
-.ie7 .test {
-  letter-spacing: normal;
+html {
+  font-size: 10px;
 }
 body {
   padding: 20px;
   background: #DDD;
-  font-size: 10px;
   font-family: sans-serif;
   min-width: 320px;
 }
 p,
 li {
-  font-size: 10px;
-  font-size: 1rem;
+  font-size: 1.6em;
 }
 h1 {
-  font-size: 15px;
-  font-size: 1.5rem;
+  font-size: 2.4em;
 }
 h2 {
-  font-size: 12px;
-  font-size: 1.2rem;
+  font-size: 2em;
 }
 .receptacle {
   max-width: 1200px;
@@ -310,6 +305,12 @@ h2 {
   float: left;
   margin-right: 1.5873015873015872%;
 }
+.floated .section-1 .quaternary,
+.floated .section-2 .secondary,
+.floated .section-3 .quaternary {
+  margin-right: 0;
+  float: right;
+}
 /* Grids using inline-block */
 .inline .section {
   letter-spacing: -0.31em;
@@ -329,21 +330,20 @@ h2 {
   display: inline;
   zoom: 1;
 }
+.inline .section-1 .quaternary,
+.inline .section-2 .secondary,
+.inline .section-3 .quaternary {
+  margin-right: 0;
+}
 /* shared grid sizes */
 .section-1 .segment {
   width: 23.809523809523807%;
-}
-.section-1 .quaternary {
-  margin-right: 0;
-  float: right;
 }
 .section-2 .primary {
   width: 61.904761904761905%;
 }
 .section-2 .secondary {
   width: 36.507936507936506%;
-  margin-right: 0;
-  float: right;
 }
 .section-3 .primary {
   width: 17.46031746031746%;
@@ -356,8 +356,6 @@ h2 {
 }
 .section-3 .quaternary {
   width: 17.46031746031746%;
-  margin-right: 0;
-  float: right;
 }
 .section-4 .primary {
   width: 11.11111111111111%;
@@ -383,23 +381,36 @@ h2 {
 }
 .section-parent > .secondary {
   background-color: transparent;
-  padding: 0;
-  margin-right: 0;
-  float: right;
 }
 .section-nested .segment {
   width: 22.58064516129032%;
   margin-right: 3.225806451612903%;
   background: #999;
 }
+.floated .section-parent > .secondary,
 .floated .section-parent .quaternary {
   margin-right: 0;
   float: right;
 }
+.inline .section-parent > .secondary,
 .inline .section-parent .quaternary {
   margin-right: 0;
 }
 /* Sprites & Icons */
+.clearleft-branding {
+  display: block;
+  margin: 10px 0;
+  border: 0;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background-color: transparent;
+  background-image: url('../img/sprite.png');
+  background-repeat: no-repeat;
+  background-position: 0px -200px;
+  width: 232px;
+  height: 84px;
+}
 .more {
   display: inline-block;
   position: relative;
@@ -418,9 +429,9 @@ h2 {
   right: 0;
 }
 .icon-nav a {
-  display: inline-block;
   padding-top: 10px;
   padding-bottom: 10px;
+  display: inline-block;
   position: relative;
   padding-left: 38px;
 }

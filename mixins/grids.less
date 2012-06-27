@@ -88,41 +88,36 @@
 	.column-width(@span, @total-columns);
 }
 
-.span( @span, @total-columns, @end-column:false ) when (isnumber(@total-columns))  {
+.span( @span, @total-columns ) when (isnumber(@total-columns))  {
 	.column-width(@span, @total-columns);
-	.column-gutter(@total-columns, @end-column);
-}
-
-.span( @span, @end-column ) when not (isnumber(@end-column)) {
-	.column-width(@span, @total-columns);
+	.column-gutter(@total-columns);
 }
 
 
-.pre-pad( @span ) {
+.pre-pad( @span, @total-columns:@total-columns ) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)) / @grid-width);
 	padding-left: @calc-column-width;
 }
 
-.post-pad( @span ) {
+.post-pad( @span, @total-columns:@total-columns ) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)) / @grid-width);
 	padding-right: @calc-column-width;
 }
 
-.pre-push( @span ) {
+.pre-push( @span, @total-columns:@total-columns ) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)) / @grid-width);
 	margin-left: @calc-column-width;
 }
 
-.post-push( @span ) {
+.post-push( @span, @total-columns:@total-columns ) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)+@gutter-width) / @grid-width);
 	margin-right: @calc-column-width;
 }
 
-.post-push-end( @span ) {
+.post-push-end( @span, @total-columns:@total-columns ) {
 	@calc-column-width: 100%*((((@gutter-width+@column-width)*@span)) / @grid-width);
 	margin-right: @calc-column-width;
 }
-
 
 
 .column-width(@span, @total-columns:@total-columns) {
