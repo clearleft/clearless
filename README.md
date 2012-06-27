@@ -1285,5 +1285,5 @@ Neither approach is right or wrong - but take the time to consider each particul
 Credits
 -------
 
-Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](html5boilerplate.com). 
+Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](http://html5boilerplate.com). 
 
