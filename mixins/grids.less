@@ -6,15 +6,73 @@
 @grid-width: (@column-width*@total-columns) + (@gutter-width*(@total-columns - 1));
 
 .column-wrapper() {
-	.clearfix();
 	width: 100%;
 }
 
-.inline-column-wrapper() {
+.inline-column-wrapper() when not (@using-ieclasses) {
     letter-spacing: -0.31em;
     *letter-spacing: normal;
     word-spacing: -0.43em;
 }
+
+.inline-column-wrapper() when (@using-ieclasses) {
+    letter-spacing: -0.31em;
+    word-spacing: -0.43em;
+	.ie7 & {
+		*letter-spacing: normal;
+	}
+}
+
+
+.column() {
+	float: left;
+	.column-gutter();
+}
+
+.column( @span ) when (@span = false) {
+	float: left;
+}
+
+.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span, @total-columns, @end-column );
+}
+
+.column( @span, @end-column ) when (isnumber(@span)) and not (isnumber(@end-column)) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span, @end-column );
+}
+
+
+.inline-column() {
+	.inline-block();
+	vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal;
+	.column-gutter();
+}
+
+.inline-column( @span ) when (@span = false) {
+	.inline-block();
+	vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+.inline-column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span, @total-columns, @end-column );
+}
+
+.inline-column( @span, @end-column ) when not (isnumber(@end-column)) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span, @end-column );
+}
+
 
 .end-column() {
 	margin-right: 0;
@@ -37,58 +95,6 @@
 
 .span( @span, @end-column ) when not (isnumber(@end-column)) {
 	.column-width(@span, @total-columns);
-}
-
-
-.column() {
-	display: inline;
-	float: left;
-	.column-gutter();
-}
-
-.column( @span:false ) when (@span = false) {
-	display: inline;
-	float: left;
-}
-
-.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
-	@showgutter: false;
-	.column(@showgutter);
-	.span( @span, @total-columns, @end-column );
-}
-
-.column( @span, @end-column ) when (isnumber(@span)) and not (isnumber(@end-column)) {
-	@showgutter: false;
-	.column(@showgutter);
-	.span( @span, @end-column );
-}
-
-
-.inline-column() {
-	display: inline-block;
-	vertical-align: top;
-    letter-spacing: normal;
-    word-spacing: normal;
-	.column-gutter();
-}
-
-.inline-column( @span:false ) when (@span = false) {
-	display: inline-block;
-	vertical-align: top;
-    letter-spacing: normal;
-    word-spacing: normal;
-}
-
-.inline-column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
-	@showgutter: false;
-	.inline-column(@showgutter);
-	.span( @span, @total-columns, @end-column );
-}
-
-.inline-column( @span, @end-column ) when not (isnumber(@end-column)) {
-	@showgutter: false;
-	.inline-column(@showgutter);
-	.span( @span, @end-column );
 }
 
 

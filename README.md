@@ -1177,11 +1177,174 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate image-spe
 Grids
 -------
 
-The ClearLess grid system is a straightforward grid system that supports either floated columns or columns created using inline-block. It supports infinite levels of nested columns.
+The ClearLess grid system is a straightforward grid system that supports either floated columns or columns created using `display: inline-block;`. It supports infinite levels of nested columns.
 
-Gutters are applied using the margin-left property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down.
+Gutters are applied using the margin-left property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column, inline-column and span mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.
 
-*Full documentation coming soon...*
+Columns need to be wrapped in a parent element with the appropriate `.column-wrapper()` or `.inline-column-wrapper()` mixin applied to them.
+
+### .column-wrapper()
+
+Applied to the parent element of the grid columns for **floated grids**. This (by design) *does not* apply any float clearing to the columns - you will likely want to use the `.clearfix()` mixin (or `overflow:hidden;` or whatever you're perferred float clearing methid is!) to account for this.
+
+```css
+.column-wrapper();
+```
+
+```css
+/* Usage: */
+.example {
+	.column-wrapper();
+}
+/* Example output: */
+.example {
+	width: 100%;
+}
+```
+
+### .inline-column-wrapper()
+
+Applied to the parent element of the grid columns for **inline-block grids**.
+
+```css
+.inline-column-wrapper();
+```
+
+```css
+/* Usage: */
+.example {
+	.column-wrapper();
+}
+/* Example output: */
+.example {
+	width: 100%;
+}
+```
+
+### .column()
+
+When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a **floated** column. The `.span()` mixin should then be used to apply widths and margins accordingly.
+
+When supplied with a column count, this mixin effectively combines both of the above steps into one - simpler but may not result in the most optimised CSS, depending on the situation.
+
+```css
+.column();
+```
+
+```css
+.column( <@span>[, <@parent-grid-units>[, <@end-column>]] );
+```
+
+* `@span`: Number of grid columns to span.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here. Defaults to the value of `@total-columns`
+* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+
+```css
+.column( <@span>[, <@end-column>] );
+```
+
+* `@span`: (Optional) Number of grid columns to span.
+* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+
+```css
+/* Usage: */
+.example {
+	.column();
+}
+.example2 {
+	.column(2);
+}
+.example3 {
+	.column(2,true);
+}
+/* Example output: */
+.example {
+	float: left;
+	margin-right: 1.5873015873015872%;
+}
+.example2 {
+    float: left;
+    width: 11.11111111111111%;
+    margin-right: 1.5873015873015872%;
+}
+.example3 {
+    float: left;
+    width: 11.11111111111111%;
+}
+```
+
+### .inline-column()
+
+When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a **inline-block** column. The `.span()` mixin should then be used to apply widths and margins accordingly.
+
+When supplied with a column count, this mixin effectively combines both of the above steps into one - simpler but may not result in the most optimised CSS, depending on the situation.
+
+```css
+.inline-column();
+```
+
+```css
+.inline-column( <@span>[, <@parent-grid-units>[, <@end-column>]] );
+```
+
+* `@span`: Number of grid columns to span.
+* `@parent-grid-units`: (Optional) For nested grids, the number of columns the parent element spans needs to be added here. Defaults to the value of `@total-columns`
+* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+
+```css
+.inline-column( <@span>[, <@end-column>] );
+```
+
+* `@span`: (Optional) Number of grid columns to span.
+* `@end-column`: (Optional) Set to `true` if this column is the last one in a row.
+
+```css
+/* Usage: */
+.example {
+	.inline-column();
+}
+.example2 {
+	.inline-column(2);
+}
+.example3 {
+	.inline-column(2,true);
+}
+/* Example output: */
+.example {
+	display: inline-block;
+	vertical-align: top;
+	letter-spacing: normal;
+	word-spacing: normal;
+	margin-right: 1.5873015873015872%;
+}
+.ie7 .example {
+	display: inline;
+	zoom: 1;
+}
+.example2 {
+	display: inline-block;
+	vertical-align: top;
+	letter-spacing: normal;
+	word-spacing: normal;
+	width: 11.11111111111111%;
+	margin-right: 1.5873015873015872%;
+}
+.ie7 .example2 {
+	display: inline;
+	zoom: 1;
+}
+.example3 {
+	display: inline-block;
+	vertical-align: top;
+	letter-spacing: normal;
+	word-spacing: normal;
+	width: 11.11111111111111%;
+}
+.ie7 .example3 {
+	display: inline;
+	zoom: 1;
+}
+```
 
 
 Some notes on usage and best practices
