@@ -1179,9 +1179,9 @@ Grids
 
 The ClearLess grid system is a straightforward grid system that supports either floated columns or columns created using `display: inline-block;`. It supports infinite levels of nested columns.
 
-Gutters are applied using the margin-left property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column, inline-column and span mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.
+Gutters are applied using the margin-right property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column, inline-column and span mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.
 
-Columns need to be wrapped in a parent element with the appropriate `.column-wrapper()` or `.inline-column-wrapper()` mixin applied to them.
+Groups of columns need to be wrapped in a parent element with the appropriate `.column-wrapper()` or `.inline-column-wrapper()` mixin applied to them.
 
 ### .column-wrapper()
 
@@ -1198,7 +1198,11 @@ Applied to the parent element of the grid columns for **floated grids**. This (b
 }
 /* Example output: */
 .example {
-	width: 100%;
+	letter-spacing: -0.31em;
+	word-spacing: -0.43em;
+}
+.ie7 .example {
+	letter-spacing: normal;
 }
 ```
 

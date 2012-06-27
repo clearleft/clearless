@@ -231,15 +231,11 @@ table {
 }
 /* ---- setup ---- */
 .test {
-  display: inline-block;
-  vertical-align: top;
-  letter-spacing: normal;
-  word-spacing: normal;
-  margin-right: 1.5873015873015872%;
+  letter-spacing: -0.31em;
+  word-spacing: -0.43em;
 }
 .ie7 .test {
-  display: inline;
-  zoom: 1;
+  letter-spacing: normal;
 }
 body {
   padding: 20px;
@@ -320,7 +316,7 @@ h2 {
   word-spacing: -0.43em;
 }
 .ie7 .inline .section {
-  *letter-spacing: normal;
+  letter-spacing: normal;
 }
 .inline .segment {
   display: inline-block;
