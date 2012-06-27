@@ -1665,5 +1665,7 @@ Neither approach is right or wrong - but take the time to consider each particul
 Credits
 -------
 
-Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](http://html5boilerplate.com). 
+ClearLess is maintained and documented by [Mark Perkins](https://github.com/allmarkedup). For any queries, questions or bug reports you can ping him [on twitter](http://twitter.com/allmarkedup) or open an issue in the Github issue tracker.
+
+Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's [Preboot](http://markdotto.com/bootstrap/) and the [HTML5 Boilerplate](http://html5boilerplate.com). Thanks for being awesome!
 
