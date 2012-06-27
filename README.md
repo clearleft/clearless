@@ -1176,11 +1176,27 @@ A [partial mixin](#optimising-output-using-partial-mixins) to generate image-spe
 Grids
 -------
 
-The ClearLess grid system is a straightforward grid system that supports either floated columns or columns created using `display: inline-block;`. It supports infinite levels of nested columns.
+The ClearLess grid system is a straightforward, fluid grid system that supports either floated columns or columns created using `display: inline-block;`. It supports infinite levels of nested columns.
 
-Gutters are applied using the margin-right property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column, inline-column and span mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.
+Gutters are applied using the margin-right property. The columns that represent the last in a row at any time need to have the `.end-column()` (for floated grids) or `.inline-end-column()` (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column and inline-column mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.
 
 Groups of columns need to be wrapped in a parent element with the appropriate `.column-wrapper()` or `.inline-column-wrapper()` mixin applied to them.
+
+* [@total-columns](#setting-total-columns)
+* [@column-width](#setting-column-width)
+* [@gutter-width](#setting-gutter-width)
+* [.column-wrapper()](#column-wrapper)
+* [.inline-column-wrapper()](#inline-column-wrapper)
+* [.column()](#column)
+* [.inline-column()](#inline-column)
+* [.end-column()](#end-column)
+* [.inline-end-column()](#inline-end-column)
+* [.span()](#span)
+* [.pre-pad()](#pre-pad)
+* [.post-pad()](#post-pad)
+* [.pre-push()](#pre-push)
+* [.post-push()](#post-push)
+* [.post-push-end()](#post-push-end)
 
 ### SETTING: @total-columns
 
@@ -1209,7 +1225,7 @@ The width of a gutter, in pixels. It should be noted that the pixel value is nev
 
 ### .column-wrapper()
 
-Applied to the parent element of the grid columns for **floated grids**. This (by design) *does not* apply any float clearing to the columns - you will likely want to use the `.clearfix()` mixin (or `overflow:hidden;` or whatever you're perferred float clearing methid is!) to account for this.
+Apply to the parent element of the grid columns for **floated grids**. This (by design) *does not* apply any float clearing to the columns - you will likely want to use the `.clearfix()` mixin (or `overflow:hidden;` or whatever you're perferred float clearing methid is!) to account for this.
 
 ```css
 .column-wrapper();
@@ -1228,7 +1244,7 @@ Applied to the parent element of the grid columns for **floated grids**. This (b
 
 ### .inline-column-wrapper()
 
-Applied to the parent element of the grid columns for **inline-block grids**.
+Apply to the parent element of the grid columns for **inline-block grids**.
 
 ```css
 .inline-column-wrapper();
