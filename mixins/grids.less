@@ -33,16 +33,30 @@
 	float: left;
 }
 
-.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
+.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) and not (isnumber(@end-column)) {
 	@showgutter: false;
 	.column(@showgutter);
-	.span( @span, @total-columns, @end-column );
+	.span( @span, @total-columns );
+}
+
+.column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) and (@end-column = true) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span, @total-columns );
+	.end-column();
 }
 
 .column( @span, @end-column ) when (isnumber(@span)) and not (isnumber(@end-column)) {
 	@showgutter: false;
 	.column(@showgutter);
-	.span( @span, @end-column );
+	.span( @span );
+}
+
+.column( @span, @end-column ) when (isnumber(@span)) and ( @end-column = true ) {
+	@showgutter: false;
+	.column(@showgutter);
+	.span( @span );
+	.end-column();
 }
 
 
@@ -64,14 +78,29 @@
 .inline-column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (isnumber(@total-columns)) {
 	@showgutter: false;
 	.inline-column(@showgutter);
-	.span( @span, @total-columns, @end-column );
+	.span( @span, @total-columns );
+}
+
+.inline-column( @span, @total-columns:@total-columns, @end-column:false ) when (isnumber(@span)) and (@end-column = true) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span, @total-columns );
+	.inline-end-column();
 }
 
 .inline-column( @span, @end-column ) when not (isnumber(@end-column)) {
 	@showgutter: false;
 	.inline-column(@showgutter);
-	.span( @span, @end-column );
+	.span( @span );
 }
+
+.inline-column( @span, @end-column ) when (@end-column = true) {
+	@showgutter: false;
+	.inline-column(@showgutter);
+	.span( @span );
+	.inline-end-column();
+}
+
 
 
 .end-column() {

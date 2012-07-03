@@ -564,6 +564,33 @@ p {
 }
 ```
 
+### .font-face()
+
+Generates a font-face declaration block. Should be used outside of any element selectors.
+ 
+
+```css
+.font-face( <@font-family>, <@font-path>,  );
+```
+
+* `@px-size`: Font size (in pixels) to convert to rems.
+
+```css
+/* Usage: */
+.font-face( 'MyNiceFontBold', '/fonts/my_nice_font', bold );
+/* Example output: */
+@font-face {
+    font-family: 'MyNiceFontBold';
+    src: url('/fonts/my_nice_font.eot');
+    src: url('/fonts/my_nice_font.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/my_nice_font.woff') format('woff'),
+         url('/fonts/my_nice_font.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+```
+
+
 Sprites
 -------
 

@@ -11,3 +11,29 @@
 .font-size-ems(@target-px-size, @context-px-size:@base-font-size) {
 	font-size: (@target-px-size / @context-px-size) * 1em;
 }
+
+.font-face( @family-name, @font-path, @font-weight:normal, @font-style:normal, @include-svg:false ) when not (@include-svg) {
+	@font-face {
+	    font-family: @family-name;
+	    src: url('@{font-path}.eot');
+	    src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+	         url('@{font-path}.woff') format('woff'),
+	         url('@{font-path}.ttf') format('truetype');
+	    font-weight: @font-weight;
+	    font-style: @font-style;
+	}
+}
+
+.font-face( @family-name, @font-path, @font-weight:normal, @font-style:normal, @include-svg:false ) when (@include-svg) {
+	@font-face {
+	    font-family: @family-name;
+	    src: url('@{font-path}.eot');
+	    src: url('@{font-path}.eot?#iefix') format('embedded-opentype'),
+	         url('@{font-path}.woff') format('woff'),
+	         url('@{font-path}.ttf') format('truetype'),
+			 url('@{font-path}.svg#@{family-name}') format('svg');
+	    font-weight: @font-weight;
+	    font-style: @font-style;
+	}
+}
+
