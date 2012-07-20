@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Clearless by clearleft</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Clearless</h1>
+          <h2>A collection of reusable LESS mixins</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/clearleft/clearless/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/clearleft/clearless/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/clearleft/clearless" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>ClearLess</h1>
+
+<p>A reuseable collection of carefully-considered <a href="http://lesscss.org/">Less</a> mixins, or <em>YALML</em> (Yet Another Less Mixin Library).</p>
+
+<p>The core tenets of this mixin library are to <em>avoid output bloat wherever possible</em> (via duplicated properties etc) and to <em>provide flexibile, configurable solutions</em> to the problems that are addressed by the library (i.e. by using Modernizr classes, browser hacks or not, etc). The aim is to give the author the benefits of reusable shortcuts without obliterating personal style and generating bloated stylesheets.</p>
+
+<p><strong>Before diving in</strong> it is strongly recommended that you peruse the <a href="#some-notes-on-usage-and-best-practices">notes on usage and best practices</a> at the end of this document, which gives an overview of how you can take full advantage of ClearLess without compromising the generated CSS output.</p>
+
+<h2>Usage</h2>
+
+<p>Simply <code>@import</code> the <code>mixins/all.less</code> file into the top of your main Less file, and then (optionally) override any of the settings as described below.</p>
+
+<p>The <code>mixins/all.less</code> file itself simply imports all the individual Less files into one place. The mixins and settings for these individual files are documented under in their various groupings below:</p>
+
+<ul>
+<li><a href="#global-settings">Settings</a></li>
+<li><a href="#resets">Resets</a></li>
+<li><a href="#shortcuts--helpers">Shortcuts &amp; Helpers</a></li>
+<li><a href="#typography">Typography</a></li>
+<li><a href="#sprites">Sprites</a></li>
+<li><a href="#icons">Icons</a></li>
+<li><a href="#grids">Grids</a></li>
+</ul><h2>Global settings</h2>
+
+<p>ClearLess defines a few settings that affect the output of some of the mixins. These are just <a href="http://lesscss.org/#-variables">Less variables</a>, and have their default values defined in <code>mixins/settings.less</code>.</p>
+
+<p>To override the defaults, simply redefine them after importing the mixins:</p>
+
+<div class="highlight">
+<pre><span class="k">@import</span> <span class="s2">"mixins/all"</span><span class="p">;</span>
+
+<span class="k">@using-modernizr</span><span class="o">:</span> <span class="nt">true</span><span class="p">;</span>
+<span class="k">@base-font-size</span><span class="o">:</span> <span class="nt">14</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The following global settings are defined:</p>
+
+<h3>SETTING: @using-modernizr</h3>
+
+<div class="highlight">
+<pre><span class="k">@using-modernizr</span><span class="o">:</span> <span class="nt">false</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>If using Modernizr, some of the mixins will swap to using the Modernizr-generated classes to determine support for various features and thus what CSS to generate (see the icon/sprites mixins for an example). Set this to <code>true</code> to enable this behaviour.</p>
+
+<p>Modernizr feature tests currently used (if using a custom Modernizr build):</p>
+
+<ul>
+<li>Generated Content (<code>.generatedcontent</code>)</li>
+</ul><h3>SETTING: @using-ieclasses</h3>
+
+<div class="highlight">
+<pre><span class="k">@using-ieclasses</span><span class="o">:</span> <span class="nt">true</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>If using <a href="http://html5boilerplate.com/">H5BP</a>-style conditional comments to add IE-indentifying classes to the HTML element, some mixins will use them to patch IE support where there are known issues. If this is set to <code>false</code> then these mixins will fall back to hacks like the <a href="http://en.wikipedia.org/wiki/CSS_filter#Star_hack">star hack</a> to provide this support instead.</p>
+
+<h3>SETTING: @disable-filters</h3>
+
+<div class="highlight">
+<pre><span class="k">@disable-filters</span><span class="o">:</span> <span class="nt">true</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>Whether or not certain mixins (like the gradient mixins) should generate IE fallbacks using the MS proprietary <code>filter</code> property or not. Disabled by default due to performance issues with filter props.</p>
+
+<p><strong>Other section-specific settings are documented alongside their mixins below.</strong></p>
+
+<h2>Resets</h2>
+
+<p>Convinience mixins that should be used <em>outside of element selectors</em> as a quick way to generate popular reset stylesheet contents.</p>
+
+<h3>.reset;</h3>
+
+<div class="highlight">
+<pre><span class="nc">.reset</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<p>Outputs styles from the '<a href="http://meyerweb.com/eric/tools/css/reset/">Meyer Reset</a>'.</p>
+
+<h3>.normalize;</h3>
+
+<div class="highlight">
+<pre><span class="nc">.normalize</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<p>Outputs styles from <a href="http://necolas.github.com/normalize.css/">normalize.css</a>.</p>
+
+<h2>Shortcuts &amp; Helpers</h2>
+
+<p>These are the most basic mixins. <em>Shortcuts</em> typically provide a quick way to generate all the required vendor-prefixed versions of a property, and/or give a more manageable syntax for defining things like CSS gradients. <em>Helpers</em> are mixins that typically generate boilerplate code for common use cases, such as <code>display: inline-block;</code> statements with IE7 fixes, or image replacement code.</p>
+
+<ul>
+<li><a href="#border-radius">.border-radius()</a></li>
+<li><a href="#box-sizing">.box-sizing()</a></li>
+<li><a href="#box-shadow">.box-shadow()</a></li>
+<li><a href="#transition">.transition()</a></li>
+<li><a href="#rotate">.rotate()</a></li>
+<li><a href="#placeholder">.placeholder()</a></li>
+<li><a href="#gradient--vertical">#gradient &gt; .vertical()</a></li>
+<li><a href="#gradient--horizontal">#gradient &gt; .horizontal()</a></li>
+<li><a href="#clearfix">.clearfix()</a></li>
+<li><a href="#inline-block">.inline-block()</a></li>
+<li><a href="#ir">.ir()</a></li>
+<li><a href="#hidden">.hidden()</a></li>
+<li><a href="#visually-hidden">.visually-hidden()</a></li>
+<li><a href="#size">.size()</a></li>
+</ul><h3>.border-radius()</h3>
+
+<p>Generates a <code>box-radius</code> property with the appropriate vendor prefixes.</p>
+
+<div class="highlight">
+<pre><span class="nc">.border-radius</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@radius</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@radius</code>: <em>(Optional)</em> Radius to round all corners to. Defaults to <code>5px</code>.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.border-radius</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@top-left</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@top-right</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@bottom-left</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@bottom-right</span><span class="o">&gt;)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@top-left</code>: Radius to round the top-left corner to. Defaults to <code>5px</code>.</li>
+<li>
+<code>@top-right</code>: Radius to round the top-right corner to. Defaults to <code>5px</code>.</li>
+<li>
+<code>@bottom-left</code>: Radius to round the bottom-left corner to. Defaults to <code>5px</code>.</li>
+<li>
+<code>@bottom-right</code>: Radius to round the bottom-right corner to. Defaults to <code>5px</code>.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example1</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="p">(</span> <span class="m">5px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="p">(</span> <span class="m">5px</span><span class="o">,</span> <span class="m">7px</span><span class="o">,</span> <span class="m">5px</span><span class="o">,</span> <span class="m">10px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example1</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border-top</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border-top</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">7px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border-bottom</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border-bottom</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">-</span><span class="n">topleft</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">-</span><span class="n">topright</span><span class="o">:</span> <span class="m">7px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">-</span><span class="n">bottomleft</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">-</span><span class="n">bottomright</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="k">border-top</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">border-top</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">7px</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.box-sizing()</h3>
+
+<p>Generates a <code>box-sizing</code> property with the appropriate vendor prefixes.</p>
+
+<div class="highlight">
+<pre><span class="nc">.box-sizing</span><span class="o">(</span> <span class="o">[&lt;</span><span class="k">@type</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@type</code>: <em>(Optional)</em> box-sizing property value. Defaults to <code>border-box</code>.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="p">(</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+    <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.box-shadow()</h3>
+
+<p>Generates a <code>box-shadow</code> property with the appropriate vendor prefixes.</p>
+
+<div class="highlight">
+<pre><span class="nc">.box-shadow</span><span class="o">(</span> <span class="o">[&lt;</span><span class="k">@shadow</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@shadow</code>: <em>(Optional)</em> box-shadow property value. Defaults to <code>1px 1px 2px rgba(0,0,0,0.25)</code>.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="p">(</span> <span class="m">2px</span> <span class="m">2px</span> <span class="m">3px</span> <span class="m">#999</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">2px</span> <span class="m">2px</span> <span class="m">3px</span> <span class="m">#999</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">2px</span> <span class="m">2px</span> <span class="m">3px</span> <span class="m">#999</span><span class="p">;</span>
+    <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">2px</span> <span class="m">2px</span> <span class="m">3px</span> <span class="m">#999</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.transition()</h3>
+
+<p>Generates a <code>transition</code> property with the appropriate vendor prefixes.</p>
+
+<div class="highlight">
+<pre><span class="nc">.transition</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@transition</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@transition</code>: transition property value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">transition</span><span class="p">(</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.rotate()</h3>
+
+<p>Generates a <code>transform</code> property with a rotation value and with the appropriate vendor prefixes.</p>
+
+<div class="highlight">
+<pre><span class="nc">.rotate</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@rotation</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@rotation</code>: rotation value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">rotate</span><span class="p">(</span> <span class="m">2</span><span class="o">.</span><span class="m">5</span><span class="n">deg</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">2</span><span class="o">.</span><span class="m">5</span><span class="n">deg</span><span class="p">);</span>
+    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">2</span><span class="o">.</span><span class="m">5</span><span class="n">deg</span><span class="p">);</span>
+    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">2</span><span class="o">.</span><span class="m">5</span><span class="n">deg</span><span class="p">);</span>
+    <span class="n">transform</span><span class="o">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">2</span><span class="o">.</span><span class="m">5</span><span class="n">deg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.placeholder()</h3>
+
+<p>Generates pseudo-selector rules to globally change the colour of placeholder text for inputs. Use outside of element selectors.</p>
+
+<div class="highlight">
+<pre><span class="nc">.placeholder</span><span class="o">(</span> <span class="o">[&lt;</span><span class="k">@color</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@color</code>: <em>(Optional)</em> colour value. Defaults to <code>#DDD</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.placeholder</span><span class="o">(</span> <span class="nf">#F00</span> <span class="o">);</span>
+<span class="c">/* Example output: */</span>
+<span class="nd">:-moz-placeholder</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#F00</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">:</span><span class="nd">:-webkit-input-placeholder</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#F00</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>#gradient &gt; .vertical()</h3>
+
+<p>Uses CSS3 gradient values to generate vertical background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the <code>@disable-filters</code> setting.</p>
+
+<div class="highlight">
+<pre><span class="nf">#gradient</span> <span class="o">&gt;</span> <span class="nc">.vertical</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@start-color</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@end-color</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@start-color</code>: Colour value for the upper start colour.</li>
+<li>
+<code>@end-color</code>: Colour value for the bottom end colour.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="m">#gradie</span><span class="n">nt</span> <span class="o">&gt;</span> <span class="o">.</span><span class="n">vertical</span><span class="p">(</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#555</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">repeat-x</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#F00</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#555</span><span class="p">));</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">%,</span> <span class="m">#F00</span><span class="p">)</span><span class="o">,</span> <span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">100</span><span class="o">%,</span> <span class="m">#555</span><span class="p">));</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">top</span><span class="o">,</span> <span class="m">#F00</span> <span class="m">0</span><span class="o">%,</span> <span class="m">#555</span> <span class="m">100</span><span class="o">%</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>#gradient &gt; .horizontal()</h3>
+
+<p>Uses CSS3 gradient values to generate horizontal background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the <code>@disable-filters</code> setting.</p>
+
+<div class="highlight">
+<pre><span class="nf">#gradient</span> <span class="o">&gt;</span> <span class="nc">.horizontal</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@start-color</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@end-color</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@start-color</code>: Colour value for the left start colour.</li>
+<li>
+<code>@end-color</code>: Colour value for the right end colour.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="m">#gradie</span><span class="n">nt</span> <span class="o">&gt;</span> <span class="o">.</span><span class="n">horizontal</span><span class="p">(</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#555</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">repeat-x</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">right</span> <span class="k">top</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#F00</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#555</span><span class="p">));</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">right</span> <span class="k">top</span><span class="o">,</span> <span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">0</span><span class="o">%,</span> <span class="m">#F00</span><span class="p">)</span><span class="o">,</span> <span class="k">color</span><span class="o">-</span><span class="n">stop</span><span class="p">(</span><span class="m">100</span><span class="o">%,</span> <span class="m">#555</span><span class="p">));</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span> <span class="m">0</span><span class="o">%,</span> <span class="m">#555</span> <span class="m">100</span><span class="o">%</span><span class="p">);</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">left</span><span class="o">,</span> <span class="m">#F00</span><span class="o">,</span> <span class="m">#555</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.clearfix()</h3>
+
+<p>Generates the appropriate properies to apply the <a href="http://nicolasgallagher.com/micro-clearfix-hack/">micro-clearfix hack</a> to the element. Output varies according to the value of the <code>@using-ieclasses</code> setting.</p>
+
+<div class="highlight">
+<pre><span class="nc">.clearfix</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">clearfix</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span><span class="nd">:before</span><span class="o">,</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.ie6</span> <span class="nc">.example</span><span class="o">,</span>
+<span class="nc">.ie7</span> <span class="nc">.example</span> <span class="p">{</span>
+    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.inline-block()</h3>
+
+<p>Helper to generate the inline-block display property plus fixes for IE7. Output varies according to the value of the <code>@using-ieclasses</code> setting.</p>
+
+<div class="highlight">
+<pre><span class="nc">.inline-block</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span>
+<span class="p">}</span>
+<span class="nc">.ie6</span> <span class="nc">.example</span><span class="o">,</span>
+<span class="nc">.ie7</span> <span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="p">;</span>
+    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.ir()</h3>
+
+<p>Generates text-removing properties for use in image replacement. Does not specify the background image (or it's positioning) itself - this needs to be specified manually (or use one of the sprite mixins, if appropriate).</p>
+
+<div class="highlight">
+<pre><span class="nc">.ir</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">ir</span><span class="p">();</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/text.png')</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">font</span><span class="o">:</span> <span class="m">0</span><span class="o">/</span><span class="m">0</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">text-shadow</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/text.png')</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.hidden()</h3>
+
+<p>Hides content from the page. Uses <code>!important</code> to override inline-styles added by JS.</p>
+
+<div class="highlight">
+<pre><span class="nc">.hidden</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">hidden</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">none</span> <span class="cp">!important</span><span class="p">;</span>
+    <span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.visually-hidden()</h3>
+
+<p>Hides content visually, but leaves is accessible to screenreaders. Also generates helper classes to allow the element to be focusable when navigated to via the keyboard.</p>
+
+<div class="highlight">
+<pre><span class="nc">.visually-hidden</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">visually</span><span class="o">-</span><span class="k">hidden</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">clip</span><span class="o">:</span> <span class="n">rect</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span><span class="p">);</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">-1px</span><span class="p">;</span>
+    <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example.focusable</span><span class="nd">:active</span><span class="o">,</span>
+<span class="nc">.example.focusable</span><span class="nd">:focus</span> <span class="p">{</span>
+    <span class="k">clip</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">overflow</span><span class="o">:</span> <span class="k">visible</span><span class="p">;</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">static</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.size()</h3>
+
+<p>Shortcut for generating width and height properties.</p>
+
+<div class="highlight">
+<pre><span class="nc">.size</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@size</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@size</code>: Value to use for the height and width properties.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.size</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@width</code>: Value to use for the width property</li>
+<li>
+<code>@height</code>: Value to use for the height property</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example1</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">size</span><span class="p">(</span> <span class="m">30px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">size</span><span class="p">(</span> <span class="m">20px</span><span class="o">,</span> <span class="m">70px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example1</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>    
+    <span class="k">height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">70px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Typography</h2>
+
+<ul>
+<li><a href="#setting-base-font-size">@base-font-size</a></li>
+<li><a href="#font-size-ems">.font-size-ems()</a></li>
+<li><a href="#font-size-rems">.font-size-rems()</a></li>
+</ul><h3>SETTING: @base-font-size</h3>
+
+<p><code>@base-font-size: 16;</code></p>
+
+<p>A variable to sets the base font-size (in pixels) that is used as the default in certain calculations (such as in the pixels to rems conversion helper). Units should be omited.</p>
+
+<p>Note that this doesn't stop you doing your base <code>body</code> font size calculations/definitions any way you please - this should just be set to the result of that. For instance, if you set your base font size to <code>62.5%</code> then just set the <code>@base-font-size</code> value to <code>10</code>.</p>
+
+<h3>.font-size-ems()</h3>
+
+<p>Generates a font-size property with the pixel value converted to <strong>ems</strong>.</p>
+
+<div class="highlight">
+<pre><span class="nc">.font-size-ems</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@px-size</span><span class="o">&gt;</span> <span class="o">[,</span> <span class="o">&lt;</span><span class="k">@context-px-size</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@px-size</code>: Font size (in pixels) to convert to ems.</li>
+<li>
+<code>@context-px-size</code>: <em>(Optional)</em> The font size (in pixels) of the current context. Defaults to the value of <code>@base-font-size</code> if not specified.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nt">p</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">font-size</span><span class="o">-</span><span class="n">ems</span><span class="p">(</span> <span class="m">12</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nt">p</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">0.75em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.font-size-rems()</h3>
+
+<p>Generates a font-size property with the pixel value converted to <strong>rems</strong> and provides a pixel based fallback for browsers that do not support rem units.</p>
+
+<div class="highlight">
+<pre><span class="nc">.font-size-rems</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@px-size</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@px-size</code>: Font size (in pixels) to convert to rems.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nt">p</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">font-size</span><span class="o">-</span><span class="n">rems</span><span class="p">(</span> <span class="m">12</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nt">p</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>    
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">75</span><span class="n">rem</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.font-face()</h3>
+
+<p>Generates a font-face declaration block. Should be used outside of any element selectors. Note that this assumes that you have generated EOT, WOFF and TTF versions of the font, and that they all live in the same location, with the same filename (apart from the extension.</p>
+
+<p>Future versions of this may include workarounds to make this more flexible. </p>
+
+<div class="highlight">
+<pre><span class="nc">.font-face</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@font-family</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@font-path</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@font-weight</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@font-style</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@include-svg</span><span class="o">&gt;</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@font-family</code>: The name to give the font-family</li>
+<li>
+<code>@font-path</code>: The path/URL to the font, including the font name but <strong>with the file extension removed</strong>
+</li>
+<li>
+<code>@font-weight</code>: <em>(Optional)</em> Value for the font-weight property. Defaults to <code>normal</code>
+</li>
+<li>
+<code>@font-style</code>: <em>(Optional)</em> Value for the font-style property. Defaults to <code>normal</code>
+</li>
+<li>
+<code>@include-svg</code>: <em>(Optional)</em> Value for the font-weight property. Defaults to <code>normal</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.font-face</span><span class="o">(</span> <span class="s1">'MyNiceFontBold'</span><span class="o">,</span> <span class="s1">'/fonts/my_nice_font'</span><span class="o">,</span> <span class="nt">bold</span> <span class="o">);</span>
+<span class="c">/* Example output: */</span>
+<span class="k">@font-face</span> <span class="p">{</span>
+    <span class="nt">font-family</span><span class="o">:</span> <span class="s1">'MyNiceFontBold'</span><span class="o">;</span>
+    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">'/fonts/my_nice_font.eot'</span><span class="o">);</span>
+    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">'/fonts/my_nice_font.eot?#iefix'</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">'embedded-opentype'</span><span class="o">),</span>
+         <span class="nt">url</span><span class="o">(</span><span class="s1">'/fonts/my_nice_font.woff'</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">'woff'</span><span class="o">),</span>
+         <span class="nt">url</span><span class="o">(</span><span class="s1">'/fonts/my_nice_font.ttf'</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">'truetype'</span><span class="o">);</span>
+    <span class="nt">font-weight</span><span class="o">:</span> <span class="nt">bold</span><span class="o">;</span>
+    <span class="nt">font-style</span><span class="o">:</span> <span class="nt">normal</span><span class="o">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Sprites</h2>
+
+<p>The sprite mixins give you an easy way to use sprited background images. It assumes the use of a single sprite image with individual images placed on a regular grid. These are defined as settings variables, but can also be supplied on a per-mixin basis.</p>
+
+<ul>
+<li><a href="#setting-sprite-image">@sprite-image</a></li>
+<li><a href="#setting-sprite-grid">@sprite-grid</a></li>
+<li><a href="#sprite">.sprite()</a></li>
+<li><a href="#sprite-sized">.sprite-sized()</a></li>
+<li><a href="#sprite-ir">.sprite-ir()</a></li>
+<li><a href="#sprite-image">.sprite-image()</a></li>
+<li><a href="#sprite-pos">.sprite-pos()</a></li>
+<li><a href="#sprite-pos-sized">.sprite-pos-sized()</a></li>
+</ul><h3>SETTING: @sprite-image</h3>
+
+<div class="highlight">
+<pre><span class="k">@sprite-image</span><span class="o">:</span> <span class="s1">'/images/example-sprite.png'</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The default image to use for the sprite mixins. Can be a Base64 encoded data-uri.</p>
+
+<h3>SETTING: @sprite-grid</h3>
+
+<div class="highlight">
+<pre><span class="k">@sprite-grid</span><span class="o">:</span> <span class="nt">50px</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The size of the grid (in pixels) that the individal images are placed on.</p>
+
+<h3>.sprite()</h3>
+
+<p>The most basic sprite mixin. Outputs all the required properties to generate your sprited image.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.sprite-sized()</h3>
+
+<p>The same as the <code>.sprite()</code> mixin above, but allows you to specify the height and width to constrain the element by.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@width</code>: The width of the image.</li>
+<li>
+<code>@height</code>: The height of the image.</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.sprite</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@size</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@size</code>: The height and width of the image (for 'square' images).</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.sprite-ir()</h3>
+
+<p>Augments the <code>.sprite-sized()</code> mixin to include image replacement properties as defined in the <code>.ir()</code> mixin.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite-ir</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@width</code>: The width of the image.</li>
+<li>
+<code>@height</code>: The height of the image.</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.sprite-ir</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@size</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@size</code>: The height and width of the image (for 'square' images).</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">ir</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">ir</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">font</span><span class="o">:</span> <span class="m">0</span><span class="o">/</span><span class="m">0</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">text-shadow</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">font</span><span class="o">:</span> <span class="m">0</span><span class="o">/</span><span class="m">0</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">text-shadow</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.sprite-image()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a>. Just sets the background-image property to the <code>@sprite-image</code>. Useful in combination with the other sprite partial mixins below.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite-image</span><span class="o">([&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;])</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">image</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.sprite-pos()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a>. Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite-pos</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span><span class="m">2</span><span class="o">,</span><span class="m">3</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.sprite-pos-sized()</h3>
+
+<p>Similar to the <code>.sprite-pos()</code> <a href="#optimising-output-using-partial-mixins">partial mixin</a> above, but includes the ability to set the size of the element.</p>
+
+<div class="highlight">
+<pre><span class="nc">.sprite-pos-sized</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@width</code>: The width of the image.</li>
+<li>
+<code>@height</code>: The height of the image.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.sprite-pos-sized</span><span class="o">(&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@size</span><span class="o">&gt;)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@size</code>: The width of the image.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span> <span class="m">2</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100px</span>  <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Icons</h2>
+
+<p>The icons mixins let you easily place an icon before or after an element, using absolutely positioned :before and :after pseudo elements to display them. There are also sprited icon mixins build on the sprite mixins above.</p>
+
+<p>The exact output of all the icon mixins depends on the value of the <code>@using-modernizer</code> setting.</p>
+
+<ul>
+<li><a href="#prepend-icon">.prepend-icon()</a></li>
+<li><a href="#append-icon">.append-icon()</a></li>
+<li><a href="#prepend-sprite-icon">.prepend-sprite-icon()</a></li>
+<li><a href="#append-sprite-icon">.append-sprite-icon()</a></li>
+<li><a href="#prepend-sprite-icon-pos">.prepend-sprite-icon-pos()</a></li>
+<li><a href="#append-sprite-icon-pos">.append-sprite-icon-pos()</a></li>
+<li><a href="#prepend-icon-setup">.prepend-icon-setup()</a></li>
+<li><a href="#append-icon-setup">.append-icon-setup()</a></li>
+<li><a href="#prepend-icon-image">.prepend-icon-image()</a></li>
+<li><a href="#append-icon-image">.append-icon-image()</a></li>
+</ul><h3>.prepend-icon()</h3>
+
+<p>Prepends an icon to the element it's called on.</p>
+
+<div class="highlight">
+<pre><span class="nc">.prepend-icon</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@icon-image</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-left</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@icon-image</code>: URL or data URI of an image to use for the prepended icon</li>
+<li>
+<code>@width</code>: Width of the image</li>
+<li>
+<code>@height</code>: Height of the image</li>
+<li>
+<code>@nudge-left</code>: <em>(Optional)</em> The value of the <code>left</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Left-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">prepend</span><span class="o">-</span><span class="k">icon</span><span class="p">(</span> <span class="s1">'img/icon.png'</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">42px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span> <span class="sx">url('img/icon.png')</span> <span class="k">no-repeat</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.append-icon()</h3>
+
+<p>Appends an icon after the element it's called on.</p>
+
+<div class="highlight">
+<pre><span class="nc">.append-icon</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@icon-image</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-right</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@icon-image</code>: URL or data URI of an image to use for the prepended icon</li>
+<li>
+<code>@width</code>: Width of the image</li>
+<li>
+<code>@height</code>: Height of the image</li>
+<li>
+<code>@nudge-right</code>: <em>(Optional)</em> The value of the <code>right</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Right-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">append</span><span class="o">-</span><span class="k">icon</span><span class="p">(</span> <span class="s1">'img/icon.png'</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">42px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span> <span class="sx">url('img/icon.png')</span> <span class="k">no-repeat</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.prepend-sprite-icon()</h3>
+
+<p>Prepends an icon taken from the sprite to the element it's called on.</p>
+
+<div class="highlight">
+<pre><span class="nc">.prepend-sprite-icon</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-left</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@width</code>: Width of the image</li>
+<li>
+<code>@height</code>: Height of the image</li>
+<li>
+<code>@nudge-left</code>: <em>(Optional)</em> The value of the <code>left</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Left-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">prepend</span><span class="o">-</span><span class="n">sprite</span><span class="o">-</span><span class="k">icon</span><span class="p">(</span> <span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">42px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-50px</span> <span class="m">-100px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.append-sprite-icon()</h3>
+
+<p>Appends an icon taken from the sprite after the element it's called on.</p>
+
+<div class="highlight">
+<pre><span class="nc">.append-sprite-icon</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-right</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@width</code>: Width of the image</li>
+<li>
+<code>@height</code>: Height of the image</li>
+<li>
+<code>@nudge-right</code>: <em>(Optional)</em> The value of the <code>right</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Right-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+<li>
+<code>@sprite-image</code>: <em>(Optional)</em> The sprite image to use. Defaults to the globally defined <code>@sprite-image</code> value.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">append</span><span class="o">-</span><span class="n">sprite</span><span class="o">-</span><span class="k">icon</span><span class="p">(</span> <span class="m">1</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">32px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">42px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-50px</span> <span class="m">-100px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.prepend-sprite-icon-pos()</h3>
+
+<p>Adjusts the positioning of a prepended sprite icon.</p>
+
+<div class="highlight">
+<pre><span class="nc">.prepend-sprite-icon-pos</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-left</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@nudge-left</code>: <em>(Optional)</em> The value of the <code>left</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">prepend</span><span class="o">-</span><span class="n">sprite</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span> <span class="m">1</span><span class="o">,</span> <span class="m">2</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-50px</span> <span class="m">-100px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.append-sprite-icon-pos()</h3>
+
+<p>Adjusts the positioning of a appended sprite icon.</p>
+
+<div class="highlight">
+<pre><span class="nc">.append-sprite-icon-pos</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@x</span><span class="o">&gt;,</span> <span class="o">&lt;</span><span class="k">@y</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-right</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@sprite-grid</span><span class="o">&gt;]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@x</code>: The x coordinate of the desired image on the grid.</li>
+<li>
+<code>@y</code>: The y coordinate of the desired image on the grid.</li>
+<li>
+<code>@nudge-right</code>: <em>(Optional)</em> The value of the <code>right</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to <code>0</code>.</li>
+<li>
+<code>@sprite-grid</code>: <em>(Optional)</em> The grid size used in the sprite. Defaults to the globally defined <code>@sprite-grid</code> value.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">append</span><span class="o">-</span><span class="n">sprite</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span> <span class="m">1</span><span class="o">,</span> <span class="m">2</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-50px</span> <span class="m">-100px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.prepend-icon-setup()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate common properties for prepended icon mixins.</p>
+
+<div class="highlight">
+<pre><span class="nc">.prepend-icon-setup</span><span class="o">(</span> <span class="o">[&lt;</span><span class="k">@width</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-left</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@width</code>: <em>(Optional)</em> Width of the image. Defaults to not being set.</li>
+<li>
+<code>@height</code>: <em>(Optional)</em> Height of the image. Defaults to not being set.</li>
+<li>
+<code>@nudge-left</code>: <em>(Optional)</em> The value of the <code>left</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Left-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">prepend</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">setup</span><span class="p">(</span> <span class="m">32px</span><span class="o">,</span> <span class="m">15px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.append-icon-setup()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate common properties for appended icon mixins.</p>
+
+<div class="highlight">
+<pre><span class="nc">.append-icon-setup</span><span class="o">(</span> <span class="o">[&lt;</span><span class="k">@width</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-right</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@width</code>: <em>(Optional)</em> Width of the image. Defaults to not being set.</li>
+<li>
+<code>@height</code>: <em>(Optional)</em> Height of the image. Defaults to not being set.</li>
+<li>
+<code>@nudge-right</code>: <em>(Optional)</em> The value of the <code>right</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Right-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">append</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">setup</span><span class="p">(</span> <span class="m">32px</span><span class="o">,</span> <span class="m">15px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s1">' '</span><span class="p">;</span>
+    <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.prepend-icon-image()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate image-specific properties for prepended icon mixins. Likely to be used in combination with the <code>.prepend-icon-setup()</code> mixin above.</p>
+
+<div class="highlight">
+<pre><span class="nc">.prepend-icon-image</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@icon-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-left</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@icon-image</code>: URL or data URI of an image to use for the prepended icon</li>
+<li>
+<code>@width</code>: <em>(Optional)</em> Width of the image. Defaults to not being set.</li>
+<li>
+<code>@height</code>: <em>(Optional)</em> Height of the image. Defaults to not being set.</li>
+<li>
+<code>@nudge-left</code>: <em>(Optional)</em> The value of the <code>left</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Left-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">prepend</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">image</span><span class="p">(</span> <span class="s1">'img/icon.png'</span><span class="o">,</span> <span class="m">12px</span><span class="o">,</span> <span class="m">12px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">22px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:before</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url('img/icon.png')</span> <span class="k">no-repeat</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.append-icon-image()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate image-specific properties for appended icon mixins. Likely to be used in combination with the <code>.append-icon-setup()</code> mixin above.</p>
+
+<div class="highlight">
+<pre><span class="nc">.append-icon-image</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@icon-image</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@width</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@height</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-right</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@nudge-top</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@pad</span><span class="o">&gt;]]]]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@icon-image</code>: URL or data URI of an image to use for the prepended icon</li>
+<li>
+<code>@width</code>: <em>(Optional)</em> Width of the image. Defaults to not being set.</li>
+<li>
+<code>@height</code>: <em>(Optional)</em> Height of the image. Defaults to not being set.</li>
+<li>
+<code>@nudge-right</code>: <em>(Optional)</em> The value of the <code>right</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@nudge-top</code>: <em>(Optional)</em> The value of the <code>top</code> property for the icon. Defaults to not being set.</li>
+<li>
+<code>@pad</code>: <em>(Optional)</em> Right-padding (in addition to the width of the icon) to apply to the element. Defaults to <code>10px</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">append</span><span class="o">-</span><span class="k">icon</span><span class="o">-</span><span class="n">image</span><span class="p">(</span> <span class="s1">'img/icon.png'</span><span class="o">,</span> <span class="m">12px</span><span class="o">,</span> <span class="m">12px</span> <span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">22px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url('img/icon.png')</span> <span class="k">no-repeat</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Grids</h2>
+
+<p>The ClearLess grid system is a straightforward, fluid grid system that supports either floated columns or columns created using <code>display: inline-block;</code>. It supports infinite levels of nested columns.</p>
+
+<p>Gutters are applied using the margin-right property. The columns that represent the last in a row at any time need to have the <code>.end-column()</code> (for floated grids) or <code>.inline-end-column()</code> (for inline-block grids) applied to them to stop them dropping down (although there are also shortcuts for doing this in the column and inline-column mixins themselves). There are obviously other ways to address this 'last column gutter' issue - but we've opted for simplicity and to closest match how many people would code this when doing so in 'straight' css.</p>
+
+<p>Groups of columns need to be wrapped in a parent element with the appropriate <code>.column-wrapper()</code> or <code>.inline-column-wrapper()</code> mixin applied to them.</p>
+
+<ul>
+<li><a href="#setting-total-columns">@total-columns</a></li>
+<li><a href="#setting-column-width">@column-width</a></li>
+<li><a href="#setting-gutter-width">@gutter-width</a></li>
+<li><a href="#column-wrapper">.column-wrapper()</a></li>
+<li><a href="#inline-column-wrapper">.inline-column-wrapper()</a></li>
+<li><a href="#column">.column()</a></li>
+<li><a href="#inline-column">.inline-column()</a></li>
+<li><a href="#end-column">.end-column()</a></li>
+<li><a href="#inline-end-column">.inline-end-column()</a></li>
+<li><a href="#span">.span()</a></li>
+<li><a href="#pre-pad">.pre-pad()</a></li>
+<li><a href="#post-pad">.post-pad()</a></li>
+<li><a href="#pre-push">.pre-push()</a></li>
+<li><a href="#post-push">.post-push()</a></li>
+<li><a href="#post-push-end">.post-push-end()</a></li>
+</ul><h3>SETTING: @total-columns</h3>
+
+<div class="highlight">
+<pre><span class="k">@total-columns</span><span class="o">:</span> <span class="nt">12</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The total number of columns for the top-level grid.</p>
+
+<h3>SETTING: @column-width</h3>
+
+<div class="highlight">
+<pre><span class="k">@column-width</span><span class="o">:</span> <span class="nt">60px</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The width of a column, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.</p>
+
+<h3>SETTING: @gutter-width</h3>
+
+<div class="highlight">
+<pre><span class="k">@gutter-width</span><span class="o">:</span> <span class="nt">20px</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<p>The width of a gutter, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.</p>
+
+<h3>.column-wrapper()</h3>
+
+<p>Apply to the parent element of the grid columns for <strong>floated grids</strong>. This (by design) <em>does not</em> apply any float clearing to the columns - you will likely want to use the <code>.clearfix()</code> mixin (or <code>overflow:hidden;</code> or whatever you're perferred float clearing methid is!) to account for this.</p>
+
+<div class="highlight">
+<pre><span class="nc">.column-wrapper</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">column</span><span class="o">-</span><span class="n">wrapper</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.inline-column-wrapper()</h3>
+
+<p>Apply to the parent element of the grid columns for <strong>inline-block grids</strong>.</p>
+
+<div class="highlight">
+<pre><span class="nc">.inline-column-wrapper</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">column</span><span class="o">-</span><span class="n">wrapper</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">-0.31em</span><span class="p">;</span>
+    <span class="k">word-spacing</span><span class="o">:</span> <span class="m">-0.43em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.ie7</span> <span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">letter-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.column()</h3>
+
+<p>When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a <strong>floated</strong> column. The <code>.span()</code> mixin should then be used to apply the correct width accordingly.</p>
+
+<p>When supplied with a column count, this mixin effectively combines both of the above steps into one - simpler but may not result in the most optimised CSS, depending on the situation.</p>
+
+<div class="highlight">
+<pre><span class="nc">.column</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="nc">.column</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@end-column</span><span class="o">&gt;]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns to span.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+<li>
+<code>@end-column</code>: <em>(Optional)</em> Set to <code>true</code> if this column is the last one in a row.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.column</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@end-column</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: <em>(Optional)</em> Number of grid columns to span.</li>
+<li>
+<code>@end-column</code>: <em>(Optional)</em> Set to <code>true</code> if this column is the last one in a row.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">column</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example3</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="m">2</span><span class="o">,</span><span class="n">true</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">5873015873015872</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">11</span><span class="o">.</span><span class="m">11111111111111</span><span class="o">%</span><span class="p">;</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">5873015873015872</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example3</span> <span class="p">{</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">11</span><span class="o">.</span><span class="m">11111111111111</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.inline-column()</h3>
+
+<p>When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a <strong>inline-block</strong> column. The <code>.span()</code> mixin should then be used to apply widths and margins accordingly.</p>
+
+<p>When supplied with a column count, this mixin effectively combines both of the above steps into one - simpler but may not result in the most optimised CSS, depending on the situation.</p>
+
+<div class="highlight">
+<pre><span class="nc">.inline-column</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="nc">.inline-column</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@end-column</span><span class="o">&gt;]]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns to span.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+<li>
+<code>@end-column</code>: <em>(Optional)</em> Set to <code>true</code> if this column is the last one in a row.</li>
+</ul><div class="highlight">
+<pre><span class="nc">.inline-column</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@end-column</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: <em>(Optional)</em> Number of grid columns to span.</li>
+<li>
+<code>@end-column</code>: <em>(Optional)</em> Set to <code>true</code> if this column is the last one in a row.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">inline</span><span class="o">-</span><span class="n">column</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">inline</span><span class="o">-</span><span class="n">column</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.example3</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">inline</span><span class="o">-</span><span class="n">column</span><span class="p">(</span><span class="m">2</span><span class="o">,</span><span class="n">true</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
+    <span class="k">letter-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">word-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">5873015873015872</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.ie7</span> <span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="p">;</span>
+    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
+    <span class="k">letter-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">word-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">11</span><span class="o">.</span><span class="m">11111111111111</span><span class="o">%</span><span class="p">;</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">5873015873015872</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.ie7</span> <span class="nc">.example2</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="p">;</span>
+    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.example3</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
+    <span class="k">letter-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">word-spacing</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">11</span><span class="o">.</span><span class="m">11111111111111</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.ie7</span> <span class="nc">.example3</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="p">;</span>
+    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.end-column()</h3>
+
+<p>Should be applied to the last column in a row for <strong>floated columns</strong>. Typically this will equate to the <code>:last-child</code> column, but when dropping columns for RWD this is not always the case.</p>
+
+<div class="highlight">
+<pre><span class="nc">.end-column</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">end</span><span class="o">-</span><span class="n">column</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.inline-end-column()</h3>
+
+<p>Should be applied to the last column in a row for <strong>inline-block columns</strong>. Typically this will equate to the <code>:last-child</code> column, but when dropping columns for RWD this is not always the case.</p>
+
+<div class="highlight">
+<pre><span class="nc">.inline-end-column</span><span class="o">();</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="k">inline</span><span class="o">-</span><span class="n">end</span><span class="o">-</span><span class="n">column</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.span()</h3>
+
+<p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> for generating the width (and sometimes margin-right) property for columns (both floated and inline-block).</p>
+
+<div class="highlight">
+<pre><span class="nc">.span</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns to span.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">span</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">11</span><span class="o">.</span><span class="m">11111111111111</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.pre-pad()</h3>
+
+<p>Adds the specified number of columns' worth of padding to the the left of the element. </p>
+
+<div class="highlight">
+<pre><span class="nc">.pre-pad</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns' worth of <code>padding-left</code> to add.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">pre</span><span class="o">-</span><span class="n">pad</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">12</span><span class="o">.</span><span class="m">698412698412698</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.post-pad()</h3>
+
+<p>Adds the specified number of columns' worth of padding to the the right of the element. </p>
+
+<div class="highlight">
+<pre><span class="nc">.post-pad</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns' worth of <code>padding-right</code> to add.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">post</span><span class="o">-</span><span class="n">pad</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">padding-right</span><span class="o">:</span> <span class="m">12</span><span class="o">.</span><span class="m">698412698412698</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.pre-push()</h3>
+
+<p>Adds the specified number of columns' worth of margin to the the left of the element. </p>
+
+<div class="highlight">
+<pre><span class="nc">.pre-push</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns' worth of <code>margin-left</code> to add.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">pre</span><span class="o">-</span><span class="n">push</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">margin-left</span><span class="o">:</span> <span class="m">12</span><span class="o">.</span><span class="m">698412698412698</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.post-push()</h3>
+
+<p>Adds the specified number of columns' worth of margin to the the right of the element. </p>
+
+<div class="highlight">
+<pre><span class="nc">.post-push</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns' worth of <code>margin-right</code> to add.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">post</span><span class="o">-</span><span class="n">push</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">14</span><span class="o">.</span><span class="m">285714285714285</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>.post-push-end()</h3>
+
+<p>Should be used instead of the <code>.post-push()</code> mixin above when applied to the last column in a row.</p>
+
+<div class="highlight">
+<pre><span class="nc">.post-push-end</span><span class="o">(</span> <span class="o">&lt;</span><span class="k">@span</span><span class="o">&gt;[,</span> <span class="o">&lt;</span><span class="k">@parent-grid-units</span><span class="o">&gt;]</span> <span class="o">)</span><span class="p">;</span>
+</pre>
+</div>
+
+
+<ul>
+<li>
+<code>@span</code>: Number of grid columns' worth of <code>margin-right</code> to add.</li>
+<li>
+<code>@parent-grid-units</code>: <em>(Optional)</em> For nested grids, the number of columns the parent element spans needs to be added here.</li>
+</ul><div class="highlight">
+<pre><span class="c">/* Usage: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">post</span><span class="o">-</span><span class="n">push</span><span class="o">-</span><span class="n">end</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* Example output: */</span>
+<span class="nc">.example</span> <span class="p">{</span>
+    <span class="k">margin-right</span><span class="o">:</span> <span class="m">12</span><span class="o">.</span><span class="m">698412698412698</span><span class="o">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>Some notes on usage and best practices</h2>
+
+<p>Using a CSS preprocessor can result in pretty bloated generated CSS if you're not careful. Below are a few notes that outline some thoughts on how to avoid this and how ClearLess is structured to give you better tools to optimise your generated CSS.</p>
+
+<h3>On using (Clear)Less responsibly...</h3>
+
+<p>Just because there is a mixin for something doesn't mean you <em>need</em> to use it! If you have a individual case that would need to override half the the properties outputted by the mixin in order to be styled correctly, then is probably better to roll the solution by hand (or create a new mixin for this use case) rather than to use the mixin and then override it. Fight the bloat!</p>
+
+<p><strong>All of the examples below above sample output from the mixins.</strong> It's definitely recommended that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.</p>
+
+<h3>Optimising output using 'partial' mixins</h3>
+
+<p>The library consists mostly of 'full' mixins, which stand alone and give you all the functionality you might expect. However there are also an number of so-called 'partial' mixins for things lke sprites, grids and icons. You may need more than one of these mixins to achieve the desired result - the idea is to split out certain bits of functionality so as to allow for optimisations in your generated CSS.</p>
+
+<p>An example using the <a href="#sprites">sprite mixins</a>:</p>
+
+<div class="highlight">
+<pre><span class="c">/* Using 'full' mixins - results in verbose generated CSS */</span>
+<span class="nc">.social</span> <span class="p">{</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">twitter</span> <span class="err">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">1</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">16px</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nt">a</span><span class="nc">.facebook</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">2</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">16px</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nt">a</span><span class="nc">.youtube</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">sized</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">3</span><span class="o">,</span> <span class="m">16px</span><span class="o">,</span> <span class="m">16px</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+<span class="c">/* Output - poorly optimised, lots of repitition */</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.twitter</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-50px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.twitter</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-100px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.youtube</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-150px</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Using 'partial' mixins - results in more optimised generated CSS */</span>
+<span class="nc">.social</span> <span class="p">{</span>
+    <span class="n">a</span> <span class="err">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">image</span><span class="p">();</span>
+        <span class="o">.</span><span class="k">size</span><span class="p">(</span><span class="m">16px</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nt">a</span><span class="nc">.twitter</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nt">a</span><span class="nc">.facebook</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">2</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nt">a</span><span class="nc">.youtube</span> <span class="p">{</span>
+        <span class="o">.</span><span class="n">sprite</span><span class="o">-</span><span class="n">pos</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+<span class="c">/* Output - much better! */</span>
+<span class="nc">.socal</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="sx">url('/images/example-sprite.png')</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="o">:</span> <span class="k">no-repeat</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.twitter</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-50px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.twitter</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-100px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.social</span> <span class="nt">a</span><span class="nc">.youtube</span> <span class="p">{</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">-150px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<p>As you can see the second example gives an output that is much less verbose and more like what you would write by hand. So use the mixins wisely - for one off styling a full mixin is often appropriate, for applying the same styling to multiple related elements some of the partial mixins are probably better to use.</p>
+
+<h3>Doesn't Gzipping make bloated output a non-issue?</h3>
+
+<p>Gzip compression works very well on duplicated strings, so yes - gzipping a file with a lot of duplicated properties will to a large extent offest the additional size/bloat issue.</p>
+
+<p><strong>However</strong>, It's still best to work to avoid all that duplication in the first place! And never forget that people may be view-sourcing on these files, and trying to learn from them. Regardless of whether you're gzip'ing, you should always strive to make sure your generated CSS is as representative of CSS you'd write by hand as possible/reasonable.</p>
+
+<h3>Mixins or classes?</h3>
+
+<p>If you find yourself applying a particular mixin to a lot of element selectors, it's probably worth considering if it would be better to take the 'regular CSS' route and create a separate classname (or classnames) to apply that mixin to. you can then use that class in your HTML instead of repeatedly using the mixin in your Less/CSS. It's generally good to do this in situations where you have an appropriate semantic class name that could encapsulate the mixin's output.</p>
+
+<p>You can of course still use the mixin in other places as needed (where using the class would not be appropriate), but you'll get the advantage of a leaner CSS file (although with the possible disadvantage of more classes in your HTML).</p>
+
+<p>Neither approach is right or wrong - but take the time to consider each particular use case and you'll end up with a better balance between your HTML, your Less and the generated CSS.</p>
+
+<h2>Credits</h2>
+
+<p>ClearLess is maintained and documented by <a href="https://github.com/allmarkedup">Mark Perkins</a>. For any queries, questions or bug reports you can ping him <a href="http://twitter.com/allmarkedup">on twitter</a> or open an issue in the Github issue tracker.</p>
+
+<p>Many of the mixins, styles and other parts of this library were shamelessly poached from other open-source projects, including Mark Otto's <a href="http://markdotto.com/bootstrap/">Preboot</a> and the <a href="http://html5boilerplate.com">HTML5 Boilerplate</a>. Thanks for being awesome!</p>
+        </section>
+
+        <footer>
+          Clearless is maintained by <a href="https://github.com/clearleft">clearleft</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
