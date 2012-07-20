@@ -1680,6 +1680,12 @@ An example using the [sprite mixins](#sprites):
 
 As you can see the second example gives an output that is much less verbose and more like what you would write by hand. So use the mixins wisely - for one off styling a full mixin is often appropriate, for applying the same styling to multiple related elements some of the partial mixins are probably better to use.
 
+### Doesn't Gzipping make bloated output a non-issue?
+
+Gzip compression works very well on duplicated strings, so yes - gzipping a file with a lot of duplicated properties will to a large extent offest the additional size/bloat issue.
+
+**However**, It's still best to work to avoid all that duplication in the first place! And never forget that people may be view-sourcing on these files, and trying to learn from them. Regardless of whether you're gzip'ing, you should always strive to make sure your generated CSS is as representative of CSS you'd write by hand as possible/reasonable.
+
 ### Mixins or classes?
 
 If you find yourself applying a particular mixin to a lot of element selectors, it's probably worth considering if it would be better to take the 'regular CSS' route and create a separate classname (or classnames) to apply that mixin to. you can then use that class in your HTML instead of repeatedly using the mixin in your Less/CSS. It's generally good to do this in situations where you have an appropriate semantic class name that could encapsulate the mixin's output.
