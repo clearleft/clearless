@@ -566,14 +566,19 @@ p {
 
 ### .font-face()
 
-Generates a font-face declaration block. Should be used outside of any element selectors.
- 
+Generates a font-face declaration block. Should be used outside of any element selectors. Note that this assumes that you have generated EOT, WOFF and TTF versions of the font, and that they all live in the same location, with the same filename (apart from the extension.
+
+Future versions of this may include workarounds to make this more flexible. 
 
 ```css
-.font-face( <@font-family>, <@font-path>,  );
+.font-face( <@font-family>, <@font-path>, <@font-weight>, <@font-style>, <@include-svg> );
 ```
 
-* `@px-size`: Font size (in pixels) to convert to rems.
+* `@font-family`: The name to give the font-family
+* `@font-path`: The path/URL to the font, including the font name but **with the file extension removed**
+* `@font-weight`: *(Optional)* Value for the font-weight property. Defaults to `normal`
+* `@font-style`: *(Optional)* Value for the font-style property. Defaults to `normal`
+* `@include-svg`: *(Optional)* Value for the font-weight property. Defaults to `normal`
 
 ```css
 /* Usage: */
