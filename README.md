@@ -1634,7 +1634,7 @@ An example using the [sprite mixins](#sprites):
 	width: 16px;
 	height: 16px;
 }
-.social a.twitter {
+.social a.facebook {
 	background-image: url('/images/example-sprite.png');
 	background-repeat: no-repeat;
 	background-position: 0 -100px;
@@ -1675,7 +1675,7 @@ An example using the [sprite mixins](#sprites):
 .social a.twitter {
 	background-position: 0 -50px;
 }
-.social a.twitter {
+.social a.facebook {
 	background-position: 0 -100px;
 }
 .social a.youtube {
