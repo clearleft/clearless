@@ -4,24 +4,10 @@
 
 // Shortcuts --------------------------------
 
-.border-radius(@radius: 5px) {
-	-moz-border-radius: @radius;
-	border-radius: @radius;
-}
-
-.border-radius(@top-left: 5px, @top-right: 5px, @bottom-left: 5px, @bottom-right: 5px) {
-	-webkit-border-top-left-radius: @top-left;
-	-webkit-border-top-right-radius: @top-right;
-	-webkit-border-bottom-left-radius: @bottom-left;
-	-webkit-border-bottom-right-radius: @bottom-right;
-	-moz-border-radius-topleft: @top-left;
-	-moz-border-radius-topright: @top-right;
-	-moz-border-radius-bottomleft: @bottom-left;
-	-moz-border-radius-bottomright: @bottom-right;
-	border-top-left-radius: @top-left;
-	border-top-right-radius: @top-right;
-	border-bottom-left-radius: @bottom-left;
-	border-bottom-right-radius: @bottom-right;
+.border-radius(@radius:5px) {
+    -webkit-border-radius: @arguments;
+	-moz-border-radius: @arguments;
+	border-radius: @arguments;
 }
 
 .box-sizing(@type: border-box) {
