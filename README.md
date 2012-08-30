@@ -1271,7 +1271,7 @@ Adds an arrow pointer to a box, for use as a tooltip (or similar).
 	.arrowbox(down, 10px, #000);
 }
 .example2 {
-	.column(2);
+	.arrowbox(right, 10px, #000, 2px, #F00);
 }
 /* Example output: */
 .example {
