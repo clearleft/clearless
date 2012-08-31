@@ -123,43 +123,25 @@ Generates a `box-radius` property with the appropriate vendor prefixes.
 * `@radius`: *(Optional)* Radius to round all corners to. Defaults to `5px`.
 
 ```css
-.border-radius( <@top-left>, <@top-right>, <@bottom-left>, <@bottom-right>);
-```
-
-* `@top-left`: Radius to round the top-left corner to. Defaults to `5px`.
-* `@top-right`: Radius to round the top-right corner to. Defaults to `5px`.
-* `@bottom-left`: Radius to round the bottom-left corner to. Defaults to `5px`.
-* `@bottom-right`: Radius to round the bottom-right corner to. Defaults to `5px`.
-
-```css
 /* Usage: */
 .example1 {
 	.border-radius( 5px );
 }
 .example2 {
-	.border-radius( 5px, 7px, 5px, 10px );
+	.border-radius( 5px 7px 5px 10px );
 }
 /* Example output: */
 .example1 {
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 .example2 {
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 7px;
-	-webkit-border-bottom-left-radius: 5px;
-	-webkit-border-bottom-right-radius: 10px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-topright: 7px;
-	-moz-border-radius-bottomleft: 5px;
-	-moz-border-radius-bottomright: 10px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 7px;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 10px;
+	-webkit-border-radius: 5px 7px 5px 10px;
+	-moz-border-radius: 5px 7px 5px 10px;
+	border-radius: 5px 7px 5px 10px;
 }
 ```
-
 
 ### .box-sizing()
 
