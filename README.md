@@ -494,6 +494,7 @@ Typography
 * [@base-font-size](#setting-base-font-size)
 * [.font-size-ems()](#font-size-ems)
 * [.font-size-rems()](#font-size-rems)
+* [.word-wrap()](#word-wrap)
 
 ### SETTING: @base-font-size
 
@@ -575,6 +576,30 @@ Future versions of this may include workarounds to make this more flexible.
          url('/fonts/my_nice_font.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+}
+```
+
+### .word-wrap()
+
+Implement word-wrapping for text within the element, with hyphenation where supported. See [http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/](Kenneth Auchenberg's blog post) for details.
+
+```css
+.word-wrap();
+```
+
+```css
+/* Usage: */
+.example {
+	.word-wrap();
+}
+/* Example output: */
+.example {
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
 }
 ```
 
