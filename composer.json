@@ -1,0 +1,9 @@
+{
+    "name": "clearleft/clearless",
+    "description": "A collection of reusable LESS mixins",
+    "homepage": "https://github.com/clearleft/clearless",
+    "type": "library",
+    "license": "MIT",
+    "version": "dev",
+    "minimum-stability": "dev"
+}
