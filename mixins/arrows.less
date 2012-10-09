@@ -7,7 +7,7 @@
 
 .arrowbox(@pos, @size, @bg-color, @offset:50%) {
 
-	@after-margin = @size * -1px;
+	@after-margin: @size * -1px;
 	
 	position: relative;
 	background: @bg-color;
@@ -35,7 +35,7 @@
 
 .arrowbox(@pos, @size, @bg-color, @border-width, @border-color, @offset:50%) {
 
-	@before-margin = (@size + round(@border-width * 1.41421356)) * -1px;
+	@before-margin: (@size + round(@border-width * 1.41421356)) * -1px;
 	
 	.arrowbox(@pos, @size, @bg-color, @offset);
 	

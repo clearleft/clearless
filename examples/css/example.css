@@ -502,4 +502,36 @@ h2 {
 .social--huffduffer:before {
   background: url('../img/huffduffer-32x32.png') no-repeat 0 0;
 }
-/* Other Helpers */
+/* Arrows */
+.arrowbox-example {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #999999;
+  margin: 30px 0;
+  max-width: 300px;
+  padding: 20px;
+}
+.arrowbox-example:after,
+.arrowbox-example:before {
+  bottom: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrowbox-example:after {
+  border-color: transparent;
+  border-bottom-color: #ffffff;
+  border-width: 15px;
+  left: 50%;
+  margin-left: -15px;
+}
+.arrowbox-example:before {
+  border-color: transparent;
+  border-bottom-color: #999999;
+  border-width: 16px;
+  left: 50%;
+  margin-left: -16px;
+}
