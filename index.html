@@ -53,7 +53,7 @@
 <li><a href="#sprites">Sprites</a></li>
 <li><a href="#icons">Icons</a></li>
 <li><a href="#grids">Grids</a></li>
-</ul><h2>Global settings</h2>
+</ul><h2 id="global-settings">Global settings</h2>
 
 <p>ClearLess defines a few settings that affect the output of some of the mixins. These are just <a href="http://lesscss.org/#-variables">Less variables</a>, and have their default values defined in <code>mixins/settings.less</code>.</p>
 
@@ -106,7 +106,7 @@
 
 <p><strong>Other section-specific settings are documented alongside their mixins below.</strong></p>
 
-<h2>Resets</h2>
+<h2 id="resets">Resets</h2>
 
 <p>Convinience mixins that should be used <em>outside of element selectors</em> as a quick way to generate popular reset stylesheet contents.</p>
 
@@ -130,7 +130,7 @@
 
 <p>Outputs styles from <a href="http://necolas.github.com/normalize.css/">normalize.css</a>.</p>
 
-<h2>Shortcuts &amp; Helpers</h2>
+<h2 id="shortcuts--helpers">Shortcuts &amp; Helpers</h2>
 
 <p>These are the most basic mixins. <em>Shortcuts</em> typically provide a quick way to generate all the required vendor-prefixed versions of a property, and/or give a more manageable syntax for defining things like CSS gradients. <em>Helpers</em> are mixins that typically generate boilerplate code for common use cases, such as <code>display: inline-block;</code> statements with IE7 fixes, or image replacement code.</p>
 
@@ -149,7 +149,7 @@
 <li><a href="#hidden">.hidden()</a></li>
 <li><a href="#visually-hidden">.visually-hidden()</a></li>
 <li><a href="#size">.size()</a></li>
-</ul><h3>.border-radius()</h3>
+</ul><h3 id="border-radius">.border-radius()</h3>
 
 <p>Generates a <code>box-radius</code> property with the appropriate vendor prefixes.</p>
 
@@ -208,7 +208,7 @@
 </div>
 
 
-<h3>.box-sizing()</h3>
+<h3 id="box-sizing">.box-sizing()</h3>
 
 <p>Generates a <code>box-sizing</code> property with the appropriate vendor prefixes.</p>
 
@@ -237,7 +237,7 @@
 </div>
 
 
-<h3>.box-shadow()</h3>
+<h3 id="box-shadow">.box-shadow()</h3>
 
 <p>Generates a <code>box-shadow</code> property with the appropriate vendor prefixes.</p>
 
@@ -265,7 +265,7 @@
 </div>
 
 
-<h3>.transition()</h3>
+<h3 id="transition">.transition()</h3>
 
 <p>Generates a <code>transition</code> property with the appropriate vendor prefixes.</p>
 
@@ -293,7 +293,7 @@
 </div>
 
 
-<h3>.rotate()</h3>
+<h3 id="rotate">.rotate()</h3>
 
 <p>Generates a <code>transform</code> property with a rotation value and with the appropriate vendor prefixes.</p>
 
@@ -322,7 +322,7 @@
 </div>
 
 
-<h3>.placeholder()</h3>
+<h3 id="placeholder">.placeholder()</h3>
 
 <p>Generates pseudo-selector rules to globally change the colour of placeholder text for inputs. Use outside of element selectors.</p>
 
@@ -350,7 +350,7 @@
 </div>
 
 
-<h3>#gradient &gt; .vertical()</h3>
+<h3 id="gradient--vertical">#gradient &gt; .vertical()</h3>
 
 <p>Uses CSS3 gradient values to generate vertical background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the <code>@disable-filters</code> setting.</p>
 
@@ -386,7 +386,7 @@
 </div>
 
 
-<h3>#gradient &gt; .horizontal()</h3>
+<h3 id="gradient--horizontal">#gradient &gt; .horizontal()</h3>
 
 <p>Uses CSS3 gradient values to generate horizontal background gradients with appropriate vendor prefixed implementations. Output varies according to the value of the <code>@disable-filters</code> setting.</p>
 
@@ -423,7 +423,7 @@
 </div>
 
 
-<h3>.clearfix()</h3>
+<h3 id="clearfix">.clearfix()</h3>
 
 <p>Generates the appropriate properies to apply the <a href="http://nicolasgallagher.com/micro-clearfix-hack/">micro-clearfix hack</a> to the element. Output varies according to the value of the <code>@using-ieclasses</code> setting.</p>
 
@@ -455,7 +455,7 @@
 </div>
 
 
-<h3>.inline-block()</h3>
+<h3 id="inline-block">.inline-block()</h3>
 
 <p>Helper to generate the inline-block display property plus fixes for IE7. Output varies according to the value of the <code>@using-ieclasses</code> setting.</p>
 
@@ -483,7 +483,7 @@
 </div>
 
 
-<h3>.ir()</h3>
+<h3 id="ir">.ir()</h3>
 
 <p>Generates text-removing properties for use in image replacement. Does not specify the background image (or it's positioning) itself - this needs to be specified manually (or use one of the sprite mixins, if appropriate).</p>
 
@@ -512,7 +512,7 @@
 </div>
 
 
-<h3>.hidden()</h3>
+<h3 id="hidden">.hidden()</h3>
 
 <p>Hides content from the page. Uses <code>!important</code> to override inline-styles added by JS.</p>
 
@@ -536,7 +536,7 @@
 </div>
 
 
-<h3>.visually-hidden()</h3>
+<h3 id="visually-hidden">.visually-hidden()</h3>
 
 <p>Hides content visually, but leaves is accessible to screenreaders. Also generates helper classes to allow the element to be focusable when navigated to via the keyboard.</p>
 
@@ -575,7 +575,7 @@
 </div>
 
 
-<h3>.size()</h3>
+<h3 id="size">.size()</h3>
 
 <p>Shortcut for generating width and height properties.</p>
 
@@ -620,13 +620,14 @@
 </div>
 
 
-<h2>Typography</h2>
+<h2 id="typography">Typography</h2>
 
 <ul>
 <li><a href="#setting-base-font-size">@base-font-size</a></li>
 <li><a href="#font-size-ems">.font-size-ems()</a></li>
 <li><a href="#font-size-rems">.font-size-rems()</a></li>
-</ul><h3>SETTING: @base-font-size</h3>
+<li><a href="#font-face">.font-face()</a></li>
+</ul><h3 id="setting-base-font-size">SETTING: @base-font-size</h3>
 
 <p><code>@base-font-size: 16;</code></p>
 
@@ -634,7 +635,7 @@
 
 <p>Note that this doesn't stop you doing your base <code>body</code> font size calculations/definitions any way you please - this should just be set to the result of that. For instance, if you set your base font size to <code>62.5%</code> then just set the <code>@base-font-size</code> value to <code>10</code>.</p>
 
-<h3>.font-size-ems()</h3>
+<h3 id="font-size-ems">.font-size-ems()</h3>
 
 <p>Generates a font-size property with the pixel value converted to <strong>ems</strong>.</p>
 
@@ -662,7 +663,7 @@
 </div>
 
 
-<h3>.font-size-rems()</h3>
+<h3 id="font-size-rems">.font-size-rems()</h3>
 
 <p>Generates a font-size property with the pixel value converted to <strong>rems</strong> and provides a pixel based fallback for browsers that do not support rem units.</p>
 
@@ -689,7 +690,7 @@
 </div>
 
 
-<h3>.font-face()</h3>
+<h3 id="font-face">.font-face()</h3>
 
 <p>Generates a font-face declaration block. Should be used outside of any element selectors. Note that this assumes that you have generated EOT, WOFF and TTF versions of the font, and that they all live in the same location, with the same filename (apart from the extension.</p>
 
@@ -733,7 +734,7 @@
 </div>
 
 
-<h2>Sprites</h2>
+<h2 id="sprites">Sprites</h2>
 
 <p>The sprite mixins give you an easy way to use sprited background images. It assumes the use of a single sprite image with individual images placed on a regular grid. These are defined as settings variables, but can also be supplied on a per-mixin basis.</p>
 
@@ -746,7 +747,7 @@
 <li><a href="#sprite-image">.sprite-image()</a></li>
 <li><a href="#sprite-pos">.sprite-pos()</a></li>
 <li><a href="#sprite-pos-sized">.sprite-pos-sized()</a></li>
-</ul><h3>SETTING: @sprite-image</h3>
+</ul><h3 id="setting-sprite-image">SETTING: @sprite-image</h3>
 
 <div class="highlight">
 <pre><span class="k">@sprite-image</span><span class="o">:</span> <span class="s1">'/images/example-sprite.png'</span><span class="p">;</span>
@@ -756,7 +757,7 @@
 
 <p>The default image to use for the sprite mixins. Can be a Base64 encoded data-uri.</p>
 
-<h3>SETTING: @sprite-grid</h3>
+<h3 id="setting-sprite-grid">SETTING: @sprite-grid</h3>
 
 <div class="highlight">
 <pre><span class="k">@sprite-grid</span><span class="o">:</span> <span class="nt">50px</span><span class="p">;</span>
@@ -766,7 +767,7 @@
 
 <p>The size of the grid (in pixels) that the individal images are placed on.</p>
 
-<h3>.sprite()</h3>
+<h3 id="sprite">.sprite()</h3>
 
 <p>The most basic sprite mixin. Outputs all the required properties to generate your sprited image.</p>
 
@@ -800,7 +801,7 @@
 </div>
 
 
-<h3>.sprite-sized()</h3>
+<h3 id="sprite-sized">.sprite-sized()</h3>
 
 <p>The same as the <code>.sprite()</code> mixin above, but allows you to specify the height and width to constrain the element by.</p>
 
@@ -867,7 +868,7 @@
 </div>
 
 
-<h3>.sprite-ir()</h3>
+<h3 id="sprite-ir">.sprite-ir()</h3>
 
 <p>Augments the <code>.sprite-sized()</code> mixin to include image replacement properties as defined in the <code>.ir()</code> mixin.</p>
 
@@ -944,7 +945,7 @@
 </div>
 
 
-<h3>.sprite-image()</h3>
+<h3 id="sprite-image">.sprite-image()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a>. Just sets the background-image property to the <code>@sprite-image</code>. Useful in combination with the other sprite partial mixins below.</p>
 
@@ -971,7 +972,7 @@
 </div>
 
 
-<h3>.sprite-pos()</h3>
+<h3 id="sprite-pos">.sprite-pos()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a>. Generates the correct background-position property according to the position and grid. Useful in combination with the other sprite partial mixins.</p>
 
@@ -999,7 +1000,7 @@
 </div>
 
 
-<h3>.sprite-pos-sized()</h3>
+<h3 id="sprite-pos-sized">.sprite-pos-sized()</h3>
 
 <p>Similar to the <code>.sprite-pos()</code> <a href="#optimising-output-using-partial-mixins">partial mixin</a> above, but includes the ability to set the size of the element.</p>
 
@@ -1054,7 +1055,7 @@
 </div>
 
 
-<h2>Icons</h2>
+<h2 id="icons">Icons</h2>
 
 <p>The icons mixins let you easily place an icon before or after an element, using absolutely positioned :before and :after pseudo elements to display them. There are also sprited icon mixins build on the sprite mixins above.</p>
 
@@ -1071,7 +1072,7 @@
 <li><a href="#append-icon-setup">.append-icon-setup()</a></li>
 <li><a href="#prepend-icon-image">.prepend-icon-image()</a></li>
 <li><a href="#append-icon-image">.append-icon-image()</a></li>
-</ul><h3>.prepend-icon()</h3>
+</ul><h3 id="prepend-icon">.prepend-icon()</h3>
 
 <p>Prepends an icon to the element it's called on.</p>
 
@@ -1119,7 +1120,7 @@
 </div>
 
 
-<h3>.append-icon()</h3>
+<h3 id="append-icon">.append-icon()</h3>
 
 <p>Appends an icon after the element it's called on.</p>
 
@@ -1167,7 +1168,7 @@
 </div>
 
 
-<h3>.prepend-sprite-icon()</h3>
+<h3 id="prepend-sprite-icon">.prepend-sprite-icon()</h3>
 
 <p>Prepends an icon taken from the sprite to the element it's called on.</p>
 
@@ -1223,7 +1224,7 @@
 </div>
 
 
-<h3>.append-sprite-icon()</h3>
+<h3 id="append-sprite-icon">.append-sprite-icon()</h3>
 
 <p>Appends an icon taken from the sprite after the element it's called on.</p>
 
@@ -1279,7 +1280,7 @@
 </div>
 
 
-<h3>.prepend-sprite-icon-pos()</h3>
+<h3 id="prepend-sprite-icon-pos">.prepend-sprite-icon-pos()</h3>
 
 <p>Adjusts the positioning of a prepended sprite icon.</p>
 
@@ -1313,7 +1314,7 @@
 </div>
 
 
-<h3>.append-sprite-icon-pos()</h3>
+<h3 id="append-sprite-icon-pos">.append-sprite-icon-pos()</h3>
 
 <p>Adjusts the positioning of a appended sprite icon.</p>
 
@@ -1347,7 +1348,7 @@
 </div>
 
 
-<h3>.prepend-icon-setup()</h3>
+<h3 id="prepend-icon-setup">.prepend-icon-setup()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate common properties for prepended icon mixins.</p>
 
@@ -1391,7 +1392,7 @@
 </div>
 
 
-<h3>.append-icon-setup()</h3>
+<h3 id="append-icon-setup">.append-icon-setup()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate common properties for appended icon mixins.</p>
 
@@ -1435,7 +1436,7 @@
 </div>
 
 
-<h3>.prepend-icon-image()</h3>
+<h3 id="prepend-icon-image">.prepend-icon-image()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate image-specific properties for prepended icon mixins. Likely to be used in combination with the <code>.prepend-icon-setup()</code> mixin above.</p>
 
@@ -1477,7 +1478,7 @@
 </div>
 
 
-<h3>.append-icon-image()</h3>
+<h3 id="append-icon-image">.append-icon-image()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> to generate image-specific properties for appended icon mixins. Likely to be used in combination with the <code>.append-icon-setup()</code> mixin above.</p>
 
@@ -1519,7 +1520,7 @@
 </div>
 
 
-<h2>Grids</h2>
+<h2 id="grids">Grids</h2>
 
 <p>The ClearLess grid system is a straightforward, fluid grid system that supports either floated columns or columns created using <code>display: inline-block;</code>. It supports infinite levels of nested columns.</p>
 
@@ -1543,7 +1544,7 @@
 <li><a href="#pre-push">.pre-push()</a></li>
 <li><a href="#post-push">.post-push()</a></li>
 <li><a href="#post-push-end">.post-push-end()</a></li>
-</ul><h3>SETTING: @total-columns</h3>
+</ul><h3 id="setting-total-columns">SETTING: @total-columns</h3>
 
 <div class="highlight">
 <pre><span class="k">@total-columns</span><span class="o">:</span> <span class="nt">12</span><span class="p">;</span>
@@ -1553,7 +1554,7 @@
 
 <p>The total number of columns for the top-level grid.</p>
 
-<h3>SETTING: @column-width</h3>
+<h3 id="setting-column-width">SETTING: @column-width</h3>
 
 <div class="highlight">
 <pre><span class="k">@column-width</span><span class="o">:</span> <span class="nt">60px</span><span class="p">;</span>
@@ -1563,7 +1564,7 @@
 
 <p>The width of a column, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.</p>
 
-<h3>SETTING: @gutter-width</h3>
+<h3 id="setting-gutter-width">SETTING: @gutter-width</h3>
 
 <div class="highlight">
 <pre><span class="k">@gutter-width</span><span class="o">:</span> <span class="nt">20px</span><span class="p">;</span>
@@ -1573,7 +1574,7 @@
 
 <p>The width of a gutter, in pixels. It should be noted that the pixel value is never actually used itself - instead it will be converted to a percentage value. If you have flat visuals you can take this value straight from your visual, whatever width they are fixed at.</p>
 
-<h3>.column-wrapper()</h3>
+<h3 id="column-wrapper">.column-wrapper()</h3>
 
 <p>Apply to the parent element of the grid columns for <strong>floated grids</strong>. This (by design) <em>does not</em> apply any float clearing to the columns - you will likely want to use the <code>.clearfix()</code> mixin (or <code>overflow:hidden;</code> or whatever you're perferred float clearing methid is!) to account for this.</p>
 
@@ -1596,7 +1597,7 @@
 </div>
 
 
-<h3>.inline-column-wrapper()</h3>
+<h3 id="inline-column-wrapper">.inline-column-wrapper()</h3>
 
 <p>Apply to the parent element of the grid columns for <strong>inline-block grids</strong>.</p>
 
@@ -1623,7 +1624,7 @@
 </div>
 
 
-<h3>.column()</h3>
+<h3 id="column">.column()</h3>
 
 <p>When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a <strong>floated</strong> column. The <code>.span()</code> mixin should then be used to apply the correct width accordingly.</p>
 
@@ -1688,7 +1689,7 @@
 </div>
 
 
-<h3>.inline-column()</h3>
+<h3 id="inline-column">.inline-column()</h3>
 
 <p>When supplied with no arguments, this mixin just sets up the necessary shared styles to make an element into a <strong>inline-block</strong> column. The <code>.span()</code> mixin should then be used to apply widths and margins accordingly.</p>
 
@@ -1774,7 +1775,7 @@
 </div>
 
 
-<h3>.end-column()</h3>
+<h3 id="end-column">.end-column()</h3>
 
 <p>Should be applied to the last column in a row for <strong>floated columns</strong>. Typically this will equate to the <code>:last-child</code> column, but when dropping columns for RWD this is not always the case.</p>
 
@@ -1798,7 +1799,7 @@
 </div>
 
 
-<h3>.inline-end-column()</h3>
+<h3 id="inline-end-column">.inline-end-column()</h3>
 
 <p>Should be applied to the last column in a row for <strong>inline-block columns</strong>. Typically this will equate to the <code>:last-child</code> column, but when dropping columns for RWD this is not always the case.</p>
 
@@ -1821,7 +1822,7 @@
 </div>
 
 
-<h3>.span()</h3>
+<h3 id="span">.span()</h3>
 
 <p>A <a href="#optimising-output-using-partial-mixins">partial mixin</a> for generating the width (and sometimes margin-right) property for columns (both floated and inline-block).</p>
 
@@ -1849,7 +1850,7 @@
 </div>
 
 
-<h3>.pre-pad()</h3>
+<h3 id="pre-pad">.pre-pad()</h3>
 
 <p>Adds the specified number of columns' worth of padding to the the left of the element. </p>
 
@@ -1877,7 +1878,7 @@
 </div>
 
 
-<h3>.post-pad()</h3>
+<h3 id="post-pad">.post-pad()</h3>
 
 <p>Adds the specified number of columns' worth of padding to the the right of the element. </p>
 
@@ -1905,7 +1906,7 @@
 </div>
 
 
-<h3>.pre-push()</h3>
+<h3 id="pre-push">.pre-push()</h3>
 
 <p>Adds the specified number of columns' worth of margin to the the left of the element. </p>
 
@@ -1933,7 +1934,7 @@
 </div>
 
 
-<h3>.post-push()</h3>
+<h3 id="post-push">.post-push()</h3>
 
 <p>Adds the specified number of columns' worth of margin to the the right of the element. </p>
 
@@ -1961,7 +1962,7 @@
 </div>
 
 
-<h3>.post-push-end()</h3>
+<h3 id="post-push-end">.post-push-end()</h3>
 
 <p>Should be used instead of the <code>.post-push()</code> mixin above when applied to the last column in a row.</p>
 
@@ -1989,7 +1990,7 @@
 </div>
 
 
-<h2>Some notes on usage and best practices</h2>
+<h2 id="some-notes-on-usage-and-best-practices">Some notes on usage and best practices</h2>
 
 <p>Using a CSS preprocessor can result in pretty bloated generated CSS if you're not careful. Below are a few notes that outline some thoughts on how to avoid this and how ClearLess is structured to give you better tools to optimise your generated CSS.</p>
 
