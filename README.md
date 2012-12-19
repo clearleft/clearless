@@ -100,7 +100,7 @@ These are the most basic mixins. *Shortcuts* typically provide a quick way to ge
 * [.border-radius()](#border-radius)
 * [.box-sizing()](#box-sizing)
 * [.box-shadow()](#box-shadow)
-* [.box-shadow()](#filter)
+* [.filter()](#filter)
 * [.transition()](#transition)
 * [.rotate()](#rotate)
 * [.placeholder()](#placeholder)
@@ -199,7 +199,7 @@ Generates a `filter` property with the appropriate vendor prefixes.
 .filter( [<@filter>] );
 ```
 
-* `@shadow`: *(Optional)* filter property value. Defaults to `grayscale(100%)`.
+* `@filter`: *(Optional)* filter property value. Defaults to `grayscale(100%)`.
 
 ```css
 /* Usage: */
