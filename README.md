@@ -100,6 +100,7 @@ These are the most basic mixins. *Shortcuts* typically provide a quick way to ge
 * [.border-radius()](#border-radius)
 * [.box-sizing()](#box-sizing)
 * [.box-shadow()](#box-shadow)
+* [.box-shadow()](#filter)
 * [.transition()](#transition)
 * [.rotate()](#rotate)
 * [.placeholder()](#placeholder)
