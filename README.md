@@ -190,6 +190,31 @@ Generates a `box-shadow` property with the appropriate vendor prefixes.
 }
 ```
 
+### .filter()
+
+Generates a `filter` property with the appropriate vendor prefixes.
+
+```css
+.filter( [<@filter>] );
+```
+
+* `@shadow`: *(Optional)* filter property value. Defaults to `grayscale(100%)`.
+
+```css
+/* Usage: */
+.example {
+	.filter( sepia(50%) );
+}
+/* Example output: */
+.example {
+	-webkit-filter: sepia(50%);
+	-moz-filter: sepia(50%);
+	-ms-filter: sepia(50%);
+	-o-filter: sepia(50%);
+	filter: sepia(50%);
+}
+```
+
 ### .transition()
 
 Generates a `transition` property with the appropriate vendor prefixes.
