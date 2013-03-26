@@ -588,7 +588,7 @@ Future versions of this may include workarounds to make this more flexible.
 * `@font-path`: The path/URL to the font, including the font name but **with the file extension removed**
 * `@font-weight`: *(Optional)* Value for the font-weight property. Defaults to `normal`
 * `@font-style`: *(Optional)* Value for the font-style property. Defaults to `normal`
-* `@include-svg`: *(Optional)* Value for the font-weight property. Defaults to `normal`
+* `@include-svg`: *(Optional)* Whether or not to include SVG version of font. Defaults to `false`
 
 ```css
 /* Usage: */
