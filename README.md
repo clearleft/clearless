@@ -1648,7 +1648,7 @@ A [partial mixin](#optimising-output-using-partial-mixins) for generating the wi
 
 ### .pre-pad()
 
-Adds the specified number of columns' worth of padding to the the left of the element. 
+Adds the specified number of columns' worth of padding to the left of the element. 
 
 ```css
 .pre-pad( <@span>[, <@parent-grid-units>] );
@@ -1670,7 +1670,7 @@ Adds the specified number of columns' worth of padding to the the left of the el
 
 ### .post-pad()
 
-Adds the specified number of columns' worth of padding to the the right of the element. 
+Adds the specified number of columns' worth of padding to the right of the element. 
 
 ```css
 .post-pad( <@span>[, <@parent-grid-units>] );
@@ -1692,7 +1692,7 @@ Adds the specified number of columns' worth of padding to the the right of the e
 
 ### .pre-push()
 
-Adds the specified number of columns' worth of margin to the the left of the element. 
+Adds the specified number of columns' worth of margin to the left of the element. 
 
 ```css
 .pre-push( <@span>[, <@parent-grid-units>] );
@@ -1714,7 +1714,7 @@ Adds the specified number of columns' worth of margin to the the left of the ele
 
 ### .post-push()
 
-Adds the specified number of columns' worth of margin to the the right of the element. 
+Adds the specified number of columns' worth of margin to the right of the element. 
 
 ```css
 .post-push( <@span>[, <@parent-grid-units>] );
@@ -1766,7 +1766,7 @@ Using a CSS preprocessor can result in pretty bloated generated CSS if you're no
 
 ### On using (Clear)Less responsibly...
 
-Just because there is a mixin for something doesn't mean you *need* to use it! If you have a individual case that would need to override half the the properties outputted by the mixin in order to be styled correctly, then is probably better to roll the solution by hand (or create a new mixin for this use case) rather than to use the mixin and then override it. Fight the bloat!
+Just because there is a mixin for something doesn't mean you *need* to use it! If you have a individual case that would need to override half the properties outputted by the mixin in order to be styled correctly, then is probably better to roll the solution by hand (or create a new mixin for this use case) rather than to use the mixin and then override it. Fight the bloat!
 
 **All of the examples below above sample output from the mixins.** It's definitely recommended that you familiarise yourself with the output so you can judge whether or not to use the mixin in different situations.
 
